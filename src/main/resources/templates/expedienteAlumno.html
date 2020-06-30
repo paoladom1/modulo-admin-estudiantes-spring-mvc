@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Expediente de alumno</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>Acci&oacute;n</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Materias Aprobadas</th>
+    <th>Materias Reprobadas</th>
+    <th>Promedio</th>
+    </thead>
+    <th:block th:each="alumno, row: ${alumnos}">
+        <tr>
+            <th>
+                <form th:action="@{/editarAlumno}">
+                    <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
+                    <input type="submit" value="Editar">
+                </form>
+                <form th:action="@{/materias}">
+                    <input type="submit" value="Materias">
+                </form>
+            </th>
+            <th th:text="${alumno.nombres}"/>
+            <th th:text="${alumno.apellidos}"/>
+
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>
