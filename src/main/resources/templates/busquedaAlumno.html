@@ -9,7 +9,7 @@
     <h1>Expediente Alumno - Pantalla Inicial</h1>
     <label>Buscar alumno por:</label>
     <select name="busqueda">
-        <option value="">Seleccione criterio(Nombres, Apellidos)</option>
+        <option disabled value="">Seleccione criterio(Nombres, Apellidos)</option>
         <option th:each="item, iter: ${criterios}"
                 th:value="${iter.index}"
                 th:text="${item}">
