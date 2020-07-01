@@ -17,7 +17,7 @@ public class MateriaDAOImpl implements MateriaDAO {
     @Override
     public List<Materia> findAll() throws DataAccessException {
         StringBuffer sb = new StringBuffer();
-        sb.append("select * from public.estudiante");
+        sb.append("select * from public.Materia");
         Query query = entityManager.createNativeQuery(sb.toString(), Materia.class);
         List<Materia> resulset = query.getResultList();
 

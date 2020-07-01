@@ -8,17 +8,27 @@
 
 <table>
     <thead>
+    <th>Acción</th>
     <th>Materia Cursada</th>
     <th>Año</th>
     <th>Ciclo</th>
+    <th>Nota</th>
     <th>Resultado</th>
     </thead>
 
     <th:block th:each="materia, row:${mat}">
         <tr>
+            <th>
+            <form th:action="@{/editar}">
+                <input type="hidden" name="codigo" th:value="${materia.codMateria}">
+                <input type="submit" value="Edit">
+            </form>
+            </th>
            <th th:text="materia.nomMateria"/>
            <th th:text="materia.year"/>
            <th th:text="materia.cicle"/>
+            <th th:text="materia.materiaList.nota">
+            <th th:text="materia.materiaList.delegateResultado"/>
         </tr>
     </th:block>
 </table>

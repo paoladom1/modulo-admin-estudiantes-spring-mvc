@@ -1,7 +1,6 @@
 package com.uca.capas.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(schema = "public", name ="AlumnoXmateria")
@@ -23,9 +22,9 @@ public class AlumnoMateria {
     private Materia materia;
 
     @Column(name = "notaMateria")
-    private Integer nota;
+    private Double nota;
 
-    public AlumnoMateria(Alumno alumno, Materia materia, Integer nota) {
+    public AlumnoMateria(Alumno alumno, Materia materia, Double nota) {
         this.alumno = alumno;
         this.materia = materia;
         this.nota = nota;
@@ -51,11 +50,21 @@ public class AlumnoMateria {
         this.materia = materia;
     }
 
-    public Integer getNota() {
+    public Double getNota() {
         return nota;
     }
 
-    public void setNota(Integer nota) {
+    public void setNota(Double nota) {
         this.nota = nota;
     }
+
+
+    public String delegateResultado(){
+        if(this.nota >=6.0){
+            return "aprobada";
+        }
+        return "reprobada";
+    }
+
+
 }
