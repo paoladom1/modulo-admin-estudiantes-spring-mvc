@@ -18,13 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class MainController {
-    @Autowired
-    private TipoService tipoService;
-
-    @Autowired
-    private UsuarioService usuarioService;
-
+public class ControladorAlumno {
     @Autowired
     private MunicipioService municipioService;
 
@@ -37,95 +31,7 @@ public class MainController {
     @Autowired
     private InstitucionService institucionService;
 
-    @RequestMapping("/inicio")
-    public ModelAndView initMain(@ModelAttribute Usuario usuario) {
-        ModelAndView mav = new ModelAndView();
 
-        mav.addObject("usuario", usuario);
-        mav.setViewName("login");
-        return mav;
-    }
-
-    @PostMapping("/login")
-    public ModelAndView login(@Valid @ModelAttribute Usuario usuario, BindingResult br) {
-        ModelAndView mav = new ModelAndView();
-        Usuario user;
-        if(br.hasErrors()) {
-            try {
-                usuarioService.findByNombreUsuario(usuario);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            mav.addObject("usuario", usuario);
-            mav.setViewName("login");
-        } else {
-            user = usuarioService.findByNombreUsuario(usuario);
-            if(user.getTipoUsuario().getTipo() == "Administrador") {
-                mav.setViewName("registro");
-            } else {
-                mav.setViewName("busquedaAlumno");
-            }
-        }
-
-        return mav;
-
-    }
-
-    @RequestMapping("/registro")
-    public ModelAndView registrar() {
-        ModelAndView mav = new ModelAndView();
-        List<Tipo> tipos = null;
-        List<Departamento> departamentos = null;
-        List<Municipio> municipios = null;
-
-        try {
-            tipos = tipoService.findAll();
-            departamentos = departamentoService.findAll();
-            municipios = municipioService.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        mav.addObject("tipos", tipos);
-        mav.addObject("departamentos", departamentos);
-        mav.addObject("municipios", municipios);
-
-        mav.addObject("usuario", new Usuario());
-        mav.setViewName("registro");
-
-        return mav;
-    }
-
-    @PostMapping("/guardarUsuario")
-    public ModelAndView guardarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult br) throws ParseException {
-        ModelAndView mav = new ModelAndView();
-        if (br.hasErrors()) {
-            List<Tipo> tipos = null;
-            List<Departamento> departamentos = null;
-            List<Municipio> municipios = null;
-
-            try {
-                tipos = tipoService.findAll();
-                departamentos = departamentoService.findAll();
-                municipios = municipioService.findAll();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            mav.addObject("tipos", tipos);
-            mav.addObject("departamentos", departamentos);
-            mav.addObject("municipios", municipios);
-            mav.setViewName("registro");
-        } else {
-            Date fechaNacimiento = usuario.getFechaNacimiento();
-
-            usuario.setEdad(usuario.getEdad(fechaNacimiento));
-            usuarioService.save(usuario);
-            mav.setViewName("login");
-        }
-
-        return mav;
-    }
 
     @RequestMapping("/expediente")
     public ModelAndView buscar() {
