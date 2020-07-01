@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Materias Cursadas</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <th>Materia Cursada</th>
+    <th>Año</th>
+    <th>Ciclo</th>
+    <th>Nota</th>
+    <th>Resultado</th>
+    </thead>
+
+    <th:block th:each="materia, row:${mat}">
+        <tr>
+           <th th:text="materia.nomMateria"/>
+           <th th:text="materia.year"/>
+           <th th:text="materia.cicle"/>
+        </tr>
+    </th:block>
+</table>
+
+<form th:action="@{/insertarMateria}" method="get">
+    <input type="submit" value="Guardar Materia">
+</form>
+
+
+</body>
+</html>
