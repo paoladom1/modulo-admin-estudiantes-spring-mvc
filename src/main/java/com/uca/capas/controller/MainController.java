@@ -189,6 +189,7 @@ public class MainController {
     @PostMapping("/guardarAlumno")
     public ModelAndView guardarAlumno(@Valid @ModelAttribute Alumno alumno, BindingResult br) throws ParseException {
         ModelAndView mav = new ModelAndView();
+        List<String> criterios = Arrays.asList("Nombres", "Apellidos");
         if (br.hasErrors()) {
             List<Municipio> municipios = null;
             List<Institucion> centrosEscolares = null;
@@ -207,6 +208,7 @@ public class MainController {
 
             alumno.setEdad(alumno.getEdad(fechaNacimiento));
             alumnoService.save(alumno);
+            mav.addObject("criterios", criterios);
             mav.setViewName("busquedaAlumno");
         }
 

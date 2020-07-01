@@ -36,7 +36,7 @@
     <span th:errors="*{municipio}" style="color: red"></span><br>
     <br>
     <label>Instituci&oacute;n de procedencia: </label>
-    <select th:field="*{centroEscolar.municipio.idMunicipio}">
+    <select th:field="*{centroEscolar.idInstitucion}">
         <option th:each="item : ${centrosEscolares}"
                 th:value="${item.idInstitucion}"
                 th:text="${item.nombreInstitucion}">

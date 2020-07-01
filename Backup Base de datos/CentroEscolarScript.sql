@@ -9,7 +9,7 @@ CREATE TABLE Usuario(
 	idDepartamento INTEGER NOT NULL,
 	idMunicipio INTEGER NOT NULL,
 	direccion VARCHAR,
-	idEstado INTEGER NOT NULL,
+	estado BOOLEAN NOT NULL,
 	idTipoUsuario INTEGER NOT NULL
 );
 
@@ -27,17 +27,12 @@ CREATE TABLE TipoUsuario(
 	tipoUsuario VARCHAR NOT NULL
 );
 
-CREATE TABLE Estado(
-	idEstado INTEGER PRIMARY KEY,
-	estado BOOLEAN NOT NULL
-);
-
 CREATE TABLE CentroEscolar(
 	idCentroEscolar INTEGER PRIMARY KEY,
 	nombreCentroEscolar VARCHAR NOT NULL,
 	descripcion VARCHAR NOT NULL,
 	direccion VARCHAR NOT NULL,
-	idEstado INTEGER NOT NULL,
+	estado BOOLEAN NOT NULL,
 	idMunicipio INTEGER NOT NULL,
 	idDepartamento INTEGER NOT NULL
 );
@@ -45,16 +40,16 @@ CREATE TABLE Alumno(
 	codigoEstudiante INTEGER PRIMARY KEY,
 	nombreEstudiante VARCHAR NOT NULL,
 	apellidoEstudiante VARCHAR NOT NULL,
-	carnetMinoridad VARCHAR,
+	carnetMinoridad VARCHAR(9),
 	fechaNacimiento DATE NOT NULL,
 	edad INTEGER NOT NULL,
 	direccion VARCHAR NOT NULL,
 	telefonoFijo VARCHAR(9),
 	telefonoCelular VARCHAR(9),
-	institucionProcedencia VARCHAR,
 	nombrePadre VARCHAR,
 	nombreMadre VARCHAR,
-	idCentroEscolar INTEGER NOT NULL
+	idCentroEscolar INTEGER NOT NULL,
+	idMunicipio INTEGER NOT NULL
 );
 
 CREATE TABLE AlumnoXmateria(
@@ -80,11 +75,8 @@ REFERENCES TipoUsuario(idTipoUsuario);
 ALTER TABLE Usuario ADD FOREIGN KEY (idMunicipio)
 REFERENCES Municipio(idMunicipio);
 
-ALTER TABLE Usuario ADD FOREIGN KEY (idEstado)
-REFERENCES Estado(idEstado);
-
-ALTER TABLE CentroEscolar ADD FOREIGN KEY(idEstado)
-REFERENCES Estado(idEstado);
+ALTER TABLE Alumno ADD FOREIGN KEY (idMunicipio)
+REFERENCES Municipio(idMunicipio);
 
 ALTER TABLE CentroEscolar ADD FOREIGN KEY (idMunicipio)
 REFERENCES Municipio(idMunicipio);
@@ -117,10 +109,7 @@ INSERT INTO Departamento(idDepartamento,nombreDepartamento) VALUES (5,'Santa Ana
 INSERT INTO TipoUsuario(idTipoUsuario,tipoUsuario) VALUES (1,'Administrador');
 INSERT INTO TipoUsuario(idTipoUsuario,tipoUsuario) VALUES (2,'Coordinador');
 
-INSERT INTO Estado(idEstado,estado) VALUES (1,TRUE);
-INSERT INTO Estado(idEstado,estado) VALUES (2,FALSE);
-
 INSERT INTO Usuario(idUsuario,nombre,apellido,nombreDeUsuario,contraseña,fechaDeNacimiento,edad,
-					idDepartamento,idMunicipio,idEstado,idTipoUsuario) 
-					VALUES (1,'admin','apellidoAdmin','root','root','1/1/1990',30,1,1,1,1);
+					idDepartamento,idMunicipio,estado,idTipoUsuario)
+					VALUES (1,'admin','apellidoAdmin','root','root','1/1/1990',30,1,1,true,1);
 
