@@ -1,8 +1,11 @@
 package com.uca.capas.domain;
 
 import javax.persistence.*;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(schema = "public", name = "Materia")
@@ -32,6 +35,9 @@ public class Materia {
     @NotEmpty(message = "*Campo Obligatorio*")
     @Column(name = "descripcion")
     private String description;
+
+    @OneToMany(mappedBy = "materia")
+    private List<AlumnoMateria> materiaList = new ArrayList<>();
 
 
     public Materia(Integer codMateria, String nomMateria, Integer year, Integer cicle, String description) {

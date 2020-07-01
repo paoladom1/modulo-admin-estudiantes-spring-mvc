@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Busqueda de expediente</title>
+</head>
+<body>
+<form th:action="@{/buscar}" th:object="${alumno}" method="post">
+    <h1>Expediente Alumno - Pantalla Inicial</h1>
+    <label>Buscar alumno por:</label>
+    <select name="busqueda">
+        <option value="">Seleccione criterio(Nombres, Apellidos)</option>
+        <option th:each="item, iter: ${criterios}"
+                th:value="${iter.index}"
+                th:text="${item}">
+    </select>
+    <br>
+    <label>Valor de b&uacute;squeda:</label>
+    <input type="text" name="cadena">
+    <br>
+    <input type="submit" value="Buscar">
+</form>
+<br>
+<form th:action="@{/agregarExpediente}">
+    <input type="submit" value="Agregar Nuevo Expediente">
+</form>
+
+</body>
+</html>

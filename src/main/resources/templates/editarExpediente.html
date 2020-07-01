@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Editar Expediente</title>
+</head>
+<body>
+<form th:action="@{/guardarAlumno}" th:object="${alumno}" method="post">
+    <h1>Editar Expediente</h1>
+    <label>Nombres:</label>
+    <input type="text" th:field="*{nombres}">
+    <span th:errors="*{nombres}" style="color: red"></span><br>
+    <br>
+    <label>Apellidos:</label>
+    <input type="text" th:field="*{apellidos}">
+    <span th:errors="*{apellidos}" style="color: red"></span><br>
+    <br>
+    <label>Carnet de minoridad:</label>
+    <input type="text" th:field="*{carnetMinoridad}">
+    <span th:errors="*{carnetMinoridad}" style="color: red"></span><br>
+    <br>
+    <label>Fecha de Nacimiento</label>
+    <input type="text" th:field="*{fechaNacimiento}">
+    <span th:errors="*{fechaNacimiento}" style="color: red"></span><br>
+    <br>
+    <label>Direcci&oacute;n:</label>
+    <input type="text" th:field="*{direccion}">
+    <span th:errors="*{direccion}" style="color: red"></span><br>
+    <br>
+    <label>Municipio:</label>
+    <select th:field="*{municipio.idMunicipio}">
+        <option th:each="item : ${municipios}"
+                th:value="${item.idMunicipio}"
+                th:text="${item.nombreMunicipio}">
+    </select>
+    <span th:errors="*{municipio}" style="color: red"></span><br>
+    <br>
+    <label>Instituci&oacute;n de procedencia: </label>
+    <select th:field="*{centroEscolar.idInstitucion}">
+        <option th:each="item : ${centrosEscolares}"
+                th:value="${item.idInstitucion}"
+                th:text="${item.nombreInstitucion}">
+    </select>
+    <span th:errors="*{centroEscolar}" style="color: red"></span><br>
+    <br>
+    <label>Tel&eacute;fono m&oacute;vil: </label>
+    <input type="text" th:field="*{telMovil}">
+    <span th:errors="*{telMovil}" style="color: red"></span><br>
+    <br>
+    <label>Tel&eacute;fono Fijo: </label>
+    <input type="text" th:field="*{telFijo}">
+    <span th:errors="*{telFijo}" style="color: red"></span><br>
+    <br>
+    <br>
+    <label>Nombre de la madre: </label>
+    <input type="text" th:field="*{nombreMadre}">
+    <span th:errors="*{nombreMadre}" style="color: red"></span><br>
+    <br>
+    <br>
+    <label>Nombre del padre: </label>
+    <input type="text" th:field="*{nombrePadre}">
+    <span th:errors="*{nombrePadre}" style="color: red"></span><br>
+    <br>
+
+    <input type="submit" value="Guardar">
+</form>
+
+<form th:action="@{/expediente}">
+    <input type="submit" value="Regresar">
+</form>
+</body>
+</html>

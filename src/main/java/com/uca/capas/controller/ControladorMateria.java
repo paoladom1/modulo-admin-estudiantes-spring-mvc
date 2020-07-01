@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-public class MainController {
+public class ControladorMateria {
 
     @Autowired
     private MateriaService materiaService;
@@ -29,7 +29,7 @@ public class MainController {
         }
 
         mav.addObject("mat", materias);
-        mav.setViewName("list");
+        mav.setViewName("listMateria");
 
         return  mav;
     }
@@ -39,7 +39,7 @@ public class MainController {
         ModelAndView mav = new ModelAndView();
 
         mav.addObject("materia", new Materia());
-        mav.setViewName("guardar");
+        mav.setViewName("guardarMateria");
 
         return mav;
     }
