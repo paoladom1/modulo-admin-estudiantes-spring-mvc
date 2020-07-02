@@ -27,14 +27,6 @@
     <input type="text" th:field="*{direccion}">
     <span th:errors="*{direccion}" style="color: red"></span><br>
     <br>
-    <label>Municipio:</label>
-    <select th:field="*{municipio.idMunicipio}">
-        <option th:each="item : ${municipios}"
-                th:value="${item.idMunicipio}"
-                th:text="${item.nombreMunicipio}">
-    </select>
-    <span th:errors="*{municipio}" style="color: red"></span><br>
-    <br>
     <label>Instituci&oacute;n de procedencia: </label>
     <select th:field="*{centroEscolar.idInstitucion}">
         <option th:each="item : ${centrosEscolares}"

@@ -148,17 +148,14 @@ public class MainController {
         ModelAndView mav = new ModelAndView();
 
         Alumno alumno = null;
-        List<Municipio> municipios = null;
         List<Institucion> centrosEscolares = null;
 
         try {
-            municipios = municipioService.findAll();
             centrosEscolares = institucionService.findAll();
             alumno = alumnoService.findOne(codigo);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mav.addObject("municipios", municipios);
         mav.addObject("centrosEscolares", centrosEscolares);
 
         mav.addObject("alumno", alumno);
@@ -169,16 +166,13 @@ public class MainController {
     @RequestMapping("/agregarExpediente")
     public ModelAndView nuevoExpediente() {
         ModelAndView mav = new ModelAndView();
-        List<Municipio> municipios = null;
         List<Institucion> centrosEscolares = null;
 
         try {
-            municipios = municipioService.findAll();
             centrosEscolares = institucionService.findAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mav.addObject("municipios", municipios);
         mav.addObject("centrosEscolares", centrosEscolares);
         mav.addObject("alumno", new Alumno());
         mav.setViewName("nuevoExpediente");
@@ -191,17 +185,14 @@ public class MainController {
         ModelAndView mav = new ModelAndView();
         List<String> criterios = Arrays.asList("Nombres", "Apellidos");
         if (br.hasErrors()) {
-            List<Municipio> municipios = null;
             List<Institucion> centrosEscolares = null;
 
             try {
-                municipios = municipioService.findAll();
                 centrosEscolares = institucionService.findAll();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             mav.addObject("centrosEscolares", centrosEscolares);
-            mav.addObject("municipios", municipios);
             mav.setViewName("nuevoExpediente");
         } else {
             Date fechaNacimiento = alumno.getFechaNacimiento();

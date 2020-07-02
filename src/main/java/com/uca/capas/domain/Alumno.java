@@ -5,11 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(schema = "public", name = "alumno")
@@ -53,10 +51,6 @@ public class Alumno {
     @Column(name = "telefonoCelular")
     @Size(min = 8, max = 8, message = "Debe contener 8 digitos")
     private String telMovil;
-
-    @OneToOne
-    @JoinColumn(name = "idMunicipio")
-    private Municipio municipio;
 
     @OneToOne
     @JoinColumn(name = "idCentroEscolar")
@@ -166,14 +160,6 @@ public class Alumno {
 
     public void setNombrePadre(String nombrePadre) {
         this.nombrePadre = nombrePadre;
-    }
-
-    public Municipio getMunicipio() {
-        return municipio;
-    }
-
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
     }
 
     public Integer getEdad(Date fechaNac) {

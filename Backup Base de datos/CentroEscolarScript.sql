@@ -48,8 +48,7 @@ CREATE TABLE Alumno(
 	telefonoCelular VARCHAR(9),
 	nombrePadre VARCHAR,
 	nombreMadre VARCHAR,
-	idCentroEscolar INTEGER NOT NULL,
-	idMunicipio INTEGER NOT NULL
+	idCentroEscolar INTEGER NOT NULL
 );
 
 CREATE TABLE AlumnoXmateria(
