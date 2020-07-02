@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(schema = "public", name = "Materia")
+@Table(schema = "public", name = "materia")
 public class Materia {
 
     @Id
@@ -36,9 +36,16 @@ public class Materia {
     @Column(name = "descripcion")
     private String description;
 
-    @OneToMany(mappedBy = "materia")
-    private List<AlumnoMateria> materiaList = new ArrayList<>();
+    @OneToMany(mappedBy = "materia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AlumnoMateria> materiaList;
 
+    public List<AlumnoMateria> getMateriaList() {
+        return materiaList;
+    }
+
+    public void setMateriaList(List<AlumnoMateria> materiaList) {
+        this.materiaList = materiaList;
+    }
 
     public Materia(Integer codMateria, String nomMateria, Integer year, Integer cicle, String description) {
         this.codMateria = codMateria;
@@ -89,7 +96,5 @@ public class Materia {
     }
 
     public Materia() {
-
-
-}
+    }
 }

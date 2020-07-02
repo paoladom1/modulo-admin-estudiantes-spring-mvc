@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AlumnoMateriaRepo extends JpaRepository<AlumnoMateria, Integer> {
 
-    public AlumnoMateria findByIdAlumn(Integer code) throws DataAccessException;
-    public AlumnoMateria findByIdMat(Integer code) throws DataAccessException;
+    public AlumnoMateria findByIdAlumno(Integer code) throws DataAccessException;
+    public AlumnoMateria findByIdMateria(Integer code) throws DataAccessException;
 }

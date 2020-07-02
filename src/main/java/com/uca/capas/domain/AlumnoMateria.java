@@ -1,53 +1,58 @@
 package com.uca.capas.domain;
 
+import sun.rmi.rmic.Generator;
+
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 
 @Entity
-@Table(schema = "public", name ="AlumnoXmateria")
-@IdClass(AlumnoMateriaKey.class)
+@Table(schema = "public", name ="alumnoxmateria")
 public class AlumnoMateria {
 
     @Id
-    private Integer idAlumn;
+    @Column(name="idalumnoxmateria")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idAlumnoMateria;
 
-    @Id
-    private Integer idMat;
+    public Integer getIdAlumnoMateria() {
+        return idAlumnoMateria;
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "idAlumno", referencedColumnName = "codigoEstudiante", insertable = false, updatable = false)
-    private Alumno alumno;
+    public void setIdAlumnoMateria(Integer idAlumnoMateria) {
+        this.idAlumnoMateria = idAlumnoMateria;
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "idMateria", referencedColumnName = "idMateria", insertable=false, updatable=false)
-    private Materia materia;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idalumno")
+    private Alumno idAlumno;
 
-    @Column(name = "notaMateria")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idmateria")
+    private Materia idMateria;
+
+    @Column(name = "notamateria")
     private Double nota;
 
-    public AlumnoMateria(Alumno alumno, Materia materia, Double nota) {
-        this.alumno = alumno;
-        this.materia = materia;
+    public AlumnoMateria(Alumno idAlumno, Materia idMateria, Double nota) {
+        this.idAlumno = idAlumno;
+        this.idMateria = idMateria;
         this.nota = nota;
     }
 
-    public AlumnoMateria(){
-
+    public Alumno getIdAlumno() {
+        return idAlumno;
     }
 
-    public Alumno getAlumno() {
-        return alumno;
+    public void setIdAlumno(Alumno idAlumno) {
+        this.idAlumno = idAlumno;
     }
 
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
+    public Materia getIdMateria() {
+        return idMateria;
     }
 
-    public Materia getMateria() {
-        return materia;
-    }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
+    public void setIdMateria(Materia idMateria) {
+        this.idMateria = idMateria;
     }
 
     public Double getNota() {
@@ -57,6 +62,11 @@ public class AlumnoMateria {
     public void setNota(Double nota) {
         this.nota = nota;
     }
+
+    public AlumnoMateria(){
+
+    }
+
 
 
     public String delegateResultado(){

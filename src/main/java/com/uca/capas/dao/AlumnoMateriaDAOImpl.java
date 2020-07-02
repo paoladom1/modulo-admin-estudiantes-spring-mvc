@@ -28,7 +28,7 @@ public class AlumnoMateriaDAOImpl implements AlumnoMateriaDAO{
     public void save(AlumnoMateria am) throws DataAccessException {
 
         try {
-            if(am.getMateria()==null){
+            if(am.getIdMateria()==null){
                 entityManager.persist(am);
             }else {
                 entityManager.merge(am);

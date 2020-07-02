@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.persistence.Id;
+import javax.persistence.criteria.Fetch;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -74,8 +75,8 @@ public class Alumno {
     @Column(name = "nombrePadre")
     private String nombrePadre;
 
-    @OneToMany(mappedBy = "alumno")
-    private List<AlumnoMateria> alumnoList = new ArrayList<>();
+    @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AlumnoMateria> materiaList;
 
     public Integer getCodigoEstudiante() {
         return codigoEstudiante;

@@ -11,30 +11,30 @@ public class AlumnoMateriaKey implements Serializable {
     private static final long serialVersionUID = 1l;
 
     @Column(name = "codigoEstudiante")
-    private Integer idAlumn;
+    private Integer idAlumno;
 
     @Column(name = "idMateria")
-    private Integer idMat;
+    private Integer idMateria;
 
     public Integer getCodEst() {
-        return idAlumn;
+        return idAlumno;
     }
 
     public void setCodEst(Integer codEst) {
-        this.idAlumn = codEst;
+        this.idAlumno = codEst;
     }
 
     public Integer getCodMat() {
-        return idMat;
+        return idMateria;
     }
 
     public void setCodMat(Integer codMat) {
-        this.idMat = codMat;
+        this.idMateria = codMat;
     }
 
     public AlumnoMateriaKey(Integer codEst, Integer codMat) {
-        this.idAlumn = codEst;
-        this.idMat = codMat;
+        this.idAlumno = codEst;
+        this.idMateria = codMat;
     }
 
     public  AlumnoMateriaKey(){

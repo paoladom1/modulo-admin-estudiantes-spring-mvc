@@ -24,11 +24,11 @@
                 <input type="submit" value="Edit">
             </form>
             </th>
-           <th th:text="materia.nomMateria"/>
-           <th th:text="materia.year"/>
-           <th th:text="materia.cicle"/>
-            <th th:text="materia.materiaList.nota">
-            <th th:text="materia.materiaList.delegateResultado"/>
+           <th th:text="${materia.nomMateria}"/>
+           <th th:text="${materia.year}"/>
+           <th th:text="${materia.cicle}"/>
+            <th th:text="${materia.materiaList.nota}">
+            <th th:text="${materia.materiaList.delegateResultado}"/>
         </tr>
     </th:block>
 </table>

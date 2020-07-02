@@ -6,5 +6,29 @@
 </head>
 <body>
 
+<form th:action="@{/insertarMateria}" th:object="${materia}" method="post">
+    <label>Nombre de Materia:</label>
+    <select th:field="*{materia.codMateria}">
+        <option th:each="mat: ${materia}"
+                th:value="${mat.codMateria}"
+                th:text="${mat.nomMateria}"></option>
+    </select>
+    <span th:errors="*{codMateria}"  style="color: #FF0000"/><br>
+
+    <label>Año:</label><input type="number" th:field="*{year}" th:if="{year<= 2005}">
+    <span th:errors="*{year}"  style="color: #FF0000"/><br>
+    <label>Ciclo:</label>
+    <select th:field="*{materia.codMateria}">
+        <option th:each="mat: ${materia}"
+                th:value="${mat.codMateria}"
+                th:text="${mat.cicle}"></option>
+    </select>
+    <span th:errors="*{codMateria}"  style="color: #FF0000"/><br>
+
+    <label>Nota:</label><input type="number" th:field="*{materiaList.nota}">
+    <span th:errors="*{materiaList.nota}"  style="color: #FF0000"/><br>
+    <input type="submit" value="Save"/><br>
+
+</form>
 </body>
 </html>
