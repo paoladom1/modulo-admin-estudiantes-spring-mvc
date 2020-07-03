@@ -1,6 +1,8 @@
 package com.uca.capas.controller;
 
+import com.uca.capas.domain.AlumnoMateria;
 import com.uca.capas.domain.Materia;
+import com.uca.capas.service.AlumnoMateriaService;
 import com.uca.capas.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +17,16 @@ import java.util.List;
 public class ControladorMateria {
 
     @Autowired
-    private MateriaService materiaService;
+    private AlumnoMateriaService alumnoMateriaService;
 
     @RequestMapping("/cursadas")
     public ModelAndView initMain(){
         ModelAndView mav = new ModelAndView();
-        List<Materia> materias = null;
+        List<AlumnoMateria> materias = null;
 
         try{
-            materias = materiaService.findAll();
+            materias = alumnoMateriaService.findAll();
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -38,7 +41,7 @@ public class ControladorMateria {
     public ModelAndView inicio(){
         ModelAndView mav = new ModelAndView();
 
-        mav.addObject("materia", new Materia());
+        //mav.addObject("materia", new Materia());
         mav.setViewName("guardarMateria");
 
         return mav;

@@ -9,10 +9,22 @@ import javax.persistence.criteria.Fetch;
 @Table(schema = "public", name ="alumnoxmateria")
 public class AlumnoMateria {
 
+
     @Id
-    @Column(name="idalumnoxmateria")
+    @Column(name = "idalumnomateria")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAlumnoMateria;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idalumno")
+    private Alumno alumno;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idmateria")
+    private Materia materia;
+
+    @Column(name = "notamateria")
+    private Double nota;
 
     public Integer getIdAlumnoMateria() {
         return idAlumnoMateria;
@@ -22,37 +34,20 @@ public class AlumnoMateria {
         this.idAlumnoMateria = idAlumnoMateria;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idalumno")
-    private Alumno idAlumno;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idmateria")
-    private Materia idMateria;
-
-    @Column(name = "notamateria")
-    private Double nota;
-
-    public AlumnoMateria(Alumno idAlumno, Materia idMateria, Double nota) {
-        this.idAlumno = idAlumno;
-        this.idMateria = idMateria;
-        this.nota = nota;
+    public Alumno getAlumno() {
+        return alumno;
     }
 
-    public Alumno getIdAlumno() {
-        return idAlumno;
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
     }
 
-    public void setIdAlumno(Alumno idAlumno) {
-        this.idAlumno = idAlumno;
+    public Materia getMateria() {
+        return materia;
     }
 
-    public Materia getIdMateria() {
-        return idMateria;
-    }
-
-    public void setIdMateria(Materia idMateria) {
-        this.idMateria = idMateria;
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 
     public Double getNota() {
@@ -63,11 +58,16 @@ public class AlumnoMateria {
         this.nota = nota;
     }
 
+    public AlumnoMateria(Integer idAlumnoMateria, Alumno alumno, Materia materia, Double nota) {
+        this.idAlumnoMateria = idAlumnoMateria;
+        this.alumno = alumno;
+        this.materia = materia;
+        this.nota = nota;
+    }
+
     public AlumnoMateria(){
 
     }
-
-
 
     public String delegateResultado(){
         if(this.nota >=6.0){

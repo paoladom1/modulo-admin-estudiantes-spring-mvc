@@ -16,19 +16,19 @@
     <th>Resultado</th>
     </thead>
 
-    <th:block th:each="materia, row:${mat}">
+    <th:block th:each="alumnoM, row:${mat}">
         <tr>
             <th>
             <form th:action="@{/editar}">
-                <input type="hidden" name="codigo" th:value="${materia.codMateria}">
+                <input type="hidden" name="codigo" th:value="${alumnoM.materia.codMateria}">
                 <input type="submit" value="Edit">
             </form>
             </th>
-           <th th:text="${materia.nomMateria}"/>
-           <th th:text="${materia.year}"/>
-           <th th:text="${materia.cicle}"/>
-            <th th:text="${materia.materiaList.nota}">
-            <th th:text="${materia.materiaList.delegateResultado}"/>
+           <th th:text="${alumnoM.materia.nomMateria}"/>
+           <th th:text="${alumnoM.materia.year}"/>
+           <th th:text="${alumnoM.materia.cicle}"/>
+            <th th:text="${alumnoM.nota}">
+            <!--<th th:text="${alumnoM.delegateResultado}"/>-->
         </tr>
     </th:block>
 </table>

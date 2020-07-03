@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:action="@{/insertarMateria}" th:object="${materia}" method="post">
+<form th:action="@{/insertarMateria}" th:object="${alumnoM}" method="post">
     <label>Nombre de Materia:</label>
     <select th:field="*{materia.codMateria}">
         <option th:each="mat: ${materia}"

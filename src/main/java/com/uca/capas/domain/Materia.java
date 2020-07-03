@@ -18,7 +18,7 @@ public class Materia {
 
     @Size(message = "El campo no debe tener más de 15 digitos", max = 15)
     @NotEmpty(message = "*Campo Obligatorio*")
-    @Column(name = "nombreMateria")
+    @Column(name = "nombremateria")
     private String nomMateria;
 
     @Size(message = "El campo solo debe tener 4 digitos", max = 4)
@@ -37,15 +37,9 @@ public class Materia {
     private String description;
 
     @OneToMany(mappedBy = "materia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AlumnoMateria> materiaList;
+    private List<AlumnoMateria> alumnoMaterias;
 
-    public List<AlumnoMateria> getMateriaList() {
-        return materiaList;
-    }
 
-    public void setMateriaList(List<AlumnoMateria> materiaList) {
-        this.materiaList = materiaList;
-    }
 
     public Materia(Integer codMateria, String nomMateria, Integer year, Integer cicle, String description) {
         this.codMateria = codMateria;
