@@ -19,7 +19,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario findByNombreUsuario(Usuario usuario) throws DataAccessException {
+    public Usuario findByNombreUsuario(String usuario) throws DataAccessException {
         return usuarioRepository.findByNombreUsuario(usuario);
     }
 

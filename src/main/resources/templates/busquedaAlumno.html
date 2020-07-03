@@ -9,7 +9,7 @@
     <h1>Expediente Alumno - Pantalla Inicial</h1>
     <label>Buscar alumno por:</label>
     <select name="busqueda">
-        <option value="">Seleccione criterio(Nombres, Apellidos)</option>
+        <option disabled value="">Seleccione criterio(Nombres, Apellidos)</option>
         <option th:each="item, iter: ${criterios}"
                 th:value="${iter.index}"
                 th:text="${item}">
@@ -24,6 +24,7 @@
 <form th:action="@{/agregarExpediente}">
     <input type="submit" value="Agregar Nuevo Expediente">
 </form>
+<h3 th:text="${mensaje}"/>
 
 </body>
 </html>

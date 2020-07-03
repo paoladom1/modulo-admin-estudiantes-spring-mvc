@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Inicio de Sesión</title>
+    <title>Inicio de Sesi&oacute;n</title>
 </head>
 <body>
 <form th:action="@{/login}" th:object="${usuario}" method="post">
@@ -10,6 +10,9 @@
     <label>Nombre de usuario:</label>
     <input type="text" th:field="*{nombreUsuario}">
     <span th:errors="*{nombreUsuario}" style="color: red"></span><br>
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
     <br>
     <label>Contrase&ntilde;a:</label>
     <input type="password" th:field="*{contrasenia}">

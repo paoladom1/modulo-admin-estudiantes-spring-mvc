@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.criteria.Fetch;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,11 +57,7 @@ public class Alumno {
     private String telMovil;
 
     @OneToOne
-    @JoinColumn(name = "idmunicipio")
-    private Municipio municipio;
-
-    @OneToOne
-    @JoinColumn(name = "idcentroescolar")
+    @JoinColumn(name = "idCentroEscolar")
     private Institucion centroEscolar;
 
     @Column(name = "nombremadre")
@@ -172,14 +167,6 @@ public class Alumno {
 
     public void setNombrePadre(String nombrePadre) {
         this.nombrePadre = nombrePadre;
-    }
-
-    public Municipio getMunicipio() {
-        return municipio;
-    }
-
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
     }
 
     public Integer getEdad(Date fechaNac) {

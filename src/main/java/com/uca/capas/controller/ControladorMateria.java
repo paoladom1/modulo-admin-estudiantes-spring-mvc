@@ -31,10 +31,10 @@ public class ControladorMateria {
     private AlumnoService alumnoService;
 
     @RequestMapping("/cursadas")
-    public ModelAndView initMain(){
+    public ModelAndView initMain(@ModelAttribute Alumno alumno){
         ModelAndView mav = new ModelAndView();
         List<AlumnoMateria> materias = null;
-       // AlumnoMateria am = null;
+
         try{
             materias = alumnoMateriaService.findAll();
 
@@ -43,27 +43,25 @@ public class ControladorMateria {
         }
 
         mav.addObject("mat", materias);
-       // mav.addObject("alumno", am.getAlumno());
+       //mav.addObject("alumno", am.getAlumno());
         mav.setViewName("listMateria");
 
         return  mav;
     }
 
     @RequestMapping("/insertarMateria")
-    public ModelAndView nuevaMateria(){
+    public ModelAndView nuevaMateria(@ModelAttribute AlumnoMateria am){
       ModelAndView mav = new ModelAndView();
       List<Materia> materias = null;
-      List<Alumno> alumnos = null;
-      //AlumnoMateria am = null;
+      List<AlumnoMateria> alumnos = null;
       try {
           materias  = materiaService.findAll();
-
 
       }catch (Exception e){
           e.printStackTrace();
       }
       mav.addObject("materias", materias);
-     // mav.addObject("alumno", am.getAlumno());
+      mav.addObject("alumno", am.getAlumno());
       mav.setViewName("guardarMateria");
         return mav;
     }
