@@ -184,6 +184,7 @@ public class MainController {
     public ModelAndView guardarAlumno(@Valid @ModelAttribute Alumno alumno, BindingResult br) throws ParseException {
         ModelAndView mav = new ModelAndView();
         List<String> criterios = Arrays.asList("Nombres", "Apellidos");
+        String mensaje = "Expediente creado con exito";
         if (br.hasErrors()) {
             List<Institucion> centrosEscolares = null;
 
@@ -200,6 +201,7 @@ public class MainController {
             alumno.setEdad(alumno.getEdad(fechaNacimiento));
             alumnoService.save(alumno);
             mav.addObject("criterios", criterios);
+            mav.addObject("mensaje", mensaje);
             mav.setViewName("busquedaAlumno");
         }
 
