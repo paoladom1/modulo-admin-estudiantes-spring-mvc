@@ -34,7 +34,7 @@ public class ControladorMateria {
     public ModelAndView initMain(){
         ModelAndView mav = new ModelAndView();
         List<AlumnoMateria> materias = null;
-
+       // AlumnoMateria am = null;
         try{
             materias = alumnoMateriaService.findAll();
 
@@ -43,6 +43,7 @@ public class ControladorMateria {
         }
 
         mav.addObject("mat", materias);
+       // mav.addObject("alumno", am.getAlumno());
         mav.setViewName("listMateria");
 
         return  mav;
@@ -53,7 +54,7 @@ public class ControladorMateria {
       ModelAndView mav = new ModelAndView();
       List<Materia> materias = null;
       List<Alumno> alumnos = null;
-      AlumnoMateria am = null;
+      //AlumnoMateria am = null;
       try {
           materias  = materiaService.findAll();
 
@@ -62,7 +63,7 @@ public class ControladorMateria {
           e.printStackTrace();
       }
       mav.addObject("materias", materias);
-      mav.addObject("alumno", am.getAlumno());
+     // mav.addObject("alumno", am.getAlumno());
       mav.setViewName("guardarMateria");
         return mav;
     }

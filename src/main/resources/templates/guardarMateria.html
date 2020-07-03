@@ -8,9 +8,9 @@
 
 <form th:action="@{/guardarM}" th:object="${AlumnoMateria}" method="post">
 
-   <label>Alumno:</label>
+  <!-- <label>Alumno:</label>
     <th th:text="${alumno.nombre}"></th>
-    <input th:field="${AlumnoMateria.alumno}" type="hidden" value="${alumno.nombre}">
+    <input th:field="${AlumnoMateria.alumno}" type="hidden" value="${alumno.nombre}">-->
 
     <select th:field="${AlumnoMateria.materia}">
         <option th:each="p : ${materias}"
@@ -28,8 +28,6 @@
     <input type="submit" value="Save"/><br>
 
 
-
-</form>
 
 </form>
 </body>
