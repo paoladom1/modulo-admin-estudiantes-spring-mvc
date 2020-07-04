@@ -107,11 +107,20 @@ public class MainController {
                 return mav;
             }
 
+            System.out.println("guardar");
+
             usuarioService.save(usuario);
             tipoService.save(role);
             mav.setViewName("login");
         }
 
+        return mav;
+    }
+
+    @RequestMapping("/coordinador")
+    public ModelAndView coordinador() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/inicioCoordinador");
         return mav;
     }
 

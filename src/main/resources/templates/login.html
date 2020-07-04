@@ -17,9 +17,11 @@
             <input type="password" name="password">
         </div>
         <br>
-        <div th:if="${param.error}" style="color: red" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
-            Reason: <span th:text="${errorMsg}">Wrong input!</span>
-
+        <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+            <p class="errorMsg"><span th:if="${errorMsg == 'Bad credentials'}" style="color:red"> Credenciales incorrectas </span></p>
+        </div>
+        <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+            <p class="errorMsg"><span th:if="${errorMsg == 'User is disabled'}" style="color:red"> Cuenta inactiva </span></p>
         </div>
         <div th:if="${param.logout}">
             You have been logged out.
@@ -27,12 +29,6 @@
         <br>
         <input type="submit" value="Iniciar Sesi&oacute;n">
     </form>
-    <div class="error"
-         th:if="${param.login_error}"
-         th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
-    Your login attempt was not successful, try again.<br />
-    Reason: <span th:text="${errorMsg}">Wrong input!</span>
-    </div>
     <br>
     <a href="/registro"> Registro </a>
 </body>

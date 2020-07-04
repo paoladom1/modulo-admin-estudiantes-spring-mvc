@@ -107,9 +107,9 @@ INSERT INTO Departamento(idDepartamento,nombreDepartamento) VALUES (3,'Chalatena
 INSERT INTO Departamento(idDepartamento,nombreDepartamento) VALUES (4,'San Miguel');
 INSERT INTO Departamento(idDepartamento,nombreDepartamento) VALUES (5,'Santa Ana');
 
-insert into users (username, password, enabled, nombre, apellido, fechaDeNacimiento, edad, idDepartamento, idMunicipio) values ('admin', crypt('administrator', gen_salt('bf')), true, 'admin', 'admin', '1/1/1990', 30, 1, 1);
+insert into users (username, password, enabled, nombre, apellido, fechaDeNacimiento, edad, idDepartamento, idMunicipio) values ('admin', crypt('administrador', gen_salt('bf')), true, 'admin', 'admin', '1/1/1990', 30, 1, 1, 'Santa Tecla');
 
-insert into users (username, password, enabled, nombre, apellido, fechaDeNacimiento, edad, idDepartamento, idMunicipio) values ('coordinator', crypt('coordinator', gen_salt('bf')), true, 'coord', 'coord', '1/1/1990', 30, 1, 1);
+insert into users (username, password, enabled, nombre, apellido, fechaDeNacimiento, edad, idDepartamento, idMunicipio) values ('coordinador', crypt('coordinador', gen_salt('bf')), true, 'coord', 'coord', '1/1/1990', 30, 1, 1, 'San Salvador');
 
 INSERT INTO authorities(username, authority) VALUES ('admin','ADMIN');
-INSERT INTO authorities(username, authority) VALUES ('coordinator', 'COORD');
+INSERT INTO authorities(username, authority) VALUES ('coordinador', 'COORD');
