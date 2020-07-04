@@ -17,8 +17,9 @@
             <input type="password" name="password">
         </div>
         <br>
-        <div th:if="${param.error}" style="color: red">
-            Usuario o contrase&ntilde;a incorrecta.
+        <div th:if="${param.error}" style="color: red" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+            Reason: <span th:text="${errorMsg}">Wrong input!</span>
+
         </div>
         <div th:if="${param.logout}">
             You have been logged out.
@@ -28,7 +29,7 @@
     </form>
     <div class="error"
          th:if="${param.login_error}"
-         th:with="errorMsg=${session["SPRING_SECURITY_LAST_EXCEPTION"].message}">
+         th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
     Your login attempt was not successful, try again.<br />
     Reason: <span th:text="${errorMsg}">Wrong input!</span>
     </div>
