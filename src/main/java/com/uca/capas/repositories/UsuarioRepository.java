@@ -11,12 +11,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     public Usuario findByNombreUsuario(String usuario) throws DataAccessException;
 
-    public Usuario findByIdUsuario(Integer codigo) throws DataAccessException;
-
-    @Query(nativeQuery = true, value = "select * from public.usuario")
+    @Query(nativeQuery = true, value = "select * from public.users")
     public List<Usuario> showAll() throws DataAccessException;
 
-    @Query(nativeQuery = true, value = "select * from public.usuario where nombre = :cadena")
+    @Query(nativeQuery = true, value = "select * from public.users where nombre = :cadena")
     public List<Usuario> showByName(String cadena) throws DataAccessException;
 
 

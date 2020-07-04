@@ -1,7 +1,7 @@
 package com.uca.capas.controller;
 
 import com.uca.capas.domain.*;
-import com.uca.capas.service.*;
+import com.uca.capas.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -32,12 +32,12 @@ public class MainController {
     private InstitucionService institucionService;
 
     @Autowired
-    private TipoService tipoService;
+    private AuthorityService tipoService;
 
     @Autowired
     private UsuarioService usuarioService;
 
-    @RequestMapping("/inicio")
+    @RequestMapping("/login")
     public ModelAndView initMain(@ModelAttribute Usuario usuario) {
         ModelAndView mav = new ModelAndView();
 
@@ -46,24 +46,22 @@ public class MainController {
         return mav;
     }
 
-
-
     @RequestMapping("/registro")
     public ModelAndView registrar() {
         ModelAndView mav = new ModelAndView();
-        List<Tipo> tipos = null;
+        String authority = null;
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
 
         try {
-            tipos = tipoService.findAll();
             departamentos = departamentoService.findAll();
             municipios = municipioService.findAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        mav.addObject("tipos", tipos);
+        mav.addObject("duplicate", false);
+        mav.addObject("authority", authority);
         mav.addObject("departamentos", departamentos);
         mav.addObject("municipios", municipios);
 
@@ -74,30 +72,43 @@ public class MainController {
     }
 
     @PostMapping("/guardarUsuario")
-    public ModelAndView guardarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult br) throws ParseException {
+    public ModelAndView guardarUsuario(@RequestParam(value = "authority") String authority, @Valid @ModelAttribute Usuario usuario, BindingResult br) throws ParseException {
+        List<Departamento> departamentos = null;
+        List<Municipio> municipios = null;
         ModelAndView mav = new ModelAndView();
         if (br.hasErrors()) {
-            List<Tipo> tipos = null;
-            List<Departamento> departamentos = null;
-            List<Municipio> municipios = null;
-
             try {
-                tipos = tipoService.findAll();
                 departamentos = departamentoService.findAll();
                 municipios = municipioService.findAll();
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            mav.addObject("tipos", tipos);
             mav.addObject("departamentos", departamentos);
             mav.addObject("municipios", municipios);
             mav.setViewName("registro");
         } else {
             Date fechaNacimiento = usuario.getFechaNacimiento();
+            Authorities role = new Authorities(usuario.getNombreUsuario(), authority);
 
             usuario.setEdad(usuario.getEdad(fechaNacimiento));
+            if(usuarioService.findByNombreUsuario(usuario.getNombreUsuario()) != null){
+                mav.addObject("duplicate", true);
+                try {
+                    departamentos = departamentoService.findAll();
+                    municipios = municipioService.findAll();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                mav.addObject("departamentos", departamentos);
+                mav.addObject("municipios", municipios);
+                mav.setViewName("registro");
+                return mav;
+            }
+
             usuarioService.save(usuario);
+            tipoService.save(role);
             mav.setViewName("login");
         }
 

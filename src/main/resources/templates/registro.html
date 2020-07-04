@@ -5,61 +5,54 @@
     <title>Nueva cuenta</title>
 </head>
 <body>
-<form th:action="@{/guardarUsuario}" th:object="${usuario}" method="post">
+<form method="post" th:action="@{/guardarUsuario}" th:object="${usuario}">
     <h1>Nueva cuenta</h1>
     <label>Nombre:</label>
-    <input type="text" th:field="*{nombre}">
-    <span th:errors="*{nombre}" style="color: red"></span><br>
+    <input th:field="*{nombre}" type="text">
+    <span style="color: red" th:errors="*{nombre}"></span><br>
     <br>
     <label>Apellido:</label>
-    <input type="text" th:field="*{apellido}">
-    <span th:errors="*{apellido}" style="color: red"></span><br>
+    <input th:field="*{apellido}" type="text">
+    <span style="color: red" th:errors="*{apellido}"></span><br>
     <br>
     <label>Fecha de Nacimiento</label>
-    <input type="text" th:field="*{fechaNacimiento}">
-    <span th:errors="*{fechaNacimiento}" style="color: red"></span><br>
+    <input th:field="*{fechaNacimiento}" type="text">
+    <span style="color: red" th:errors="*{fechaNacimiento}"></span><br>
     <br>
     <label>Departamento: </label>
     <select th:field="*{departamento.idDepartamento}">
         <option th:each="item : ${departamentos}"
-                th:value="${item.idDepartamento}"
-                th:text="${item.nombreDepartamento}">
+                th:text="${item.nombreDepartamento}"
+                th:value="${item.idDepartamento}">
     </select>
-    <span th:errors="*{departamento}" style="color: red"></span><br>
+    <span style="color: red" th:errors="*{departamento}"></span><br>
     <br>
     <label>Municipio:</label>
     <select th:field="*{municipio.idMunicipio}">
         <option th:each="item : ${municipios}"
-                th:value="${item.idMunicipio}"
-                th:text="${item.nombreMunicipio}">
+                th:text="${item.nombreMunicipio}"
+                th:value="${item.idMunicipio}">
     </select>
-    <span th:errors="*{municipio}" style="color: red"></span><br>
+    <span style="color: red" th:errors="*{municipio}"></span><br>
     <br>
     <label>Direcci&oacute;n:</label>
-    <input type="text" th:field="*{direccion}">
-    <span th:errors="*{direccion}" style="color: red"></span><br>
+    <input th:field="*{direccion}" type="text">
+    <span style="color: red" th:errors="*{direccion}"></span><br>
     <br>
     <label>Nombre de usuario: </label>
-    <input type="text" th:field="*{nombreUsuario}">
-    <span th:errors="*{nombreUsuario}" style="color: red"></span><br>
+    <input th:field="*{nombreUsuario}" type="text">
+    <span style="color: red" th:if="${duplicate == true}">Nombre de usuario ya existente</span>
+    <span style="color: red" th:errors="*{nombreUsuario}"></span><br>
     <br>
     <label>Contrase&ntilde;a: </label>
-    <input type="text" th:field="*{contrasenia}">
-    <span th:errors="*{contrasenia}" style="color: red"></span><br>
+    <input th:field="*{contrasenia}" type="text">
+    <span style="color: red" th:errors="*{contrasenia}"></span><br>
     <br>
-    <label>Rol: </label>
-    <select th:field="*{tipoUsuario.codigoTipo}">
-        <option th:each="item : ${tipos}"
-                th:value="${item.codigoTipo}"
-                th:text="${item.tipo}">
-    </select>
-    <span th:errors="*{tipoUsuario}" style="color: red"></span><br><br>
     <br>
     <label>Activo:</label>
-    <input type="radio" th:field="*{estado}" th:value="${true}">
-    <label>Inactivo:</label>
-    <input type="radio" th:field="*{estado}" th:value="${false}">
+    <input type="checkbox" th:field="*{estado}" th:checked="true">
     <br>
+    <input type="hidden" name="authority" value="ADMIN" />
     <input type="submit" value="Registrar">
 </form>
 </body>

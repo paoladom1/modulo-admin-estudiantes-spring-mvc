@@ -1,4 +1,4 @@
-package com.uca.capas.service;
+package com.uca.capas.services;
 
 import com.uca.capas.domain.Alumno;
 import org.springframework.dao.DataAccessException;

@@ -1,17 +1,25 @@
-CREATE TABLE Usuario(
-	idUsuario INTEGER PRIMARY KEY NOT NULL,
+CREATE EXTENSION pgcrypto;
+
+CREATE TABLE users(
+	username varchar NOT NULL PRIMARY KEY,
+	password varchar NOT NULL,
+	enabled BOOLEAN NOT NULL,
 	nombre VARCHAR NOT NULL,
 	apellido VARCHAR NOT NULL,
-	nombreDeUsuario VARCHAR NOT NULL,
-	contraseña VARCHAR NOT NULL,
 	fechaDeNacimiento DATE NOT NULL,
 	edad INTEGER NOT NULL,
 	idDepartamento INTEGER NOT NULL,
 	idMunicipio INTEGER NOT NULL,
-	direccion VARCHAR,
-	estado BOOLEAN NOT NULL,
-	idTipoUsuario INTEGER NOT NULL
+	direccion VARCHAR
 );
+
+CREATE TABLE authorities(
+	authority_id serial primary key not null,
+	username varchar not null,
+	authority varchar not null
+);
+
+create unique index ix_auth_username on authorities (username, authority);
 
 CREATE TABLE Departamento(
 	idDepartamento INTEGER NOT NULL PRIMARY KEY,
@@ -22,10 +30,7 @@ CREATE TABLE Municipio(
 	idMunicipio INTEGER PRIMARY KEY,
 	nombreMunicipio VARCHAR NOT NULL
 );
-CREATE TABLE TipoUsuario(
-	idTipoUsuario INTEGER PRIMARY KEY,
-	tipoUsuario VARCHAR NOT NULL
-);
+
 
 CREATE TABLE CentroEscolar(
 	idCentroEscolar INTEGER PRIMARY KEY,
@@ -37,7 +42,7 @@ CREATE TABLE CentroEscolar(
 	idDepartamento INTEGER NOT NULL
 );
 CREATE TABLE Alumno(
-	codigoEstudiante INTEGER PRIMARY KEY,
+	codigoEstudiante SERIAL PRIMARY KEY,
 	nombreEstudiante VARCHAR NOT NULL,
 	apellidoEstudiante VARCHAR NOT NULL,
 	carnetMinoridad VARCHAR(9),
@@ -65,16 +70,13 @@ CREATE TABLE Materia(
 	descripcion VARCHAR
 );
 
-ALTER TABLE Usuario ADD FOREIGN KEY (idDepartamento) 
+alter table authorities add foreign key(username) 
+references users(username) on delete cascade on update cascade;
+
+ALTER TABLE users ADD FOREIGN KEY (idDepartamento) 
 REFERENCES Departamento(idDepartamento);
 
-ALTER TABLE Usuario ADD FOREIGN KEY (idTipoUsuario)
-REFERENCES TipoUsuario(idTipoUsuario);
-
-ALTER TABLE Usuario ADD FOREIGN KEY (idMunicipio)
-REFERENCES Municipio(idMunicipio);
-
-ALTER TABLE Alumno ADD FOREIGN KEY (idMunicipio)
+ALTER TABLE users ADD FOREIGN KEY (idMunicipio)
 REFERENCES Municipio(idMunicipio);
 
 ALTER TABLE CentroEscolar ADD FOREIGN KEY (idMunicipio)
@@ -105,10 +107,9 @@ INSERT INTO Departamento(idDepartamento,nombreDepartamento) VALUES (3,'Chalatena
 INSERT INTO Departamento(idDepartamento,nombreDepartamento) VALUES (4,'San Miguel');
 INSERT INTO Departamento(idDepartamento,nombreDepartamento) VALUES (5,'Santa Ana');
 
-INSERT INTO TipoUsuario(idTipoUsuario,tipoUsuario) VALUES (1,'Administrador');
-INSERT INTO TipoUsuario(idTipoUsuario,tipoUsuario) VALUES (2,'Coordinador');
+insert into users (username, password, enabled, nombre, apellido, fechaDeNacimiento, edad, idDepartamento, idMunicipio) values ('admin', crypt('administrator', gen_salt('bf')), true, 'admin', 'admin', '1/1/1990', 30, 1, 1);
 
-INSERT INTO Usuario(idUsuario,nombre,apellido,nombreDeUsuario,contraseña,fechaDeNacimiento,edad,
-					idDepartamento,idMunicipio,estado,idTipoUsuario)
-					VALUES (1,'admin','apellidoAdmin','root','root','1/1/1990',30,1,1,true,1);
+insert into users (username, password, enabled, nombre, apellido, fechaDeNacimiento, edad, idDepartamento, idMunicipio) values ('coordinator', crypt('coordinator', gen_salt('bf')), true, 'coord', 'coord', '1/1/1990', 30, 1, 1);
 
+INSERT INTO authorities(username, authority) VALUES ('admin','ADMIN');
+INSERT INTO authorities(username, authority) VALUES ('coordinator', 'COORDINATOR');

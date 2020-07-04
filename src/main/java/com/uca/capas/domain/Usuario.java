@@ -8,16 +8,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(schema = "public", name = "usuario")
+@Table(schema = "public", name = "users")
 public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUsuario")
-    private Integer idUsuario;
-
     @Column(name = "nombre")
     @NotEmpty(message = "El campo no puede estar vacio")
     @Size(max = 30, message = "No debe exceder los 30 caracteres")
@@ -50,22 +44,19 @@ public class Usuario {
     @Column(name = "direccion")
     private String direccion;
 
-    @Column(name = "estado")
+    @Column(name = "enabled")
     private Boolean estado;
 
+    @Id
     @NotEmpty(message = "El campo no puede estar vacio")
     @Size(max = 30, message = "No debe exceder los 30 caracteres")
-    @Column(name = "nombreDeUsuario")
+    @Column(name = "username", unique = true)
     private String nombreUsuario;
 
     @NotEmpty(message = "El campo no puede estar vacio")
     @Size(min = 8, message = "Debe tener al menos 8 caracteres")
-    @Column(name = "contraseña")
+    @Column(name = "password")
     private String contrasenia;
-
-    @JoinColumn(name = "idTipoUsuario")
-    @OneToOne
-    private Tipo tipoUsuario;
 
     public String getNombre() {
         return nombre;
@@ -145,14 +136,6 @@ public class Usuario {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
-    }
-
-    public Tipo getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(Tipo tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
     }
 
     public Integer getEdad(Date fechaNac) {

@@ -1,4 +1,4 @@
-package com.uca.capas.service;
+package com.uca.capas.services;
 
 import com.uca.capas.domain.Departamento;
 import com.uca.capas.repositories.DepartamentoRepository;

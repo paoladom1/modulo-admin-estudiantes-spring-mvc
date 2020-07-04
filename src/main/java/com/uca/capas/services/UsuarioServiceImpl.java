@@ -1,15 +1,19 @@
-package com.uca.capas.service;
+package com.uca.capas.services;
 
 import com.uca.capas.domain.Usuario;
 import com.uca.capas.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public class UsuarioServiceImpl implements UsuarioService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     UsuarioRepository usuarioRepository;
 
@@ -25,7 +29,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void save(Usuario usuario) throws DataAccessException {
-        usuarioRepository.save(usuario);
+        Usuario user = usuario;
+        user.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
+        usuarioRepository.save(user);
     }
 
     @Override
