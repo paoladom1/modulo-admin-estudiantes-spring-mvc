@@ -49,14 +49,11 @@
     <span style="color: red" th:errors="*{contrasenia}"></span><br>
     <br>
     <br>
-    <label>Activo:</label>
-    <input type="checkbox" th:field="*{estado}" th:checked="true">
-    <br>
+    <label>Activo:</label><br />
+    <input type="checkbox" th:field="*{estado}"><br>
     <label> Rol: </label><br />
-    <input type="radio" id="admin" name="authority" value="ADMIN" />
-    <label for="admin">Admin</label><br />
-    <input type="radio" id="coord" name="authority" value="COORDINATOR" checked />
-    <label for="coord">Coordinator</label><br />
+    Administrador: <input type="radio" id="admin" name="authority" value="ADMIN" th:required="required"/>
+    Coordinador: <input type="radio" id="coord" name="authority" value="COORD" th:required="required" /><br />
     <input type="submit" value="Registrar">
 </form>
 </body>

@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/login", "/registro").permitAll()
-                .antMatchers("/agregarExpediente").hasAuthority("COORDINATOR")
+                .antMatchers("/agregarExpediente").hasAuthority("COORD")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -36,7 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
             .logout()
-                .permitAll();
+                .permitAll()
+                .and()
+            .sessionManagement().maximumSessions(1);
     }
 
     @Autowired

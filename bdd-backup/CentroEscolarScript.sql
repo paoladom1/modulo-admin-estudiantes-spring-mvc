@@ -112,4 +112,4 @@ insert into users (username, password, enabled, nombre, apellido, fechaDeNacimie
 insert into users (username, password, enabled, nombre, apellido, fechaDeNacimiento, edad, idDepartamento, idMunicipio) values ('coordinator', crypt('coordinator', gen_salt('bf')), true, 'coord', 'coord', '1/1/1990', 30, 1, 1);
 
 INSERT INTO authorities(username, authority) VALUES ('admin','ADMIN');
-INSERT INTO authorities(username, authority) VALUES ('coordinator', 'COORDINATOR');
+INSERT INTO authorities(username, authority) VALUES ('coordinator', 'COORD');

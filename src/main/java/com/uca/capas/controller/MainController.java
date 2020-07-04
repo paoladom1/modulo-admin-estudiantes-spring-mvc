@@ -50,7 +50,7 @@ public class MainController {
     @RequestMapping("/registro")
     public ModelAndView registrar() {
         ModelAndView mav = new ModelAndView();
-        String authority = null;
+        String authority = "COORD";
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
 
@@ -89,10 +89,9 @@ public class MainController {
             mav.addObject("municipios", municipios);
             mav.setViewName("registro");
         } else {
-            Date fechaNacimiento = usuario.getFechaNacimiento();
             Authorities role = new Authorities(usuario.getNombreUsuario(), authority);
 
-            usuario.setEdad(usuario.getEdad(fechaNacimiento));
+            usuario.setEdad(usuario.getEdadDelegate());
             if(usuarioService.findByNombreUsuario(usuario.getNombreUsuario()) != null){
                 mav.addObject("duplicate", true);
                 try {
@@ -209,9 +208,7 @@ public class MainController {
             mav.addObject("centrosEscolares", centrosEscolares);
             mav.setViewName("nuevoExpediente");
         } else {
-            Date fechaNacimiento = alumno.getFechaNacimiento();
-
-            alumno.setEdad(alumno.getEdad(fechaNacimiento));
+            alumno.setEdad(alumno.getEdadDelegate());
             alumnoService.save(alumno);
             mav.addObject("criterios", criterios);
             mav.addObject("mensaje", mensaje);

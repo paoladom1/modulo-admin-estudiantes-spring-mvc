@@ -5,12 +5,6 @@
     <title>Inicio de Sesi&oacute;n</title>
 </head>
 <body>
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
     <form th:action="@{/login}" method="post">
         <h1>Iniciar Sesi&oacute;n</h1>
         <div>
@@ -23,8 +17,21 @@
             <input type="password" name="password">
         </div>
         <br>
+        <div th:if="${param.error}" style="color: red">
+            Usuario o contrase&ntilde;a incorrecta.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <br>
         <input type="submit" value="Iniciar Sesi&oacute;n">
     </form>
+    <div class="error"
+         th:if="${param.login_error}"
+         th:with="errorMsg=${session["SPRING_SECURITY_LAST_EXCEPTION"].message}">
+    Your login attempt was not successful, try again.<br />
+    Reason: <span th:text="${errorMsg}">Wrong input!</span>
+    </div>
     <br>
     <a href="/registro"> Registro </a>
 </body>
