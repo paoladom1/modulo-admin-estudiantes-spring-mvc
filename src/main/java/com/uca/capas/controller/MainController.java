@@ -3,6 +3,7 @@ package com.uca.capas.controller;
 import com.uca.capas.domain.*;
 import com.uca.capas.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -173,6 +174,7 @@ public class MainController {
         mav.setViewName("editarExpediente");
         return mav;
     }
+
 
     @RequestMapping("/agregarExpediente")
     public ModelAndView nuevoExpediente() {

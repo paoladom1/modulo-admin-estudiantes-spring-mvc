@@ -52,7 +52,11 @@
     <label>Activo:</label>
     <input type="checkbox" th:field="*{estado}" th:checked="true">
     <br>
-    <input type="hidden" name="authority" value="ADMIN" />
+    <label> Rol: </label><br />
+    <input type="radio" id="admin" name="authority" value="ADMIN" />
+    <label for="admin">Admin</label><br />
+    <input type="radio" id="coord" name="authority" value="COORDINATOR" checked />
+    <label for="coord">Coordinator</label><br />
     <input type="submit" value="Registrar">
 </form>
 </body>
