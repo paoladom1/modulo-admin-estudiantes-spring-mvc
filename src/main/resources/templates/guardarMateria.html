@@ -5,26 +5,26 @@
     <title>Guardar Materia Cursada</title>
 </head>
 <body>
+<label>Alumno:</label>
+<th th:text="${alumno.nombres}"></th>
+<th th:text="${alumno.apellidos}"/> <br><br>
 
-<form th:action="@{/guardarM}" th:object="${AlumnoMateria}" method="post">
+<form th:action="@{/guardarM}" th:object="${materia}" method="post">
 
-  <!-- <label>Alumno:</label>
-    <th th:text="${alumno.nombre}"></th>
-    <input th:field="${AlumnoMateria.alumno}" type="hidden" value="${alumno.nombre}">-->
-
-    <select th:field="${AlumnoMateria.materia}">
-        <option th:each="p : ${materias}"
-                th:value="${p.codMateria}"
+    <select th:field="${catalogoMateria.codigoCatalogo}">
+        <option th:each="p : ${cat}"
+                th:value="${p.codigoCatalogo}"
                 th:text="${p.nomMateria}"></option>
     </select>
+    <span th:errors="*{materia.year}"  style="color: #FF0000"/><br>
 
-    <label>Año:</label><input type="number" th:field="*{AlumnoMateria.materia.year}">
-    <span th:errors="*{AlumnoMateria.materia.year}"  style="color: #FF0000"/><br>
+    <label>Año:</label><input type="number" th:field="*{year}">
+    <span th:errors="*{year}"  style="color: #FF0000"/><br>
 
-    <label>Ciclo:</label><input type="number" th:field="*{AlumnoMateria.materia.cicle}">
-    <span th:errors="*{AlumnoMateria.materia.cicle}"  style="color: #FF0000"/><br>
-    <label>Nota:</label><input type="number" th:field="*{AlumnoMateria.materia.nota}">
-    <span th:errors="*{AlumnoMateria.materia.nota}"  style="color: #FF0000"/><br>
+    <label>Ciclo:</label><input type="number" th:field="*{cicle}">
+    <span th:errors="*{cicle}"  style="color: #FF0000"/><br>
+    <label>Nota:</label><input type="number" th:field="*{materia.nota}">
+    <span th:errors="*{nota}"  style="color: #FF0000"/><br>
     <input type="submit" value="Save"/><br>
 
 

@@ -46,8 +46,6 @@ public class    MainController {
         return mav;
     }
 
-
-
     @RequestMapping("/registro")
     public ModelAndView registrar() {
         ModelAndView mav = new ModelAndView();

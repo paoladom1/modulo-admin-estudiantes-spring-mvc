@@ -6,9 +6,9 @@
 </head>
 <body>
 
-<!--<label>Alumno:</label>
-<th th:text="${alumno.nombre}"></th>
-<input th:field="${AlumnoMateria.alumno}" type="hidden" value="${alumno.nombre}">-->
+<label>Alumno:</label>
+<th th:text="${alumno.nombres}"></th>
+<th th:text="${alumno.apellidos}"/> <br><br>
 <table>
     <thead>
     <th>Acción</th>
@@ -27,16 +27,17 @@
                 <input type="submit" value="Edit">
             </form>
             </th>
-           <th th:text="${alumnoM.materia.nomMateria}"/>
-           <th th:text="${alumnoM.materia.year}"/>
-           <th th:text="${alumnoM.materia.cicle}"/>
+           <th th:text="${alumnoM.cataMateria.nomMateria}"/>
+           <th th:text="${alumnoM.year}"/>
+           <th th:text="${alumnoM.cicle}"/>
             <th th:text="${alumnoM.nota}">
-            <!--<th th:text="${alumnoM.delegateResultado}"/>-->
+            <th th:text="${alumnoM.resultado}"/>-->
         </tr>
     </th:block>
 </table>
 
 <form th:action="@{/insertarMateria}" method="get">
+    <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
     <input type="submit" value="Guardar Materia">
 </form>
 

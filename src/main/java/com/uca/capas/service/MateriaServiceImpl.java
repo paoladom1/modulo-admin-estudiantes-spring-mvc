@@ -19,10 +19,10 @@ public class MateriaServiceImpl implements MateriaService {
         return materiaRepo.findAll();
     }
 
-    @Override
-    public Materia findOne(Integer code) throws DataAccessException {
-        return materiaRepo.findByCodMateria(code);
-    }
+    //@Override
+    //public Materia findOne(Integer code) throws DataAccessException {
+      //  return materiaRepo.findByCodMateria(code);
+    //}
 
     @Override
     @Transactional
@@ -34,5 +34,25 @@ public class MateriaServiceImpl implements MateriaService {
     @Transactional
     public void delete(Integer codMateria) throws DataAccessException {
         materiaRepo.deleteById(codMateria);
+    }
+
+    @Override
+    public List<Materia> findMateriasAlumno(Integer code) throws DataAccessException {
+        return materiaRepo.findMateriasAlumno(code);
+    }
+
+    @Override
+    public Float aprobar(Integer code) throws DataAccessException {
+        return materiaRepo.aprobar(code);
+    }
+
+    @Override
+    public Float reprobar(Integer code) throws DataAccessException {
+        return materiaRepo.reprobar(code);
+    }
+
+    @Override
+    public Float notas(Integer code) throws DataAccessException {
+        return materiaRepo.notas(code);
     }
 }

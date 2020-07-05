@@ -1,28 +1,24 @@
 package com.uca.capas.controller;
 
 import com.uca.capas.domain.*;
-import com.uca.capas.service.AlumnoMateriaService;
+import com.uca.capas.service.CatalogoMateriaService;
 import com.uca.capas.service.AlumnoService;
 import com.uca.capas.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 @Controller
 public class ControladorMateria {
 
     @Autowired
-    private AlumnoMateriaService alumnoMateriaService;
+    private CatalogoMateriaService catalogoMateriaService;
 
     @Autowired
     private MateriaService materiaService;
@@ -30,67 +26,76 @@ public class ControladorMateria {
     @Autowired
     private AlumnoService alumnoService;
 
+    private  Integer variable;
     @RequestMapping("/cursadas")
-    public ModelAndView initMain(@ModelAttribute Alumno alumno){
+    public ModelAndView initMain(@RequestParam(value = "codigo") Integer codigo){
         ModelAndView mav = new ModelAndView();
-        List<AlumnoMateria> materias = null;
+        List<Materia> materias = null;
+        Alumno alumno = null;
 
         try{
-            materias = alumnoMateriaService.findAll();
+           materias = materiaService.findMateriasAlumno(codigo);
+           alumno = alumnoService.findOne(codigo);
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
         mav.addObject("mat", materias);
-       //mav.addObject("alumno", am.getAlumno());
+        mav.addObject("alumno", alumno);
         mav.setViewName("listMateria");
-
         return  mav;
     }
 
-    @RequestMapping("/insertarMateria")
-    public ModelAndView nuevaMateria(@ModelAttribute AlumnoMateria am){
+    @GetMapping("/insertarMateria")
+    public ModelAndView nuevaMateria(@RequestParam(value = "codigo") Integer codigo){
       ModelAndView mav = new ModelAndView();
-      List<Materia> materias = null;
-      List<AlumnoMateria> alumnos = null;
-      try {
-          materias  = materiaService.findAll();
+      List<CatalogoMateria> catalogo = null;
+        Alumno alumno = null;
 
-      }catch (Exception e){
+      try{
+          catalogo = catalogoMateriaService.findAll();
+          alumno = alumnoService.findOne(codigo);
+        }catch (Exception e){
           e.printStackTrace();
       }
-      mav.addObject("materias", materias);
-      mav.addObject("alumno", am.getAlumno());
+
+      mav.addObject("materia", new Materia());
+      mav.addObject("cat", catalogo);
+      mav.addObject("alumno", alumno);
       mav.setViewName("guardarMateria");
         return mav;
     }
 
-    @PostMapping("/guardarM")
-    public ModelAndView insertarMateria(@Valid @ModelAttribute AlumnoMateria am, BindingResult br){
+   @PostMapping("/guardarM")
+    public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult br, @RequestParam(value = "codigo") Integer codigo){
         ModelAndView mav = new ModelAndView();
+        List<CatalogoMateria> catalogo = null;
+        List<Materia> materias = null;
 
 
         if(br.hasErrors()){
-            List<Materia> materias = null;
+            catalogo = catalogoMateriaService.findAll();
+            mav.addObject("catalogoSubject", catalogo);
+            mav.setViewName("guardarMateria");
+        } else {
+            if(materia.getNotaMateria() >= 6){
+                materia.setResultado("aprobar");
+            }else{
+                materia.setResultado("reprobado");
+            }
 
-            try{
-                materias = materiaService.findAll();
-
+            materiaService.save(materia);
+            try {
+                materias = materiaService.findMateriasAlumno(codigo);
             }catch (Exception e){
                 e.printStackTrace();
             }
+
             mav.addObject("materias", materias);
-           //mav.addObject("alumno", am.getAlumno());
-            mav.setViewName("guardarMateria");
-
-        }else{
-
-            alumnoMateriaService.save(am);
             mav.setViewName("listMateria");
+
         }
-
-
         return  mav;
     }
 

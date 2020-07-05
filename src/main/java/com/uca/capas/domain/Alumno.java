@@ -70,8 +70,6 @@ public class Alumno {
     @Column(name = "nombrepadre")
     private String nombrePadre;
 
-    @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AlumnoMateria> alumnoMaterias;
 
     public Integer getCodigoEstudiante() {
         return codigoEstudiante;
