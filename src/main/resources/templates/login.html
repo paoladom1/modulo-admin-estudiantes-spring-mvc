@@ -23,6 +23,9 @@
         <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
             <p class="errorMsg"><span th:if="${errorMsg == 'User is disabled'}" style="color:red"> Cuenta inactiva </span></p>
         </div>
+        <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+            <p class="errorMsg"><span th:if="${errorMsg == 'Maximum sessions of 1 for this principal exceeded'}" style="color:red"> Usted ya tiene una sesi&oacute;n activa </span></p>
+        </div>
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
