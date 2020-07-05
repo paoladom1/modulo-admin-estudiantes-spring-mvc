@@ -23,22 +23,22 @@
         <tr>
             <th>
             <form th:action="@{/editar}">
-                <input type="hidden" name="codigo" th:value="${alumnoM.materia.codMateria}">
+                <input type="hidden" name="codigo" th:value="${alumnoM.catalogoMateria.codMateria}">
                 <input type="submit" value="Edit">
             </form>
             </th>
-           <th th:text="${alumnoM.cataMateria.nomMateria}"/>
+           <th th:text="${alumnoM.catalogoMateria.nomMateria}"/>
            <th th:text="${alumnoM.year}"/>
            <th th:text="${alumnoM.cicle}"/>
             <th th:text="${alumnoM.nota}">
-            <th th:text="${alumnoM.resultado}"/>-->
+            <th th:text="${alumnoM.resultado}"/>
         </tr>
     </th:block>
 </table>
 
 <form th:action="@{/insertarMateria}" method="get">
     <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
-    <input type="submit" value="Guardar Materia">
+    <input type="submit" value="Nueva Materia Cursada">
 </form>
 
 

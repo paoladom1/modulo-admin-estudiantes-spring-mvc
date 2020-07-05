@@ -26,7 +26,6 @@ public class ControladorMateria {
     @Autowired
     private AlumnoService alumnoService;
 
-    private  Integer variable;
     @RequestMapping("/cursadas")
     public ModelAndView initMain(@RequestParam(value = "codigo") Integer codigo){
         ModelAndView mav = new ModelAndView();
@@ -76,7 +75,7 @@ public class ControladorMateria {
 
         if(br.hasErrors()){
             catalogo = catalogoMateriaService.findAll();
-            mav.addObject("catalogoSubject", catalogo);
+            mav.addObject("cat", catalogo);
             mav.setViewName("guardarMateria");
         } else {
             if(materia.getNotaMateria() >= 6){
@@ -92,7 +91,7 @@ public class ControladorMateria {
                 e.printStackTrace();
             }
 
-            mav.addObject("materias", materias);
+            mav.addObject("mat", materias);
             mav.setViewName("listMateria");
 
         }

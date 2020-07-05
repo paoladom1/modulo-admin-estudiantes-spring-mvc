@@ -37,6 +37,7 @@ public class Materia {
     @Column(name = "descripcion")
     private String description;
 
+    @Column(name = "resultado")
     private String resultado;
 
     @NotEmpty(message = "*Campo Obligatorio*")
@@ -74,7 +75,7 @@ public class Materia {
     }
 
     public void setCatalogoMateria(CatalogoMateria cataMateria) {
-        this.catalogoMateria = cataMateria;
+        this.catalogoMateria = catalogoMateria;
     }
 
     public Integer getCodMateria() {
