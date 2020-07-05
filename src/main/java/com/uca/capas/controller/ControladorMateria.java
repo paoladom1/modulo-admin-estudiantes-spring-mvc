@@ -58,7 +58,7 @@ public class ControladorMateria {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println("lleno el catalogo");
         mav.addObject("materia", new Materia());
        mav.addObject("cat", catalogo);
         mav.addObject("alumno", alumno);
@@ -70,34 +70,40 @@ public class ControladorMateria {
    @PostMapping("/guardarM")
     public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult br, @RequestParam(value = "codigo") Integer codigo){
         ModelAndView mav = new ModelAndView();
-        List<CatalogoMateria> catalogo = null;
         List<Materia> materias = null;
        Alumno alumno = null;
 
-        if(br.hasErrors()){
-            catalogo = catalogoMateriaService.findAll();
-            alumno = alumnoService.findOne(codigo);
-            mav.addObject("cat", catalogo);
-            mav.addObject("alumno", alumno);
-            mav.setViewName("guardarMateria");
-        } else {
-            if(materia.getNotaMateria() >= 6){
-                materia.setResultado("aprobar");
-            }else{
-                materia.setResultado("reprobado");
-            }
+       if(br.hasErrors()){
+           List<CatalogoMateria> catalogo = null;
+           System.out.println("estoy en el if de error");
+           try {
+               catalogo = catalogoMateriaService.findAll();
+           }catch (Exception e){
+               e.printStackTrace();
+           }
+           mav.addObject("cat", catalogo);
+           mav.setViewName("guardarMateria");
+       }else{
+           if (materia.getNotaMateria()>=6.0){
+               materia.setResultado("APROBADO");
+               System.out.println("estoy en el if de aprobado");
 
-            materiaService.save(materia);
-            try {
-                materias = materiaService.findMateriasAlumno(codigo);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+           }else{
+               materia.setResultado("REPROBADO");
+               System.out.println("estoy en el if de reprobado");
+           }
+           List<Materia> ma = null;
+           try {
+               ma = materiaService.findMateriasAlumno(codigo);
+           }catch (Exception e){
+               e.printStackTrace();
+           }
+           System.out.println("estoy en el else para guardar materia");
+           materiaService.save(materia);
+           mav.addObject("materias", ma);
+           mav.setViewName("listMateria");
 
-            mav.addObject("mat", materias);
-            mav.setViewName("listMateria");
-
-        }
+       }
         return  mav;
     }
 

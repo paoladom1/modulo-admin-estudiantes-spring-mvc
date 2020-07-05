@@ -10,7 +10,7 @@
 <th th:text="${alumno.apellidos}"/> <br><br>
 
 <form th:action="@{/guardarM}" th:object="${materia}" method="post">
-
+    <label>Materia: </label>
     <select th:field="*{catalogoMateria.codigoCatalogo}">
         <option th:each="p : ${cat}"
                 th:value="${p.codigoCatalogo}"
@@ -23,8 +23,10 @@
 
     <label>Ciclo:</label><input type="number" th:field="*{cicle}">
     <span th:errors="*{cicle}" style="color: #FF0000"></span><br>
+
     <label>Nota:</label><input type="number" th:field="*{notaMateria}">
     <span th:errors="*{notaMateria}"  style="color: #FF0000"></span><br>
+
     <input type="submit" value="Save"/><br>
 
 

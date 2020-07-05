@@ -1,5 +1,7 @@
 package com.uca.capas.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
@@ -18,31 +20,32 @@ public class Materia {
     private Integer codigoMateria;
 
     @Column(name = "anio")
-    @Size(message = "El campo solo debe tener 4 digitos", max = 4)
-    @NotEmpty(message = "*Campo Obligatorio")
+    @NotNull(message = "*Campo Obligatorio")
+    @Size( min= 4,max = 4,message = "El campo solo debe tener 4 digitos")
     private Integer year;
 
     @Column(name = "ciclo")
-    @Size(message = "El campo solo debe tener 2 digitos", max = 2)
-    @NotEmpty(message = "*Campo Obligatorio*")
+    @NotNull(message = "*Campo Obligatorio*")
+    @Size(min=1, max = 1, message = "El campo solo debe tener 2 digitos")
     private Integer cicle;
 
     @Column(name = "nota")
-    @Size(message = "El campo debe tener 3 digitos maximo", max = 3)
-    @NotNull(message = "*Campo Obligatorio")
-    private Double notaMateria;
+    @NotEmpty(message = "*Campo Obligatorio")
+    @Size(min =3, max = 3,message = "El campo debe tener 3 digitos maximo")
+    private Integer notaMateria;
 
     @Column(name = "descripcion")
-    @Size(message = "El campo no debe tener más de 3 dígitos", max = 4)
     @NotEmpty(message = "*Campo Obligatorio*")
+    @Size(message = "El campo no debe tener más de 3 dígitos", max = 4)
     private String description;
 
     @Column(name = "resultado")
+    @Type(type = "string")
     private String resultado;
 
 
     @OneToOne
-    @NotEmpty(message = "*Campo Obligatorio*")
+    @NotNull(message = "*Campo Obligatorio*")
     @JoinColumn(name = "codigoMateria")
     private CatalogoMateria catalogoMateria;
 
@@ -51,7 +54,7 @@ public class Materia {
     private Alumno alumnoMateria;
 
 
-    public Materia(Integer codMateria, Integer year, Integer cicle, String description, Double notaMateria, String resultado, CatalogoMateria catalogoMateria, Alumno alumnoMateria) {
+    public Materia(Integer codMateria, Integer year, Integer cicle, String description, Integer notaMateria, String resultado, CatalogoMateria catalogoMateria, Alumno alumnoMateria) {
         this.codigoMateria = codMateria;
         this.year = year;
         this.cicle = cicle;
@@ -110,11 +113,11 @@ public class Materia {
         this.description = description;
     }
 
-    public Double getNotaMateria() {
+    public Integer getNotaMateria() {
         return notaMateria;
     }
 
-    public void setNotaMateria(Double notaMateria) {
+    public void setNotaMateria(Integer notaMateria) {
         this.notaMateria = notaMateria;
     }
 
