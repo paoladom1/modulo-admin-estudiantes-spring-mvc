@@ -27,55 +27,58 @@ public class ControladorMateria {
     private AlumnoService alumnoService;
 
     @RequestMapping("/cursadas")
-    public ModelAndView initMain(@RequestParam(value = "codigo") Integer codigo){
+    public ModelAndView initMain(@RequestParam(value = "codigo") Integer codigo) {
         ModelAndView mav = new ModelAndView();
         List<Materia> materias = null;
         Alumno alumno = null;
 
-        try{
-           materias = materiaService.findMateriasAlumno(codigo);
-           alumno = alumnoService.findOne(codigo);
+        try {
+            materias = materiaService.findMateriasAlumno(codigo);
+            alumno = alumnoService.findOne(codigo);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         mav.addObject("mat", materias);
         mav.addObject("alumno", alumno);
         mav.setViewName("listMateria");
-        return  mav;
+        return mav;
     }
 
     @GetMapping("/insertarMateria")
-    public ModelAndView nuevaMateria(@RequestParam(value = "codigo") Integer codigo){
-      ModelAndView mav = new ModelAndView();
-      List<CatalogoMateria> catalogo = null;
+    public ModelAndView nuevaMateria(@RequestParam(value = "codigo") Integer codigo) {
+        ModelAndView mav = new ModelAndView();
+        List<CatalogoMateria> catalogo = null;
         Alumno alumno = null;
 
-      try{
-          catalogo = catalogoMateriaService.findAll();
-          alumno = alumnoService.findOne(codigo);
-        }catch (Exception e){
-          e.printStackTrace();
-      }
+        try {
+           catalogo = catalogoMateriaService.findAll();
+            alumno = alumnoService.findOne(codigo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-      mav.addObject("materia", new Materia());
-      mav.addObject("cat", catalogo);
-      mav.addObject("alumno", alumno);
-      mav.setViewName("guardarMateria");
+        mav.addObject("materia", new Materia());
+       mav.addObject("cat", catalogo);
+        mav.addObject("alumno", alumno);
+        mav.setViewName("guardarMateria");
         return mav;
     }
+
 
    @PostMapping("/guardarM")
     public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult br, @RequestParam(value = "codigo") Integer codigo){
         ModelAndView mav = new ModelAndView();
         List<CatalogoMateria> catalogo = null;
         List<Materia> materias = null;
-
+       Alumno alumno = null;
 
         if(br.hasErrors()){
             catalogo = catalogoMateriaService.findAll();
+            alumno = alumnoService.findOne(codigo);
             mav.addObject("cat", catalogo);
+            mav.addObject("alumno", alumno);
             mav.setViewName("guardarMateria");
         } else {
             if(materia.getNotaMateria() >= 6){
@@ -97,9 +100,5 @@ public class ControladorMateria {
         }
         return  mav;
     }
-
-
-
-
 
 }

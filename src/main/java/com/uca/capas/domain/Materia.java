@@ -3,6 +3,7 @@ package com.uca.capas.domain;
 import javax.persistence.*;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,32 +17,32 @@ public class Materia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigoMateria;
 
-
+    @Column(name = "anio")
     @Size(message = "El campo solo debe tener 4 digitos", max = 4)
     @NotEmpty(message = "*Campo Obligatorio")
-    @Column(name = "anio")
     private Integer year;
 
+    @Column(name = "ciclo")
     @Size(message = "El campo solo debe tener 2 digitos", max = 2)
     @NotEmpty(message = "*Campo Obligatorio*")
-    @Column(name = "ciclo")
     private Integer cicle;
 
-    @Size(message = "El campo debe tener 3 digitos maximo", max = 2)
-    @NotEmpty(message = "*Campo Obligatorio")
     @Column(name = "nota")
-    private Float notaMateria;
+    @Size(message = "El campo debe tener 3 digitos maximo", max = 3)
+    @NotNull(message = "*Campo Obligatorio")
+    private Double notaMateria;
 
+    @Column(name = "descripcion")
     @Size(message = "El campo no debe tener más de 3 dígitos", max = 4)
     @NotEmpty(message = "*Campo Obligatorio*")
-    @Column(name = "descripcion")
     private String description;
 
     @Column(name = "resultado")
     private String resultado;
 
-    @NotEmpty(message = "*Campo Obligatorio*")
+
     @OneToOne
+    @NotEmpty(message = "*Campo Obligatorio*")
     @JoinColumn(name = "codigoMateria")
     private CatalogoMateria catalogoMateria;
 
@@ -50,8 +51,7 @@ public class Materia {
     private Alumno alumnoMateria;
 
 
-
-    public Materia(Integer codMateria, Integer year, Integer cicle, String description, Float notaMateria, String resultado, CatalogoMateria catalogoMateria, Alumno alumnoMateria) {
+    public Materia(Integer codMateria, Integer year, Integer cicle, String description, Double notaMateria, String resultado, CatalogoMateria catalogoMateria, Alumno alumnoMateria) {
         this.codigoMateria = codMateria;
         this.year = year;
         this.cicle = cicle;
@@ -70,20 +70,20 @@ public class Materia {
         this.alumnoMateria = alumnoMateria;
     }
 
+    public Integer getCodigoMateria() {
+        return codigoMateria;
+    }
+
+    public void setCodigoMateria(Integer codigoMateria) {
+        this.codigoMateria = codigoMateria;
+    }
+
     public CatalogoMateria getCatalogoMateria() {
         return catalogoMateria;
     }
 
-    public void setCatalogoMateria(CatalogoMateria cataMateria) {
+    public void setCatalogoMateria(CatalogoMateria catalogoMateria) {
         this.catalogoMateria = catalogoMateria;
-    }
-
-    public Integer getCodMateria() {
-        return codigoMateria;
-    }
-
-    public void setCodMateria(Integer codMateria) {
-        this.codigoMateria = codMateria;
     }
 
     public Integer getYear() {
@@ -110,11 +110,11 @@ public class Materia {
         this.description = description;
     }
 
-    public Float getNotaMateria() {
+    public Double getNotaMateria() {
         return notaMateria;
     }
 
-    public void setNotaMateria(Float notaMateria) {
+    public void setNotaMateria(Double notaMateria) {
         this.notaMateria = notaMateria;
     }
 

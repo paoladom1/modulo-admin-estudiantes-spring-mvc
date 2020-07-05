@@ -19,7 +19,6 @@ public class CatalogoMateria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigoCatalogo;
 
-    @Size(message = "El campo no debe tener más de 15 digitos", max = 15)
     @NotEmpty(message = "*Campo Obligatorio*")
     @Column(name = "nombre")
     private String nomMateria;

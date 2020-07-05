@@ -56,6 +56,7 @@ CREATE TABLE Materia(
 	ciclo INTEGER NOT NULL,
 	nota FLOAT NOT NULL,
 	resultado VARCHAR NOT NULL,
+	descripcion VARCHAR NOT NULL,
 	idCatalogo INTEGER NOT NULL,
 	idAlumno INTEGER NOT NULL
 );
