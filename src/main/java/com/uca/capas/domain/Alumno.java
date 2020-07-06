@@ -3,6 +3,7 @@ package com.uca.capas.domain;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,28 +17,29 @@ import java.util.Date;
 @Table(schema = "public", name = "alumno")
 public class Alumno {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigoEstudiante")
+    @SequenceGenerator(name = "alumno_codigoestudiante_seq", sequenceName = "public.alumno_codigoestudiante_seq", allocationSize = 1)
+    @GeneratedValue(generator="alumno_codigoestudiante_seq", strategy = GenerationType.AUTO)
+    @Column(name = "codigoestudiante")
     private Integer codigoEstudiante;
 
-    @Column(name = "nombreEstudiante")
+    @Column(name = "nombreestudiante")
     @NotEmpty(message = "El campo no puede estar vacio")
     @Size(max = 50, message = "No debe exceder los 50 caracteres")
     private String nombres;
 
-    @Column(name = "apellidoEstudiante")
+    @Column(name = "apellidoestudiante")
     @NotEmpty(message = "El campo no puede estar vacio")
     @Size(max = 50, message = "No debe exceder los 50 caracteres")
     private String apellidos;
 
-    @Column(name = "carnetMinoridad")
+    @Column(name = "carnetminoridad")
     @Size(min = 9, max = 9, message = "Debe contener 9 caracteres alfanumericos")
     private String carnetMinoridad;
 
     @NotNull(message = "Ingrese una fecha valida")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Temporal(TemporalType.DATE)
-    @Column(name = "fechaNacimiento")
+    @Column(name = "fechanacimiento")
     private Date fechaNacimiento;
 
     private Integer edad;
@@ -47,11 +49,11 @@ public class Alumno {
     @Size(max = 100, message = "No debe exceder los 100 caracteres")
     private String direccion;
 
-    @Column(name = "telefonoFijo")
+    @Column(name = "telefonofijo")
     @Size(min = 8, max = 8, message = "Debe contener 8 digitos")
     private String telFijo;
 
-    @Column(name = "telefonoCelular")
+    @Column(name = "telefonocelular")
     @Size(min = 8, max = 8, message = "Debe contener 8 digitos")
     private String telMovil;
 
@@ -59,15 +61,16 @@ public class Alumno {
     @JoinColumn(name = "idCentroEscolar")
     private Institucion centroEscolar;
 
-    @Column(name = "nombreMadre")
+    @Column(name = "nombremadre")
     @Size(max = 50, message = "No debe exceder los 50 caracteres")
     @NotEmpty(message = "El campo no puede estar vacio")
     private String nombreMadre;
 
     @Size(max = 50, message = "No debe exceder los 50 caracteres")
     @NotEmpty(message = "El campo no puede estar vacio")
-    @Column(name = "nombrePadre")
+    @Column(name = "nombrepadre")
     private String nombrePadre;
+
 
     public Integer getCodigoEstudiante() {
         return codigoEstudiante;

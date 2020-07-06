@@ -16,7 +16,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.uca.capas.repositories")
+@EnableJpaRepositories(basePackages="com.uca.capas.repositories")
 public class JPAConfiguration {
 
     @Bean
@@ -34,28 +34,27 @@ public class JPAConfiguration {
     }
 
     @Bean
-    public DataSource dataSource() {
+    JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
+
+        return transactionManager;
+    }
+
+    @Bean
+    public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/finalncapas");
         dataSource.setUsername("postgres");
         dataSource.setPassword("postgres");
-
         return dataSource;
-    }
-
-    @Bean
-    JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory);
-        return transactionManager;
     }
 
     Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-
         return properties;
     }
 

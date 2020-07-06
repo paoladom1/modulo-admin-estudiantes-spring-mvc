@@ -21,7 +21,8 @@
                     <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
                     <input type="submit" value="Editar">
                 </form>
-                <form th:action="@{/materias}">
+                <form th:action="@{/cursadas}">
+                    <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
                     <input type="submit" value="Materias">
                 </form>
             </th>
