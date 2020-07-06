@@ -1,14 +1,12 @@
 package com.uca.capas.domain;
 
 
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 
 @Entity
-@Table(schema = "public", name ="catalogomaterias")
+@Table(schema = "public", name = "catalogomaterias")
 public class CatalogoMateria {
 
     @Id
@@ -29,7 +27,8 @@ public class CatalogoMateria {
         this.nomMateria = nomMateria;
         this.estadoMateria = estadoMateria;
     }
-    public CatalogoMateria(){
+
+    public CatalogoMateria() {
 
     }
 

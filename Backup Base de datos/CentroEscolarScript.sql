@@ -137,7 +137,14 @@ INSERT INTO CatalogoMaterias(nombre, estado)
 								  ('Fisica 1', true),
 								  ('Programacion Web', false),
 								  ('Fisica 2', true),
-								  ('Precalculo', false)
+								  ('Precalculo', false),
+								  ('CDM', true),
+                                  ('EMA', false),
+                                  ('Analisis de Sistemas', false),
+                                  ('Analisis Numerico', true),
+                                  ('Artefactos', false),
+                                  ('Algebra', true),
+                                  ('Elementos', false)
 SELECT * FROM alumno;
 
 INSERT INTO "alumno" (codigoestudiante,nombreestudiante,apellidoestudiante,carnetminoridad,fechanacimiento,edad,direccion,telefonofijo,telefonocelular,institucionprocedencia,nombrepadre,nombremadre,idcentroescolar) VALUES (1,'Benjamin','Webster','16630624 -4754','2000/09/19',19,'2152 Ut, Road','2237-8300','7075-6751','Jacqueline','Hayden Gibson','Kameko Madden',10),(2,'Dalton','Randall','16090314 -1257','1996/06/10',27,'Ap #230-9457 Risus Rd.','2145-5701','7614-1160','Sydnee','Carson Blackburn','Adria Whitehead',12),(3,'Xander','Woodard','16850430 -3853','2002/09/18',23,'2420 Diam Road','2781-2702','7301-8959','Caleb','Armando Jordan','Althea Cole',15),(4,'Cole','Solis','16350729 -3821','1991/07/19',19,'995 Tempus St.','2900-5613','7153-3314','Inga','Evan Holloway','Cassidy Cameron',15),(5,'Jasmine','Castro','16440920 -8867','1997/10/13',16,'Ap #923-6777 Nullam Rd.','2021-9396','7101-2637','Allegra','Abel Salazar','Colleen Rowe',6),(6,'Nita','Palmer','16711028 -0562','1998/12/18',21,'1359 Parturient St.','2456-3662','7437-3336','Aaron','Ryder Richmond','Karly Sherman',11),(7,'Keegan','Thornton','16900118 -0927','1991/05/16',24,'5334 Odio. Ave','2698-4912','7753-9934','Ross','Edan Valentine','Leandra Reid',5),(8,'Holly','Briggs','16350216 -4266','1996/06/23',15,'Ap #661-3341 At Av.','2384-2678','7037-7282','Merritt','Malachi Macias','Madeson Sears',20),(9,'Denton','Reid','16880114 -7359','1996/11/11',19,'429-4744 Aliquet Rd.','2795-4010','7720-9759','Ahmed','Ivan Roth','Daphne Flynn',5),(10,'Tate','Estrada','16440726 -9499','1993/02/14',20,'P.O. Box 266, 8200 Integer St.','2771-5526','7695-2464','Mollie','Lane Holman','Zorita Spears',6);

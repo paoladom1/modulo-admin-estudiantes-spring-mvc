@@ -20,7 +20,7 @@ public class Materia {
 
     @Column(name = "anio")
     @NotNull(message = "*Campo Obligatorio")
-    @Range(min = 2005, max = 2020,message = "Año entre 2005 y 2020")
+    @Range(min = 2005, max = 2020, message = "Año entre 2005 y 2020")
     //@Size( min= 4,max = 4,message = "El campo solo debe tener 4 digitos")
     private Integer year;
 
@@ -47,7 +47,7 @@ public class Materia {
     private Alumno alumnoMateria;*/
 
     @JoinColumn(name = "idalumno", referencedColumnName = "codigoestudiante")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Alumno alumnoMateria;
 
 

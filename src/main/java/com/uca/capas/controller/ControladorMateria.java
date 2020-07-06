@@ -70,60 +70,61 @@ public class ControladorMateria {
     }
 
 
-   @PostMapping("/guardarMateria")
+    @PostMapping("/guardarMateria")
     public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia,BindingResult br, @RequestParam(value = "codigo") Integer codigo){
-
         ModelAndView mav = new ModelAndView();
-       List<CatalogoMateria> catalogo = null;
-       Alumno alumno = null;
+        List<CatalogoMateria> catalogo = null;
+        Alumno alumno = null;
 
 
-       if(br.hasErrors()){
+        if(br.hasErrors()){
 
-           System.out.println("estoy en el if de error");
-           System.out.println(materia.getCatalogoMateria().getCodigoCatalogo().toString());
-           System.out.println(materia.getYear().toString());
-           System.out.println(materia.getCicle().toString());
-           System.out.println(materia.getNotaMateria().toString());
-           System.out.println(br.toString());
+            System.out.println("estoy en el if de error");
+            System.out.println(materia.getCatalogoMateria().getCodigoCatalogo().toString());
+            System.out.println(materia.getYear().toString());
+            System.out.println(materia.getCicle().toString());
+            System.out.println(materia.getNotaMateria().toString());
+            System.out.println(br.toString());
+            System.out.println(codigo);
+            System.out.println(alumnoService.findOne(codigo).toString());
 
-           try {
-               System.out.println("lleno de nuevo al catalogo");
-               catalogo = catalogoMateriaService.findAll();
-               alumno = alumnoService.findOne(codigo);
+            try {
+                System.out.println("lleno de nuevo al catalogo");
+                catalogo = catalogoMateriaService.findAll();
+                alumno = alumnoService.findOne(codigo);
 
 
-           }catch (Exception e){
-               e.printStackTrace();
-               System.out.println();
-               System.out.println("estoy en el catch");
-           }
-           System.out.println("estoy fuera del catch");
-             mav.addObject("alumno", alumno);
-           mav.addObject("cat", catalogo);
-           mav.setViewName("guardarMateria");
-       }else{
-           if (materia.getNotaMateria() >6){
-               materia.setResultado("APROBADO");
-           }else {
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println();
+                System.out.println("estoy en el catch");
+            }
+            System.out.println("estoy fuera del catch");
+            mav.addObject("alumno", alumno);
+            mav.addObject("cat", catalogo);
+            mav.setViewName("guardarMateria");
+        }else{
+            if (materia.getNotaMateria() >6){
+                materia.setResultado("APROBADO");
+            }else {
                 materia.setResultado("REPROBADO");
-           }
-           List<Materia> materias= null;
+            }
+            List<Materia> materias= null;
 
-           try {
-               materias = materiaService.findMateriasAlumno(codigo);
-               alumno = alumnoService.findOne(codigo);
-           }catch (Exception e){
-               e.printStackTrace();
-           }
+            try {
+                materias = materiaService.findMateriasAlumno(codigo);
+                alumno = alumnoService.findOne(codigo);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
-           System.out.println("estoy en el else para guardar materia");
-           materia.setAlumnoMateria(alumno);
-           materiaService.save(materia);
-           mav.addObject("alumno", alumno);
-           mav.addObject("mat", materias);
-           mav.setViewName("listMateria");
-       }
+            System.out.println("estoy en el else para guardar materia");
+            materia.setAlumnoMateria(alumno);
+            materiaService.save(materia);
+            mav.addObject("alumno", alumno);
+            mav.addObject("mat", materias);
+            mav.setViewName("listMateria");
+        }
 
         return  mav;
     }
@@ -132,18 +133,22 @@ public class ControladorMateria {
     public ModelAndView editar(@RequestParam(value = "codigo") Integer codigo, @RequestParam(value = "codigoEstudiante") Integer codigoE){
         ModelAndView mav = new ModelAndView();
         List<CatalogoMateria> catalogo = null;
+        List<Materia> materias = null;
         Materia materia = null;
         Alumno alumno = null;
 
         try {
             catalogo = catalogoMateriaService.findAll();
-            materia = materiaService.findOne(codigo);
+            //materias = materiaService.findMateriasAlumno(codigoE);
             alumno = alumnoService.findOne(codigoE);
+            materia = materiaService.findOne(codigo);
         }catch (Exception e){
             e.printStackTrace();
         }
 
         mav.addObject("materia", materia);
+        mav.addObject("alumno", alumno);
+        //mav.addObject("materia", materias);
         mav.addObject("cat", catalogo);
         mav.setViewName("editarMateria");
 
