@@ -56,8 +56,10 @@
 		        <tr>
 		            <th>
 		                <form th:action="@{/editarAlumno}">
+		                	<div class="form-group">
 		                    <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
-		                    <input type="submit" value="Editar">
+		                    <input type="submit" value="Editar" class="btn btn-primary">
+		                    </div>
 		                </form>
 		                <form th:action="@{/materias}">
 		                    <input type="submit" value="Materias" class="btn btn-primary">
