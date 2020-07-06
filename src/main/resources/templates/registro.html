@@ -3,58 +3,111 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Nueva cuenta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form method="post" th:action="@{/guardarUsuario}" th:object="${usuario}">
-    <h1>Nueva cuenta</h1>
-    <label>Nombre:</label>
-    <input th:field="*{nombre}" type="text">
-    <span style="color: red" th:errors="*{nombre}"></span><br>
-    <br>
-    <label>Apellido:</label>
-    <input th:field="*{apellido}" type="text">
-    <span style="color: red" th:errors="*{apellido}"></span><br>
-    <br>
-    <label>Fecha de Nacimiento</label>
-    <input th:field="*{fechaNacimiento}" type="text">
-    <span style="color: red" th:errors="*{fechaNacimiento}"></span><br>
-    <br>
-    <label>Departamento: </label>
-    <select th:field="*{departamento.idDepartamento}">
-        <option th:each="item : ${departamentos}"
-                th:text="${item.nombreDepartamento}"
-                th:value="${item.idDepartamento}">
-    </select>
-    <span style="color: red" th:errors="*{departamento}"></span><br>
-    <br>
-    <label>Municipio:</label>
-    <select th:field="*{municipio.idMunicipio}">
-        <option th:each="item : ${municipios}"
-                th:text="${item.nombreMunicipio}"
-                th:value="${item.idMunicipio}">
-    </select>
-    <span style="color: red" th:errors="*{municipio}"></span><br>
-    <br>
-    <label>Direcci&oacute;n:</label>
-    <input th:field="*{direccion}" type="text">
-    <span style="color: red" th:errors="*{direccion}"></span><br>
-    <br>
-    <label>Nombre de usuario: </label>
-    <input th:field="*{nombreUsuario}" type="text">
-    <span style="color: red" th:if="${duplicate == true}">Nombre de usuario ya existente</span>
-    <span style="color: red" th:errors="*{nombreUsuario}"></span><br>
-    <br>
-    <label>Contrase&ntilde;a: </label>
-    <input th:field="*{contrasenia}" type="text">
-    <span style="color: red" th:errors="*{contrasenia}"></span><br>
-    <br>
-    <br>
-    <label>Activo:</label><br />
-    <input type="checkbox" th:field="*{estado}"><br>
-    <label> Rol: </label><br />
-    Administrador: <input type="radio" id="admin" name="authority" value="ADMIN" th:required="required"/>
-    Coordinador: <input type="radio" id="coord" name="authority" value="COORD" th:required="required" /><br />
-    <input type="submit" value="Registrar">
-</form>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-between">
+	<a class="navbar-brand" href="#">
+		<img alt="logo" src="uca.jpg" style="width:40px;">
+	</a>
+	
+	<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    	<span class="navbar-toggler-icon"></span>
+  	</button>
+	
+	<div class="collapse navbar-collapse" id="collapsibleNavbar" >
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="#">Expedientes</a>
+			</li>
+			 <li class="nav-item dropdown">
+			     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+			       Catalogos
+			     </a>
+			    <div class="dropdown-menu">
+			        <a class="dropdown-item" href="#">Centros Escolares</a>
+			        <a class="dropdown-item" href="#">Materias</a>
+			        <a class="dropdown-item" href="#">Usuarios del Sistema</a>
+			    </div>
+			  </li>
+			  <li class="nav-item">
+			  	<a class="nav-link" href="#">Iniciar Sesion</a>
+			</li>			  
+		</ul>
+		
+	</div>
+</nav>
+<div class="container">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+		<form method="post" th:action="@{/guardarUsuario}" th:object="${usuario}">
+			<div class="form-group">
+		    <h1>Nueva cuenta</h1>
+		    <label>Nombre:</label>
+		    <input th:field="*{nombre}" type="text" class="form-control">
+		    <span style="color: red" th:errors="*{nombre}"></span>
+		    </div>
+		    <div class="form-group">
+		    <label>Apellido:</label>
+		    <input th:field="*{apellido}" type="text" class="form-control">
+		    <span style="color: red" th:errors="*{apellido}"></span>
+		    </div>
+		    <div class="form-group">
+		    <label>Fecha de Nacimiento</label>
+		    <input th:field="*{fechaNacimiento}" type="text" class="form-control">
+		    <span style="color: red" th:errors="*{fechaNacimiento}"></span>
+		    </div>
+		    <div class="form-group">
+		    <label>Departamento: </label>
+		    <select th:field="*{departamento.idDepartamento}" class="form-control">
+		        <option th:each="item : ${departamentos}"
+		                th:text="${item.nombreDepartamento}"
+		                th:value="${item.idDepartamento}">
+		    </select>
+		    <span style="color: red" th:errors="*{departamento}"></span>
+		    </div>
+		    <div class="form-group">
+		    <label>Municipio:</label>
+		    <select th:field="*{municipio.idMunicipio}" class="form-control">
+		        <option th:each="item : ${municipios}"
+		                th:text="${item.nombreMunicipio}"
+		                th:value="${item.idMunicipio}">
+		    </select>
+		    <span style="color: red" th:errors="*{municipio}"></span>
+		    </div>
+		    <div class="form-group">
+		    <label>Direcci&oacute;n:</label>
+		    <input th:field="*{direccion}" type="text" class="form-control">
+		    <span style="color: red" th:errors="*{direccion}"></span>
+		    </div>
+		    <div class="form-group">
+		    <label>Nombre de usuario: </label>
+		    <input th:field="*{nombreUsuario}" type="text" class="form-control">
+		    <span style="color: red" th:if="${duplicate == true}">Nombre de usuario ya existente</span>
+		    <span style="color: red" th:errors="*{nombreUsuario}"></span>
+		    </div>
+		    <div class="form-group">
+		    <label>Contrase&ntilde;a: </label>
+		    <input th:field="*{contrasenia}" type="text" class="form-control">
+		    <span style="color: red" th:errors="*{contrasenia}"></span>
+		    </div>
+		    <div class="form-check">
+				    <label class="form-check-label">Activo:</label><br />
+				    <input type="checkbox" th:field="*{estado}" class="form-check-input"><br>
+			</div>
+			<div class="form-check">
+				    <label class="form-check-label"> Rol: </label><br />
+				    <input type="radio" id="admin" name="authority" value="ADMIN" th:required="required" class="form-check-input"/>Administrador
+				    <input type="radio" id="coord" name="authority" value="COORD" th:required="required" class="form-check-input" /><br />Coordinador
+		    </div>
+		    <input type="submit" value="Registrar" class="btn btn-primary">
+		</form>
+	</div>
+	<div class="col-sm-2"></div>
+</div>
 </body>
 </html>
