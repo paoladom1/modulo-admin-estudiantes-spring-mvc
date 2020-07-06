@@ -42,8 +42,12 @@ public class Materia {
     @JoinColumn(name = "idcatalogo")
     private CatalogoMateria catalogoMateria;
 
-    @OneToOne
+   /* @OneToOne
     @JoinColumn(name = "idalumno")
+    private Alumno alumnoMateria;*/
+
+    @JoinColumn(name = "idalumno", referencedColumnName = "codigoestudiante")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Alumno alumnoMateria;
 
 

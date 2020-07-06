@@ -8,6 +8,7 @@
 <label>Alumno:</label>
 <th th:text="${alumno.nombres}"></th>
 <th th:text="${alumno.apellidos}"/> <br><br>
+<th th:text="${alumno.codigoEstudiante}"/> <br><br>
 
 <form th:action="@{/guardarM}" th:object="${materia}" method="post">
     <label>Materia: </label>

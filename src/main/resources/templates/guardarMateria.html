@@ -5,11 +5,15 @@
     <title>Guardar Materia Cursada</title>
 </head>
 <body>
-<label>Alumno:</label>
-<th th:text="${alumno.nombres}"></th>
-<th th:text="${alumno.apellidos}"></th> <br><br>
+
 
 <form action="#" th:action="@{/guardarMateria}" th:object="${materia}" method="post">
+    <label>Alumno:</label>
+    <th th:text="${alumno.nombres}"></th>
+    <th th:text="${alumno.apellidos}"></th>
+    <th th:text="${alumno.codigoEstudiante}"/><br><br>
+
+
     <label>Materia: </label>
     <select th:field="*{catalogoMateria.codigoCatalogo}">
         <option th:each="p : ${cat}"
@@ -31,8 +35,8 @@
     <span th:errors="*{notaMateria}"  style="color: #FF0000"/><br>
 
 
-    <input type="submit" value="Save"/><br>
 
+    <input type="submit" value="Save"/><br>
 </form>
 </body>
 </html>
