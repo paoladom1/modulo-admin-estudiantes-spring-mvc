@@ -1,14 +1,11 @@
 package com.uca.capas.domain;
 
-import com.sun.tools.javac.jvm.Gen;
-import sun.rmi.rmic.Generator;
+
+
 
 import javax.persistence.*;
-import javax.persistence.criteria.Fetch;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table(schema = "public", name ="catalogomaterias")

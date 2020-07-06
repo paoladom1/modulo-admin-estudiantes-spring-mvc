@@ -7,29 +7,31 @@
 <body>
 <label>Alumno:</label>
 <th th:text="${alumno.nombres}"></th>
-<th th:text="${alumno.apellidos}"/> <br><br>
+<th th:text="${alumno.apellidos}"></th> <br><br>
 
-<form th:action="@{/guardarM}" th:object="${materia}" method="post">
+<form action="#" th:action="@{/guardarMateria}" th:object="${materia}" method="post">
     <label>Materia: </label>
     <select th:field="*{catalogoMateria.codigoCatalogo}">
         <option th:each="p : ${cat}"
                 th:value="${p.codigoCatalogo}"
-                th:text="${p.nomMateria}"></option>
+                th:text="${p.nomMateria}">
     </select>
-    <span th:errors="*{catalogoMateria}"  style="color: #FF0000"></span><br>
+    <span th:errors="*{catalogoMateria}"  style="color: #FF0000"/><br>
 
-    <label>Año:</label><input type="number" th:field="*{year}">
-    <span th:errors="*{year}" style="color: #FF0000"></span><br>
+    <label>Año:</label>
+    <input type="number" th:field="*{year}"/>
+    <span th:errors="*{year}" style="color: #FF0000"/><br>
 
-    <label>Ciclo:</label><input type="number" th:field="*{cicle}">
-    <span th:errors="*{cicle}" style="color: #FF0000"></span><br>
+    <label>Ciclo:</label>
+    <input type="number" th:field="*{cicle}"/>
+    <span th:errors="*{cicle}" style="color: #FF0000"/><br>
 
-    <label>Nota:</label><input type="number" th:field="*{notaMateria}">
-    <span th:errors="*{notaMateria}"  style="color: #FF0000"></span><br>
+    <label>Nota:</label>
+    <input type="number" th:field="*{notaMateria}"/>
+    <span th:errors="*{notaMateria}"  style="color: #FF0000"/><br>
+
 
     <input type="submit" value="Save"/><br>
-
-
 
 </form>
 </body>

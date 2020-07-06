@@ -23,4 +23,6 @@ public interface MateriaRepo extends JpaRepository<Materia, Integer> {
 
     @Query(nativeQuery = true, value = "SELECT AVG(nota) FROM public.materia where codigoEstudiante = ?")
     public Float notas(Integer code) throws DataAccessException;
+
+    public Materia findByCodigoMateria(Integer code);
 }

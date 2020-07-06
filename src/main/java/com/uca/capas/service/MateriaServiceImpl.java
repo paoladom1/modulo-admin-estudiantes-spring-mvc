@@ -14,15 +14,17 @@ public class MateriaServiceImpl implements MateriaService {
 
     @Autowired
     MateriaRepo materiaRepo;
+
     @Override
     public List<Materia> findAll() throws DataAccessException {
         return materiaRepo.findAll();
     }
 
-    //@Override
-    //public Materia findOne(Integer code) throws DataAccessException {
-      //  return materiaRepo.findByCodMateria(code);
-    //}
+
+    @Override
+    public Materia findOne(Integer code) throws DataAccessException {
+      return materiaRepo.findByCodigoMateria(code);
+    }
 
     @Override
     @Transactional

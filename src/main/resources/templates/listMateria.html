@@ -31,7 +31,7 @@
            <th th:text="${alumnoM.year}"/>
            <th th:text="${alumnoM.cicle}"/>
             <th th:text="${alumnoM.nota}">
-            <th th:text="${alumnoM.resultado}"/>
+            <th th:if="${alumnoM.resultado}"/>
         </tr>
     </th:block>
 </table>

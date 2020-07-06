@@ -1,14 +1,13 @@
 package com.uca.capas.domain;
 
-import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table(schema = "public", name = "materia")
@@ -21,36 +20,30 @@ public class Materia {
 
     @Column(name = "anio")
     @NotNull(message = "*Campo Obligatorio")
-    @Size( min= 4,max = 4,message = "El campo solo debe tener 4 digitos")
+    @Range(min = 2005, max = 2020,message = "Año entre 2005 y 2020")
+    //@Size( min= 4,max = 4,message = "El campo solo debe tener 4 digitos")
     private Integer year;
 
     @Column(name = "ciclo")
     @NotNull(message = "*Campo Obligatorio*")
-    @Size(min=1, max = 1, message = "El campo solo debe tener 2 digitos")
+    @Range(min = 0, max = 3)
     private Integer cicle;
 
     @Column(name = "nota")
-    @NotEmpty(message = "*Campo Obligatorio")
-    @Size(min =3, max = 3,message = "El campo debe tener 3 digitos maximo")
+    @NotNull(message = "*Campo Obligatorio*")
+    @Range(min = 0, max = 10, message = "Nota entre 0 y 10")
     private Integer notaMateria;
 
-    @Column(name = "descripcion")
-    @NotEmpty(message = "*Campo Obligatorio*")
-    @Size(message = "El campo no debe tener más de 3 dígitos", max = 4)
-    private String description;
-
     @Column(name = "resultado")
-    @Type(type = "string")
     private String resultado;
-
 
     @OneToOne
     @NotNull(message = "*Campo Obligatorio*")
-    @JoinColumn(name = "codigoMateria")
+    @JoinColumn(name = "idcatalogo")
     private CatalogoMateria catalogoMateria;
 
     @OneToOne
-    @JoinColumn(name = "codigoestudiante")
+    @JoinColumn(name = "idalumno")
     private Alumno alumnoMateria;
 
 
@@ -58,7 +51,6 @@ public class Materia {
         this.codigoMateria = codMateria;
         this.year = year;
         this.cicle = cicle;
-        this.description = description;
         this.notaMateria = notaMateria;
         this.resultado = resultado;
         this.catalogoMateria = catalogoMateria;
@@ -105,13 +97,6 @@ public class Materia {
         this.cicle = cicle;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Integer getNotaMateria() {
         return notaMateria;
