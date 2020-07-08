@@ -7,7 +7,7 @@
 <body>
 
 
-<form action="#" th:action="@{/guardarMateria}" th:object="${materia}" method="post">
+<form th:action="@{/guardarMateria}" th:object="${materia}" method="post">
     <label>Alumno:</label>
     <th th:text="${alumno.nombres}"></th>
     <th th:text="${alumno.apellidos}"></th>

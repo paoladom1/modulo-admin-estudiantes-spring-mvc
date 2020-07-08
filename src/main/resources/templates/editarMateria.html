@@ -16,6 +16,7 @@
 
 
     <label>Materia: </label>
+    <input type="hidden" th:field="*{codigoMateria}">
     <select th:field="*{catalogoMateria.codigoCatalogo}">
         <option th:each="p : ${cat}"
                 th:value="${p.codigoCatalogo}"

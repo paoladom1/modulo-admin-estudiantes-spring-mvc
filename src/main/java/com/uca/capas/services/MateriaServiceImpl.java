@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class MateriaServiceImpl implements MateriaService {
+    private EntityManager entityManager;
 
     @Autowired
     MateriaRepo materiaRepo;

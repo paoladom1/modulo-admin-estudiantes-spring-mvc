@@ -26,11 +26,12 @@ public class ControladorMateria {
     private AlumnoService alumnoService;
 
     private Integer id;
-   // Alumno idAuxiliar = alumnoService.findOne(id);
+    // Alumno idAuxiliar = alumnoService.findOne(id);
 
     Materia auxMateria = new Materia();
+
     @RequestMapping("/cursadas")
-    public ModelAndView initMain(@RequestParam(value = "codigo") Integer codigo) {
+    public ModelAndView materiasCursadas(@RequestParam(value = "codigo") Integer codigo) {
         ModelAndView mav = new ModelAndView();
         List<Materia> materias = null;
         Alumno alumno = new Alumno();
@@ -56,14 +57,14 @@ public class ControladorMateria {
         Alumno alumno = null;
 
         try {
-           catalogo = catalogoMateriaService.findAll();
+            catalogo = catalogoMateriaService.findAll();
             alumno = alumnoService.findOne(codigo);
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("lleno el catalogo");
         mav.addObject("materia", new Materia());
-       mav.addObject("cat", catalogo);
+        mav.addObject("cat", catalogo);
         mav.addObject("alumno", alumno);
         mav.setViewName("guardarMateria");
         return mav;
@@ -71,13 +72,13 @@ public class ControladorMateria {
 
 
     @PostMapping("/guardarMateria")
-    public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia,BindingResult br, @RequestParam(value = "codigo") Integer codigo){
+    public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult br, @RequestParam(value = "codigo") Integer codigo) {
         ModelAndView mav = new ModelAndView();
         List<CatalogoMateria> catalogo = null;
         Alumno alumno = null;
 
 
-        if(br.hasErrors()){
+        if (br.hasErrors()) {
 
             System.out.println("estoy en el if de error");
             System.out.println(materia.getCatalogoMateria().getCodigoCatalogo().toString());
@@ -94,33 +95,42 @@ public class ControladorMateria {
                 alumno = alumnoService.findOne(codigo);
 
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println();
                 System.out.println("estoy en el catch");
             }
             System.out.println("estoy fuera del catch");
+
             mav.addObject("alumno", alumno);
             mav.addObject("cat", catalogo);
             mav.setViewName("guardarMateria");
-        }else{
-            if (materia.getNotaMateria() >6){
+        } else {
+            List<Materia> materias = null;
+
+            if (materia.getNotaMateria() > 6) {
                 materia.setResultado("APROBADO");
-            }else {
+            } else {
                 materia.setResultado("REPROBADO");
             }
-            List<Materia> materias= null;
 
             try {
-                materias = materiaService.findMateriasAlumno(codigo);
                 alumno = alumnoService.findOne(codigo);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             System.out.println("estoy en el else para guardar materia");
             materia.setAlumnoMateria(alumno);
             materiaService.save(materia);
+
+            try {
+                materias = materiaService.findMateriasAlumno(codigo);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
             mav.addObject("alumno", alumno);
             mav.addObject("mat", materias);
             mav.setViewName("listMateria");
@@ -130,7 +140,7 @@ public class ControladorMateria {
     }
 
     @RequestMapping("/editarMateria")
-    public ModelAndView editar(@RequestParam(value = "codigo") Integer codigo, @RequestParam(value = "codigoEstudiante") Integer codigoE){
+    public ModelAndView editar(@RequestParam(value = "codigo") Integer codigo, @RequestParam(value = "codigoEstudiante") Integer codigoE) {
         ModelAndView mav = new ModelAndView();
         List<CatalogoMateria> catalogo = null;
         List<Materia> materias = null;
@@ -142,7 +152,7 @@ public class ControladorMateria {
             //materias = materiaService.findMateriasAlumno(codigoE);
             alumno = alumnoService.findOne(codigoE);
             materia = materiaService.findOne(codigo);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

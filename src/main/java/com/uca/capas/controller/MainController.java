@@ -14,12 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 @Controller
-public class    MainController {
+public class MainController {
     @Autowired
     private MunicipioService municipioService;
 
@@ -37,6 +38,9 @@ public class    MainController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private MateriaService materiaService;
 
     @RequestMapping("/login")
     public ModelAndView initMain(@ModelAttribute Usuario usuario) {
@@ -92,7 +96,7 @@ public class    MainController {
             Authorities role = new Authorities(usuario.getNombreUsuario(), authority);
 
             usuario.setEdad(usuario.getEdadDelegate());
-            if(usuarioService.findByNombreUsuario(usuario.getNombreUsuario()) != null){
+            if (usuarioService.findByNombreUsuario(usuario.getNombreUsuario()) != null) {
                 mav.addObject("duplicate", true);
                 try {
                     departamentos = departamentoService.findAll();
@@ -135,27 +139,51 @@ public class    MainController {
         return mav;
     }
 
-    @RequestMapping("/buscar")
+    @PostMapping("/buscar")
     public ModelAndView buscarExpediente(@RequestParam(value = "busqueda") Integer busqueda, @RequestParam(value = "cadena") String cadena) {
         ModelAndView mav = new ModelAndView();
         List<Alumno> alumnos = null;
+        List<List<Materia>> materiasAlumnos = new ArrayList<>();
+        List<Integer> aprobadasAlumnos = new ArrayList<>();
+        List<Integer> reprobadasAlumnos = new ArrayList<>();
 
         System.out.println(busqueda);
         if (busqueda == 0) {
 
             try {
                 alumnos = alumnoService.findByNombres(cadena);
+                alumnos.forEach(alumno -> materiasAlumnos.add(materiaService.findMateriasAlumno(alumno.getCodigoEstudiante())));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (busqueda == 1) {
             try {
                 alumnos = alumnoService.findByApellidos(cadena);
+                alumnos.forEach(alumno -> materiasAlumnos.add(materiaService.findMateriasAlumno(alumno.getCodigoEstudiante())));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
+        for (List<Materia> materiasAlumno : materiasAlumnos) {
+            int aprobadas = 0;
+            int reprobadas = 0;
+            for(Materia materia : materiasAlumno) {
+                System.out.println(materia.getResultado());
+                if(materia.getResultado().equals("APROBADO")) {
+                    aprobadas++;
+                } else {
+                    reprobadas++;
+                }
+            }
+
+            aprobadasAlumnos.add(aprobadas);
+            reprobadasAlumnos.add(reprobadas);
+
+        }
+
+        mav.addObject("aprobadas", aprobadasAlumnos);
+        mav.addObject("reprobadas", reprobadasAlumnos);
         mav.addObject("alumnos", alumnos);
         mav.setViewName("expedienteAlumno");
 
