@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Institucion {
     @Id
     @Column(name = "idCentroEscolar")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idInstitucion;
 
     @Column(name = "nombreCentroEscolar")

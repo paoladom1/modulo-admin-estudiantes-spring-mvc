@@ -380,18 +380,23 @@ public class MainController {
     @RequestMapping("/saveCatCentro")
     public ModelAndView saveCatCentro(@ModelAttribute Institucion insti ) {
     	ModelAndView model = new ModelAndView();
-    	List<Institucion> institutos = null;
+    	List<Institucion> centros = null;
     	
     	try {
     		institucionService.save(insti);
-    		institutos=institucionService.findAll();
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
-    	model.addObject("centros",institutos);
+    	try {
+    		centros=institucionService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("centros",centros);
     	model.setViewName("CatalogoCentrosEscolares");
     	return model;
     }
+   
     @RequestMapping("/saveCatUsuario")
     public ModelAndView guardarCatUsuario(@RequestParam(value = "authority") String authority, @Valid @ModelAttribute Usuario usuario, BindingResult br) throws ParseException {
         List<Departamento> departamentos = null;
