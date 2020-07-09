@@ -30,9 +30,9 @@
 			       Catalogos
 			     </a>
 			    <div class="dropdown-menu">
-			        <a class="dropdown-item" href="#">Centros Escolares</a>
-			        <a class="dropdown-item" href="#">Materias</a>
-			        <a class="dropdown-item" href="#">Usuarios del Sistema</a>
+			        <a class="dropdown-item" href="/catalogoCentrosE">Centros Escolares</a>
+			        <a class="dropdown-item" href="/catalogoMateria">Materias</a>
+			        <a class="dropdown-item" href="/catalogoUsuarios">Usuarios del Sistema</a>
 			    </div>
 			  </li>
 			  <li class="nav-item">
@@ -43,7 +43,7 @@
 	</div>
 </nav>
 <div class="container">
-	<form th:action="@{/agregarCatCentros}">
+	<form th:action="@{/agregarCatCentro}">
 		<div class="form-group">
 			<input type="submit" value="Agregar Nuevo Centro Escolar" class="btn btn-primary">
 		</div>

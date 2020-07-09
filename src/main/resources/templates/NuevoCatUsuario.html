@@ -29,9 +29,9 @@
 			       Catalogos
 			     </a>
 			    <div class="dropdown-menu">
-			        <a class="dropdown-item" href="#">Centros Escolares</a>
-			        <a class="dropdown-item" href="#">Materias</a>
-			        <a class="dropdown-item" href="#">Usuarios del Sistema</a>
+			        <a class="dropdown-item" href="/catalogoCentrosE">Centros Escolares</a>
+			        <a class="dropdown-item" href="/catalogoMateria">Materias</a>
+			        <a class="dropdown-item" href="/catalogoUsuarios">Usuarios del Sistema</a>
 			    </div>
 			  </li>
 			  <li class="nav-item">
@@ -82,19 +82,19 @@
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Municipio: </label>
-			<select th:field="*{idMunicipio}">
-			
+			<select th:field="*{municipio.idMunicipio}">
+				<option th:each="mun : ${municipio}" th:value="${mun.idMunicipio}" th:text="${mun.nombreMunicipio}"></option>
 			</select>
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Departamento: </label>
-			<select>
-			
+			<select th:fiel="*{departamento.idDepartamento}">
+				<option th:each="dep : ${departamento}" th:value="${dep.idDepartamento}" th:text="${dep.nombreDepartamento}"></option>
 			</select>
 			</div>
 			<div class="form-check">
 				<label class="label label-default">Estado: </label>
-			    <select th:field="*{estadoMateria}">
+			    <select th:field="*{estado}">
 			    	<option th:value="true" th:text="Activo"></option>
 			    	<option th:value="false" th:text="Inactivo"></option>
 			    </select>
@@ -103,7 +103,7 @@
 			<input type="submit" value="Guardar" class="btn btn-primary">
 			</div>
 			</form>
-			<form th:action="@{/menuAdministrador}">
+			<form th:action="@{/catalogoUsuarios}">
 				<div class="form-group">
 					<input type="submit" value="Regresar" class="btn btn-secondary">
 				</div>

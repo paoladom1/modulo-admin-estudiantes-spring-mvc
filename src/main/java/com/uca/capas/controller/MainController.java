@@ -314,4 +314,48 @@ public class MainController {
     	model.setViewName("inicioAdministrador");
     	return model;
     }
+    
+    @RequestMapping("/agregarCatMateria")
+    public ModelAndView agregarCatMateria() {
+    	ModelAndView model = new ModelAndView();
+    	model.addObject("materia",new CatalogoMateria());
+    	model.setViewName("NuevoCatMateria");
+    	return model;
+    }
+    @RequestMapping("/agregarCatUsuario")
+    public ModelAndView agregarCatUsuario() {
+    	ModelAndView model = new ModelAndView();
+    	List<Departamento> departamentos=null;
+    	List<Municipio> municipios = null;
+    	
+    	try {
+    		departamentos= departamentoService.findAll();
+    		municipios=municipioService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("usuario",new Usuario());
+    	model.addObject("municipios", municipios);
+    	model.addObject("departamentos", departamentos);
+    	model.setViewName("NuevoCatUsuario");
+    	return model;
+    }
+    @RequestMapping("/agregarCatCentro")
+    public ModelAndView agregarCatCentro() {
+    	ModelAndView model = new ModelAndView();
+    	List<Departamento> departamentos=null;
+    	List<Municipio> municipios = null;
+    	
+    	try {
+    		departamentos= departamentoService.findAll();
+    		municipios=municipioService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("usuario",new Usuario());
+    	model.addObject("municipios", municipios);
+    	model.addObject("centro",new Institucion());
+    	model.setViewName("NuevoCatCentro");
+    	return model;
+    }
 }
