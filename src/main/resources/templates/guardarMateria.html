@@ -3,41 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Guardar Materia Cursada</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-
-<form th:action="@{/guardarMateria}" th:object="${materia}" method="post">
-    <label>Alumno:</label>
-    <th th:text="${alumno.nombres}"></th>
-    <th th:text="${alumno.apellidos}"></th>
-    <th th:text="${alumno.codigoEstudiante}"/><br><br>
-
-
-    <label>Materia: </label>
-    <select th:field="*{catalogoMateria.codigoCatalogo}">
-        <option th:each="p : ${cat}"
-                th:value="${p.codigoCatalogo}"
-                th:text="${p.nomMateria}">
-    </select>
-    <span th:errors="*{catalogoMateria}"  style="color: #FF0000"/><br>
-
-    <label>Año:</label>
-    <input type="number" th:field="*{year}"/>
-    <span th:errors="*{year}" style="color: #FF0000"/><br>
-
-    <label>Ciclo:</label>
-    <input type="number" th:field="*{cicle}"/>
-    <span th:errors="*{cicle}" style="color: #FF0000"/><br>
-
-    <label>Nota:</label>
-    <input type="number" th:field="*{notaMateria}"/>
-    <span th:errors="*{notaMateria}"  style="color: #FF0000"/><br>
-
-
-
-    <input type="submit" value="Save"/><br>
-    <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
-</form>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-between">
+	<a class="navbar-brand" href="#">
+		<img alt="logo" src="uca.jpg" style="width:40px;">
+	</a>
+	
+	<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    	<span class="navbar-toggler-icon"></span>
+  	</button>
+	
+	<div class="collapse navbar-collapse" id="collapsibleNavbar" >
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="#">Expedientes</a>
+			</li>
+			 <li class="nav-item dropdown">
+			     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+			       Catalogos
+			     </a>
+			    <div class="dropdown-menu">
+			        <a class="dropdown-item" href="#">Centros Escolares</a>
+			        <a class="dropdown-item" href="#">Materias</a>
+			        <a class="dropdown-item" href="#">Usuarios del Sistema</a>
+			    </div>
+			  </li>
+			  <li class="nav-item">
+			  	<a class="nav-link" href="#">Iniciar Sesion</a>
+			</li>			  
+		</ul>
+		
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<label>Alumno:</label>
+			<th th:text="${alumno.nombres}"></th>
+			<th th:text="${alumno.apellidos}"/> <br><br>
+			<th th:text="${alumno.codigoEstudiante}"/><br><br>
+			
+			<form th:action="@{/guardarM}" th:object="${materia}" method="post">
+			    <div class="form-group">
+			    <label>Materia: </label>
+			    <select th:field="*{catalogoMateria.codigoCatalogo}" class="form-control">
+			        <option th:each="p : ${cat}"
+			                th:value="${p.codigoCatalogo}"
+			                th:text="${p.nomMateria}"></option>
+			    </select>
+			    <span th:errors="*{catalogoMateria}"  class="invalid-feedback"></span>
+				</div>
+				<div class="form-group">
+			    <label>Año:</label><input type="number" th:field="*{year}" class="form-control">
+			    <span th:errors="*{year}" class="invalid-feedback"></span>
+				</div>
+				<div class="form-group">
+			    <label>Ciclo:</label><input type="number" th:field="*{cicle}" class="form-control">
+			    <span th:errors="*{cicle}" class="invalid-feedback"></span>
+				</div>
+				<div class="form-group">
+			    <label>Nota:</label><input type="number" th:field="*{notaMateria}" class="form-control">
+			    <span th:errors="*{notaMateria}"  class="invalid-feedback"></span>
+				</div>
+			    <input type="submit" value="Save" class="btn btn-primary"/><br>
+			    <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
+			</form>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+</div>
 </body>
 </html>

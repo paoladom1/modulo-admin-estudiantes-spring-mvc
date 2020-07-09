@@ -3,63 +3,116 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Editar Expediente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form th:action="@{/guardarAlumno}" th:object="${alumno}" method="post">
-    <h1>Editar Expediente</h1>
-    <input type="hidden" th:field="*{codigoEstudiante}">
-    <label>Nombres:</label>
-    <input type="text" th:field="*{nombres}">
-    <span th:errors="*{nombres}" style="color: red"></span><br>
-    <br>
-    <label>Apellidos:</label>
-    <input type="text" th:field="*{apellidos}">
-    <span th:errors="*{apellidos}" style="color: red"></span><br>
-    <br>
-    <label>Carnet de minoridad:</label>
-    <input type="text" th:field="*{carnetMinoridad}">
-    <span th:errors="*{carnetMinoridad}" style="color: red"></span><br>
-    <br>
-    <label>Fecha de Nacimiento</label>
-    <input type="text" th:field="*{fechaNacimiento}">
-    <span th:errors="*{fechaNacimiento}" style="color: red"></span><br>
-    <br>
-    <label>Direcci&oacute;n:</label>
-    <input type="text" th:field="*{direccion}">
-    <span th:errors="*{direccion}" style="color: red"></span><br>
-    <br>
-    <label>Instituci&oacute;n de procedencia: </label>
-    <select th:field="*{centroEscolar.idInstitucion}">
-        <option th:each="item : ${centrosEscolares}"
-                th:value="${item.idInstitucion}"
-                th:text="${item.nombreInstitucion}">
-    </select>
-    <span th:errors="*{centroEscolar}" style="color: red"></span><br>
-    <br>
-    <label>Tel&eacute;fono m&oacute;vil: </label>
-    <input type="text" th:field="*{telMovil}">
-    <span th:errors="*{telMovil}" style="color: red"></span><br>
-    <br>
-    <label>Tel&eacute;fono Fijo: </label>
-    <input type="text" th:field="*{telFijo}">
-    <span th:errors="*{telFijo}" style="color: red"></span><br>
-    <br>
-    <br>
-    <label>Nombre de la madre: </label>
-    <input type="text" th:field="*{nombreMadre}">
-    <span th:errors="*{nombreMadre}" style="color: red"></span><br>
-    <br>
-    <br>
-    <label>Nombre del padre: </label>
-    <input type="text" th:field="*{nombrePadre}">
-    <span th:errors="*{nombrePadre}" style="color: red"></span><br>
-    <br>
-
-    <input type="submit" value="Guardar">
-</form>
-
-<form th:action="@{/expediente}">
-    <input type="submit" value="Regresar">
-</form>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-between">
+	<a class="navbar-brand" href="#">
+		<img alt="logo" src="uca.jpg" style="width:40px;">
+	</a>
+	
+	<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    	<span class="navbar-toggler-icon"></span>
+  	</button>
+	
+	<div class="collapse navbar-collapse" id="collapsibleNavbar" >
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="#">Expedientes</a>
+			</li>
+			 <li class="nav-item dropdown">
+			     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+			       Catalogos
+			     </a>
+			    <div class="dropdown-menu">
+			        <a class="dropdown-item" href="#">Centros Escolares</a>
+			        <a class="dropdown-item" href="#">Materias</a>
+			        <a class="dropdown-item" href="#">Usuarios del Sistema</a>
+			    </div>
+			  </li>
+			  <li class="nav-item">
+			  	<a class="nav-link" href="#">Iniciar Sesion</a>
+			</li>			  
+		</ul>
+		
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<form th:action="@{/guardarAlumno}" th:object="${alumno}" method="post">
+				<div class="form-group">
+			    <h1>Editar Expediente</h1>
+			    <input type="hidden" th:field="*{codigoEstudiante}">
+			    </div>
+			    <div>
+			    <label>Nombres:</label>
+			    <input type="text" th:field="*{nombres}" class="form-control">
+			    <span th:errors="*{nombres}" class="invalid-feedback""></span>
+			    </div>
+			    <div class="form-group">
+			    <label>Apellidos:</label>
+			    <input type="text" th:field="*{apellidos}" class="form-control">
+			    <span th:errors="*{apellidos}" class="invalid-feedback"></span>
+			    </div>
+			    <div class="form-group">
+			    <label>Carnet de minoridad:</label>
+			    <input type="text" th:field="*{carnetMinoridad}" class="form-control">
+			    <span th:errors="*{carnetMinoridad}" class="invalid-feedback"></span>
+			    </div>
+			    <div class="form-group">
+			    <label>Fecha de Nacimiento</label>
+			    <input type="text" th:field="*{fechaNacimiento}" class="form-control">
+			    <span th:errors="*{fechaNacimiento}" class="invalid-feedback"></span><br>
+			    </div>
+			    <div class="form-group">
+			    <label>Direcci&oacute;n:</label>
+			    <input type="text" th:field="*{direccion}" class="form-control">
+			    <span th:errors="*{direccion}" class="invalid-feedback"></span><br>
+			    </div>
+			    <div class="form-group">
+			    <label>Instituci&oacute;n de procedencia: </label>
+			    <select th:field="*{centroEscolar.idInstitucion}" class="form-control">
+			        <option th:each="item : ${centrosEscolares}"
+			                th:value="${item.idInstitucion}"
+			                th:text="${item.nombreInstitucion}">
+			    </select>
+			    <span th:errors="*{centroEscolar}" class="invalid-feedback"></span>
+			    </div>
+			    <div class="form-group">
+			    <label>Tel&eacute;fono m&oacute;vil: </label>
+			    <input type="text" th:field="*{telMovil}" class="form-control">
+			    <span th:errors="*{telMovil}" class="invalid-feedback"></span>
+			    </div>
+			    <div class="form-group">
+			    <label>Tel&eacute;fono Fijo: </label>
+			    <input type="text" th:field="*{telFijo}" class="form-control">
+			    <span th:errors="*{telFijo}" class="invalid-feedback"></span>
+			    </div>
+			    <div class="form-group">
+			    <label>Nombre de la madre: </label>
+			    <input type="text" th:field="*{nombreMadre}" class="form-control">
+			    <span th:errors="*{nombreMadre}" class="invalid-feedback"></span>
+			    </div>
+			    <div class="form-group">
+			    <label>Nombre del padre: </label>
+			    <input type="text" th:field="*{nombrePadre}" class="form-control">
+			    <span th:errors="*{nombrePadre}" class="invalid-feedback"></span>
+			    </div>
+			    <input type="submit" value="Guardar" class="btn btn-primary">
+			</form>
+			
+			<form th:action="@{/expediente}">
+			    <input type="submit" value="Regresar" class="btn btn-secondary">
+			</form>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+</div>
 </body>
 </html>

@@ -3,36 +3,83 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Inicio de Sesi&oacute;n</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <form th:action="@{/login}" method="post">
-        <h1>Iniciar Sesi&oacute;n</h1>
-        <div>
-            <label>Nombre de usuario:</label>
-            <input type="text" name="username">
-        </div>
-        <br>
-        <div>
-            <label>Contrase&ntilde;a:</label>
-            <input type="password" name="password">
-        </div>
-        <br>
-        <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-between">
+	<a class="navbar-brand" href="#">
+		<img alt="logo" src="#" style="width:40px;">
+	</a>
+	
+	<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    	<span class="navbar-toggler-icon"></span>
+  	</button>
+	
+	<div class="collapse navbar-collapse" id="collapsibleNavbar" >
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="#">Expedientes</a>
+			</li>
+			 <li class="nav-item dropdown">
+			     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+			       Catalogos
+			     </a>
+			    <div class="dropdown-menu">
+			        <a class="dropdown-item" href="#">Centros Escolares</a>
+			        <a class="dropdown-item" href="#">Materias</a>
+			        <a class="dropdown-item" href="#">Usuarios del Sistema</a>
+			    </div>
+			  </li>
+			  <li class="nav-item">
+			  	<a class="nav-link" href="#">Iniciar Sesion</a>
+			</li>			  
+		</ul>
+		
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row" >
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<h1>Iniciar Sesi&oacute;n</h1>
+			<form th:action="@{/login}"  method="post">
+			    <div class="form-group">
+				    <label>Nombre de usuario:</label>
+				    <input type="text" name="username" class="form-control">
+			    </div>
+			    <div class="form-group">
+				    <label>Contrase&ntilde;a:</label>
+				    <input type="password" name="password" class="form-control">
+			    </div>
+			    <input type="submit" value="Iniciar Sesi&oacute;n" class="btn btn-primary">
+			</form>
+				<br>
+			<div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
             <p class="errorMsg"><span th:if="${errorMsg == 'Bad credentials'}" style="color:red"> Credenciales incorrectas </span></p>
-        </div>
-        <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
-            <p class="errorMsg"><span th:if="${errorMsg == 'User is disabled'}" style="color:red"> Cuenta inactiva </span></p>
-        </div>
-        <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
-            <p class="errorMsg"><span th:if="${errorMsg == 'Maximum sessions of 1 for this principal exceeded'}" style="color:red"> Usted ya tiene una sesi&oacute;n activa </span></p>
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <br>
-        <input type="submit" value="Iniciar Sesi&oacute;n">
-    </form>
-    <br>
-    <a href="/registro"> Registro </a>
+	        </div>
+	        <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+	            <p class="errorMsg"><span th:if="${errorMsg == 'User is disabled'}" style="color:red"> Cuenta inactiva </span></p>
+	        </div>
+	        <div class="error" th:if="${param.error}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+	            <p class="errorMsg"><span th:if="${errorMsg == 'Maximum sessions of 1 for this principal exceeded'}" style="color:red"> Usted ya tiene una sesi&oacute;n activa </span></p>
+	        </div>
+	        <div th:if="${param.logout}">
+	            You have been logged out.
+	        </div>
+	        
+			</form>
+			<form th:action="@{/registrarse}" method="post">
+				<input type="submit" value="Registrarse" class="btn btn-primary">
+			</form>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	
+</div>
 </body>
 </html>
