@@ -327,6 +327,7 @@ public class MainController {
     	ModelAndView model = new ModelAndView();
     	List<Departamento> departamentos=null;
     	List<Municipio> municipios = null;
+    	String authority = "COORD";
     	
     	try {
     		departamentos= departamentoService.findAll();
@@ -334,6 +335,8 @@ public class MainController {
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
+    	model.addObject("duplicate", false);
+        model.addObject("authority", authority);
     	model.addObject("usuario",new Usuario());
     	model.addObject("municipios", municipios);
     	model.addObject("departamentos", departamentos);
@@ -390,17 +393,53 @@ public class MainController {
     	return model;
     }
     @RequestMapping("/saveCatUsuario")
-    public ModelAndView saveCatUsuario(@ModelAttribute Usuario user) {
-    	ModelAndView model = new ModelAndView();
-    	List<Usuario> usuarios = null;
-    	try {
-    		usuarioService.save(user);
-    		usuarios = usuarioService.findAll();
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    	}
-    	model.addObject("usuarios",usuarios);
-    	model.setViewName("CatalogoUsuarios");
-    	return model;
+    public ModelAndView guardarCatUsuario(@RequestParam(value = "authority") String authority, @Valid @ModelAttribute Usuario usuario, BindingResult br) throws ParseException {
+        List<Departamento> departamentos = null;
+        List<Municipio> municipios = null;
+        ModelAndView mav = new ModelAndView();
+        List<Usuario> usuarios = null;
+        if (br.hasErrors()) {
+            try {
+                departamentos = departamentoService.findAll();
+                municipios = municipioService.findAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            mav.addObject("departamentos", departamentos);
+            mav.addObject("municipios", municipios);
+            mav.setViewName("NuevoCatUsuario");
+        } else {
+            Authorities role = new Authorities(usuario.getNombreUsuario(), authority);
+
+            usuario.setEdad(usuario.getEdadDelegate());
+            if (usuarioService.findByNombreUsuario(usuario.getNombreUsuario()) != null) {
+                mav.addObject("duplicate", true);
+                try {
+                    departamentos = departamentoService.findAll();
+                    municipios = municipioService.findAll();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                mav.addObject("departamentos", departamentos);
+                mav.addObject("municipios", municipios);
+                mav.setViewName("NuevoCatUsuario");
+                return mav;
+            }
+            
+            System.out.println("guardar");
+            usuarioService.save(usuario);
+            tipoService.save(role);
+            try {
+            	usuarios=usuarioService.findAll();
+            }catch(Exception e) {
+            	e.printStackTrace();
+            }
+            mav.addObject("usuarios",usuarios);
+            mav.setViewName("CatalogoUsuarios");
+        }
+
+        return mav;
     }
 }

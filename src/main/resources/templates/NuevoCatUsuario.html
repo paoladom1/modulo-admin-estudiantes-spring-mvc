@@ -53,32 +53,32 @@
 			<div class="form-group">
 			<label class="label label-default">Nombre de Usuario: </label>
 			<input th:field="*{nombreUsuario}" type="text">
-			<span th:error="*{nombreUsuario}" class="text-danger"></span><br>
+			<span th:errors="*{nombreUsuario}" class="text-danger"></span><br>
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Contrase&ntilde;a: </label>
 			<input th:field="*{contrasenia}" type="password">
-			<span th:error="*{contrasenia}" class="text-danger"></span><br>
+			<span th:errors="*{contrasenia}" class="text-danger"></span><br>
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Nombre: </label>
 			<input th:field="*{nombre}" type="text">
-			<span th:error="*{nombre}" class="text-danger"></span><br>
+			<span th:errors="*{nombre}" class="text-danger"></span><br>
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Apellido: </label>
 			<input th:field="*{apellido}" type="text">
-			<span th:error="*{apellido}" class="text-danger"></span><br>
+			<span th:errors="*{apellido}" class="text-danger"></span><br>
+			</div>
+			<div class="form-group">
+			<label class="label label-default">Direccion: </label>
+			<input th:field="*{direccion}" type="text">
+			<span th:errors="*{direccion}" class="text-danger"></span><br>
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Fecha de Nacimiento: </label>
-			<input th:field="*{fechaNacimiento}" type="date">
-			<span th:error="*{fechaNacimiento}" class="text-danger"></span><br>
-			</div>
-			<div class="form-group">
-			<label class="label label-default">Contrase&ntilde;a: </label>
-			<input th:field="*{contrasenia}" type="text">
-			<span th:error="*{contrasenia}" class="text-danger"></span><br>
+			<input th:field="*{fechaNacimiento}" type="date" data-date-format="DD MMMM YYYY" >
+			<span th:errors="*{fechaNacimiento}" class="text-danger"></span><br>
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Municipio: </label>
@@ -98,7 +98,14 @@
 			    	<option th:value="true" th:text="Activo"></option>
 			    	<option th:value="false" th:text="Inactivo"></option>
 			    </select>
-			</div> 
+			</div>
+			<label class="form-check-label"> Rol: </label>
+			<div class="form-check">
+				    <input type="radio" id="admin" name="authority" value="ADMIN" th:required="required" class="form-check-input"/><label class="label label-default">Administrador</label><br>	
+		    </div>
+		    <div class="form-check">
+				    <input type="radio" id="coord" name="authority" value="COORD" th:required="required" class="form-check-input" /><label class="label label-default">Coordinador</label>
+		    </div>
 			<div class="form-group">
 			<input type="submit" value="Guardar" class="btn btn-primary">
 			</div>
