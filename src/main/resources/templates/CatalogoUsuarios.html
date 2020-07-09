@@ -43,6 +43,11 @@
 	</div>
 </nav>
 <div class="container">
+	<form th:action="@{/agregarCatMateria}">
+		<div class="form-group">
+			<input type="submit" value="Agregar Nueva Materia" class="btn btn-primary">
+		</div>
+	</form>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered">
 			<thread class="thead-dark">
@@ -77,6 +82,11 @@
 		        </tr>
 		 </th:block>
 		</table>
+		<form th:action="@{/menuAdministrador}">
+		<div class="form-group">
+			<input type="submit" value="Regresar" class="btn btn-secondary">
+		</div>
+		</form>
 	</div>
 </div>
 </body>

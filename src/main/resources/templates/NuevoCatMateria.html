@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-	<title>Catalogo Centros Escolares</title>
-	<title>Inicio de Sesi&oacute;n</title>
+    <meta charset="ISO-8859-1">
+    <title>Inicio de Sesi&oacute;n</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -13,7 +12,7 @@
 <body>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-between">
 	<a class="navbar-brand" href="#">
-		<img alt="logo" src="uca.jpg" style="width:40px;">
+		<img alt="logo" src="#" style="width:40px;">
 	</a>
 	
 	<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -42,42 +41,40 @@
 		
 	</div>
 </nav>
+
 <div class="container">
-	<form th:action="@{/agregarCatMateria}">
-		<div class="form-group">
-			<input type="submit" value="Agregar Nueva Materia" class="btn btn-primary">
+	<div class="row" >
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<form th:action="@{/saveCatMateria}" th:object="${materia}" method="post">
+			<div class="form-group">
+			<label class="label label-default">Ingresar Nueva Materia</label>
+			</div>
+			<div class="form-group">
+			<label class="label label-default">Nombre de Materia: </label>
+			<input th:field="*{nomMateria}" type="text">
+			<span th:error="*{nomMateria}" style="color: #E81505"></span><br>
+			</div>
+			<div class="form-check">
+				<label class="label label-default">Estado: </label>
+			    <select th:field="*{estadoMateria}">
+			    	<option th:value="true" th:text="Activo"></option>
+			    	<option th:value="false" th:text="Inactivo"></option>
+			    </select>
+			</div> 
+			<div class="form-group">
+			<input type="submit" value="Guardar" class="btn btn-primary">
+			</div>
+			</form>
+			<form th:action="@{/menuAdministrador}">
+				<div class="form-group">
+					<input type="submit" value="Regresar" class="btn btn-secondary">
+				</div>
+			</form>
 		</div>
-	</form>
-	<div class="table-responsive">
-		<table class="table table-striped table-bordered">
-			<thread class="thead-dark">
-				<th>Acci&oacute;n</th>
-				<th>Codigo</th>
-				<th>Nombre</th>
-				<th>Estado</th>
-			</thread>
-		<th:block th:each="materia, row: ${materias}">
-		        <tr>
-		            <th>
-		                <form th:action="@{/editarMateria}">
-		                	<div class="form-group">
-		                    <input type="hidden" name="codigo" th:value="${materia.codigoCatalogo}">
-		                    <input type="submit" value="Editar" class="btn btn-primary">
-		                    </div>
-		                </form>
-		            </th>
-		            <th th:text="${materia.codigoCatalogo}"/>
-		            <th th:text="${materia.nomMateria}"/>
-		            <th th:text="${materia.estadoDelegate}"/>
-		        </tr>
-		 </th:block>
-		</table>
-		<form th:action="@{/menuAdministrador}">
-		<div class="form-group">
-			<input type="submit" value="Regresar" class="btn btn-secondary">
-		</div>
-		</form>
+		<div class="col-sm-2"></div>
 	</div>
+	
 </div>
 </body>
 </html>

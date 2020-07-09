@@ -308,5 +308,10 @@ public class MainController {
     	model.setViewName("CatalogoUsuarios");
     	return model;
     }
-    
+    @RequestMapping("/menuAdministrador")
+    public ModelAndView menuAdmin() {
+    	ModelAndView model = new ModelAndView();
+    	model.setViewName("inicioAdministrador");
+    	return model;
+    }
 }
