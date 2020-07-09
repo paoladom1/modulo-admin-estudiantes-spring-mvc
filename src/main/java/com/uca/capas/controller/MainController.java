@@ -4,6 +4,9 @@ import com.uca.capas.domain.*;
 import com.uca.capas.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,15 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -51,6 +52,25 @@ public class MainController {
 
         mav.addObject("usuario", usuario);
         mav.setViewName("login");
+        return mav;
+    }
+
+    @RequestMapping("/default")
+    public  ModelAndView defaultAfterLogin(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView();
+        Collection<? extends GrantedAuthority> authorities;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        authorities = auth.getAuthorities();
+        String myRole = authorities.toArray()[0].toString();
+        String coord = "COORD";
+        String admin = "ADMIN";
+
+        if(myRole.equals(coord)) {
+            mav.setViewName("inicioCoordinador");
+        } else if(myRole.equals(admin)) {
+            mav.setViewName("busquedaAlumno");
+        }
+
         return mav;
     }
 
