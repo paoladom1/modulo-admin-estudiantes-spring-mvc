@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -146,6 +149,7 @@ public class MainController {
         List<List<Materia>> materiasAlumnos = new ArrayList<>();
         List<Integer> aprobadasAlumnos = new ArrayList<>();
         List<Integer> reprobadasAlumnos = new ArrayList<>();
+        List<Double> promedioAlumnos = new ArrayList<>();
 
         System.out.println(busqueda);
         if (busqueda == 0) {
@@ -168,15 +172,22 @@ public class MainController {
         for (List<Materia> materiasAlumno : materiasAlumnos) {
             int aprobadas = 0;
             int reprobadas = 0;
+            double promedio = 0;
+            double suma = 0;
             for(Materia materia : materiasAlumno) {
-                System.out.println(materia.getResultado());
                 if(materia.getResultado().equals("APROBADO")) {
                     aprobadas++;
                 } else {
                     reprobadas++;
                 }
+
+                suma = suma + Double.valueOf(materia.getNotaMateria());
             }
 
+            promedio = suma/materiasAlumno.size();
+            BigDecimal bd = new BigDecimal(promedio).setScale(2, RoundingMode.HALF_UP);
+
+            promedioAlumnos.add(bd.doubleValue());
             aprobadasAlumnos.add(aprobadas);
             reprobadasAlumnos.add(reprobadas);
 
@@ -184,6 +195,7 @@ public class MainController {
 
         mav.addObject("aprobadas", aprobadasAlumnos);
         mav.addObject("reprobadas", reprobadasAlumnos);
+        mav.addObject("promedio", promedioAlumnos);
         mav.addObject("alumnos", alumnos);
         mav.setViewName("expedienteAlumno");
 

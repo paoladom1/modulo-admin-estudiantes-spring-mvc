@@ -79,28 +79,13 @@ public class ControladorMateria {
 
 
         if (br.hasErrors()) {
-
-            System.out.println("estoy en el if de error");
-            System.out.println(materia.getCatalogoMateria().getCodigoCatalogo().toString());
-            System.out.println(materia.getYear().toString());
-            System.out.println(materia.getCicle().toString());
-            System.out.println(materia.getNotaMateria().toString());
-            System.out.println(br.toString());
-            System.out.println(codigo);
-            System.out.println(alumnoService.findOne(codigo).toString());
-
             try {
-                System.out.println("lleno de nuevo al catalogo");
                 catalogo = catalogoMateriaService.findAll();
                 alumno = alumnoService.findOne(codigo);
 
-
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println();
-                System.out.println("estoy en el catch");
             }
-            System.out.println("estoy fuera del catch");
 
             mav.addObject("alumno", alumno);
             mav.addObject("cat", catalogo);
@@ -120,7 +105,6 @@ public class ControladorMateria {
                 e.printStackTrace();
             }
 
-            System.out.println("estoy en el else para guardar materia");
             materia.setAlumnoMateria(alumno);
             materiaService.save(materia);
 
