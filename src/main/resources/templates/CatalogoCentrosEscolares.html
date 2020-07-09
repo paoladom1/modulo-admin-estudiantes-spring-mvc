@@ -50,14 +50,29 @@
 				<th>Codigo</th>
 				<th>Nombre</th>
 				<th>Descripcion</th>
-				<th>Estado</th>
 				<th>Municipio</th>
 				<th>Departamento</th>
+				<th>Estado</th>
 			</thread>
 		
-			<th:block>
-			
-			</th:block>
+			<th:block th:each="centro, row: ${centros}">
+		        <tr>
+		            <th>
+		                <form th:action="@{/editarCatalogoInstitucion}">
+		                	<div class="form-group">
+		                    <input type="hidden" name="codigo" th:value="${centro.idInstitucion}">
+		                    <input type="submit" value="Editar" class="btn btn-primary">
+		                    </div>
+		                </form>
+		            </th>
+		            <th th:text="${centro.idInstitucion}"/>
+		            <th th:text="${centro.nombreInstitucion}"/>
+		            <th th:text="${centro.descripcion}"/>
+		            <th th:text="${centro.municipio.nombreMunicipio}"/>
+		            <th th:text="${centro.departamento.nombreDepartamento}"/>
+		            <th th:text="${centro.estadoDelegate}"/>
+		        </tr>
+		 </th:block>
 		</table>
 	</div>
 </div>

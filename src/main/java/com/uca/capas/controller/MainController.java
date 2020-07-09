@@ -272,7 +272,13 @@ public class MainController {
     @RequestMapping("/catalogoCentrosE")
     public ModelAndView catalogoCentrosE() {
     	ModelAndView model = new ModelAndView();
-    	
+    	List<Institucion> centros = null;
+    	try {
+    		centros= institucionService.findAll();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	model.addObject("centros",centros);
     	model.setViewName("CatalogoCentrosEscolares");
     	return model;
     }
@@ -302,4 +308,5 @@ public class MainController {
     	model.setViewName("CatalogoUsuarios");
     	return model;
     }
+    
 }
