@@ -358,4 +358,20 @@ public class MainController {
     	model.setViewName("NuevoCatCentro");
     	return model;
     }
+    
+    @RequestMapping("/saveCatMateria")
+    public ModelAndView saveCatMateria(@ModelAttribute CatalogoMateria materia ) {
+    	ModelAndView model = new ModelAndView();
+    	List<CatalogoMateria> materias =null;
+    	
+    	try {
+    		catMateriaService.save(materia);
+    		materias = catMateriaService.findAll();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	model.addObject("materias",materias);    	
+    	model.setViewName("CatalogoMateria");
+    	return model;
+    }
 }
