@@ -174,20 +174,31 @@ public class MainController {
             int reprobadas = 0;
             double promedio = 0;
             double suma = 0;
-            for(Materia materia : materiasAlumno) {
-                if(materia.getResultado().equals("APROBADO")) {
+            for (Materia materia : materiasAlumno) {
+                if (materia.getResultado().equals("APROBADO")) {
                     aprobadas++;
                 } else {
                     reprobadas++;
                 }
 
-                suma = suma + Double.valueOf(materia.getNotaMateria());
+                if (materiasAlumno.size() != 0) {
+                    suma = suma + Double.valueOf(materia.getNotaMateria());
+                } else {
+                    suma = 0;
+                }
             }
 
-            promedio = suma/materiasAlumno.size();
-            BigDecimal bd = new BigDecimal(promedio).setScale(2, RoundingMode.HALF_UP);
+            double prom = 0;
 
-            promedioAlumnos.add(bd.doubleValue());
+            if (suma != 0) {
+                promedio = suma / materiasAlumno.size();
+                BigDecimal bd = new BigDecimal(promedio).setScale(2, RoundingMode.HALF_UP);
+                prom = bd.doubleValue();
+            } else {
+                prom = 0;
+            }
+
+            promedioAlumnos.add(prom);
             aprobadasAlumnos.add(aprobadas);
             reprobadasAlumnos.add(reprobadas);
 

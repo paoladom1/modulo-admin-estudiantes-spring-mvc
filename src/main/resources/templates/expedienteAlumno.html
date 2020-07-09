@@ -52,7 +52,7 @@
 		    <th>Materias Reprobadas</th>
 		    <th>Promedio</th>
 		    </thead>
-		    <th:block th:each="alumno, row: ${alumnos}">
+		    <th:block th:each="alumno, iter: ${alumnos}">
 		        <tr>
 		            <th>
 		                <form th:action="@{/editarAlumno}">

@@ -48,9 +48,8 @@
 			<label>Alumno:</label>
 			<th th:text="${alumno.nombres}"></th>
 			<th th:text="${alumno.apellidos}"/> <br><br>
-			<th th:text="${alumno.codigoEstudiante}"/><br><br>
 			
-			<form th:action="@{/guardarM}" th:object="${materia}" method="post">
+			<form th:action="@{/guardarMateria}" th:object="${materia}" method="post">
 			    <div class="form-group">
 			    <label>Materia: </label>
 			    <select th:field="*{catalogoMateria.codigoCatalogo}" class="form-control">
