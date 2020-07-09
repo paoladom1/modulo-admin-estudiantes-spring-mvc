@@ -9,4 +9,6 @@ public interface InstitucionService {
     public List<Institucion> findAll() throws DataAccessException;
 
     public List<Institucion> findByMunicipio(Integer id) throws DataAccessException;
+    
+    public void save(Institucion institucion) throws DataAccessException;
 }

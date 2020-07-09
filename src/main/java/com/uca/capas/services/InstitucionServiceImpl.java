@@ -22,4 +22,9 @@ public class InstitucionServiceImpl implements InstitucionService {
     public List<Institucion> findByMunicipio(Integer id) throws DataAccessException {
         return institucionRepository.findByMunicipio(id);
     }
+
+	@Override
+	public void save(Institucion institucion) throws DataAccessException {
+		institucionRepository.save(institucion);
+	}
 }

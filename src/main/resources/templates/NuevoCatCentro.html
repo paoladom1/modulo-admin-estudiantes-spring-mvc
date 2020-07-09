@@ -52,7 +52,7 @@
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Nombre de Centro Escolar: </label>
-			<input th:field="*{idInstitucion}" type="text">
+			<input th:field="*{nombreInstitucion}" type="text">
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Descripcion: </label>
@@ -66,13 +66,13 @@
 			<div class="form-group">
 			<label class="label label-default">Municipio: </label>
 			<select th:field="*{municipio.idMunicipio}">
-				<option th:each="mun : ${municipio}" th:value="${mun.idMunicipio}" th:text="${mun.nombreMunicipio}"></option>
+				<option th:each="mun : ${municipios}" th:value="${mun.idMunicipio}" th:text="${mun.nombreMunicipio}"></option>
 			</select>
 			</div>
 			<div class="form-group">
 			<label class="label label-default">Departamento: </label>
-			<select th:fiel="*{departamento.idDepartamento}">
-				<option th:each="dep : ${departamento}" th:value="${dep.idDepartamento}" th:text="${dep.nombreDepartamento}"></option>
+			<select th:field="*{departamento.idDepartamento}">
+				<option th:each="dep : ${departamentos}" th:value="${dep.idDepartamento}" th:text="${dep.nombreDepartamento}"></option>
 			</select>
 			</div>
 			<div class="form-check">

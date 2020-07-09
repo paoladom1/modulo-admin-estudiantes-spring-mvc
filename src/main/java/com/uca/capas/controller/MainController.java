@@ -352,7 +352,7 @@ public class MainController {
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
-    	model.addObject("usuario",new Usuario());
+    	model.addObject("departamentos",departamentos);
     	model.addObject("municipios", municipios);
     	model.addObject("centro",new Institucion());
     	model.setViewName("NuevoCatCentro");
@@ -372,6 +372,35 @@ public class MainController {
     	}
     	model.addObject("materias",materias);    	
     	model.setViewName("CatalogoMateria");
+    	return model;
+    }
+    @RequestMapping("/saveCatCentro")
+    public ModelAndView saveCatCentro(@ModelAttribute Institucion insti ) {
+    	ModelAndView model = new ModelAndView();
+    	List<Institucion> institutos = null;
+    	
+    	try {
+    		institucionService.save(insti);
+    		institutos=institucionService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("centros",institutos);
+    	model.setViewName("CatalogoCentrosEscolares");
+    	return model;
+    }
+    @RequestMapping("/saveCatUsuario")
+    public ModelAndView saveCatUsuario(@ModelAttribute Usuario user) {
+    	ModelAndView model = new ModelAndView();
+    	List<Usuario> usuarios = null;
+    	try {
+    		usuarioService.save(user);
+    		usuarios = usuarioService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("usuarios",usuarios);
+    	model.setViewName("CatalogoUsuarios");
     	return model;
     }
 }
