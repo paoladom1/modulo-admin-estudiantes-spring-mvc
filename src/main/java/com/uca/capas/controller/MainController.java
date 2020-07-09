@@ -462,4 +462,24 @@ public class MainController {
     	return model;
     }
     
+    @RequestMapping("/editarCatalogoInstitucion")
+    public ModelAndView editarCatInst(@RequestParam(value="codigo") Integer codigo) {
+    	ModelAndView model = new ModelAndView();
+    	Institucion ins=null;
+    	List<Municipio> municipios=null;
+    	List<Departamento> departamentos=null;
+    	try {
+    		ins=institucionService.findOne(codigo);
+    		municipios= municipioService.findAll();
+    		departamentos=departamentoService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("departamentos",departamentos);
+    	model.addObject("municipios",municipios);
+    	model.addObject("centro",ins);
+    	model.setViewName("EditarCatCentroEs");
+    	return model;
+    }
+    
 }

@@ -27,4 +27,10 @@ public class InstitucionServiceImpl implements InstitucionService {
 	public void save(Institucion institucion) throws DataAccessException {
 		institucionRepository.save(institucion);
 	}
+
+	@Override
+	public Institucion findOne(Integer code) throws DataAccessException {
+		Institucion ins= institucionRepository.getOne(code);
+		return ins;
+	}
 }
