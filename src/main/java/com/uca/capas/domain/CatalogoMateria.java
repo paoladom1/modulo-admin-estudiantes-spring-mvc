@@ -58,9 +58,9 @@ public class CatalogoMateria {
     
     public String getEstadoDelegate() {
     	if(estadoMateria) {
-    		return "Activo";
+    		return "Activa";
     	}else {
-    		return "Inactivo";
+    		return "Inactiva";
     	}
     }
 }

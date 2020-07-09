@@ -292,7 +292,13 @@ public class MainController {
     @RequestMapping("/catalogoUsuarios")
     public ModelAndView catalogoUsuarios() {
     	ModelAndView model = new ModelAndView();
-    	
+    	List<Usuario> usuarios = null;
+    	try {
+    		usuarios = usuarioService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("usuarios",usuarios);
     	model.setViewName("CatalogoUsuarios");
     	return model;
     }

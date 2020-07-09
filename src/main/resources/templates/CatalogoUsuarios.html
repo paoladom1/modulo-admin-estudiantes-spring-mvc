@@ -47,6 +47,7 @@
 		<table class="table table-striped table-bordered">
 			<thread class="thead-dark">
 				<th>Acci&oacute;n</th>
+				<th>Nombre De Usuario</th>
 				<th>Nombre</th>
 				<th>Apellido</th>
 				<th>Edad</th>
@@ -55,10 +56,27 @@
 				<th>Direccion</th>
 				<th>Estado</th>
 			</thread>
+			<th:block th:each="usuario, row: ${usuarios}">
+		        <tr>
+		            <th>
+		                <form th:action="@{/editarUsuario}">
+		                	<div class="form-group">
+		                    <input type="hidden" name="codigo" th:value="${usuario.nombreUsuario}">
+		                    <input type="submit" value="Editar" class="btn btn-primary">
+		                    </div>
+		                </form>
+		            </th>
+		            <th th:text="${usuario.nombreUsuario}"/>
+		            <th th:text="${usuario.nombre}"/>
+		            <th th:text="${usuario.apellido}"/>
+		            <th th:text="${usuario.edadDelegate}"/>
+		            <th th:text="${usuario.departamento.nombreDepartamento}"/>
+		            <th th:text="${usuario.municipio.nombreMunicipio}"/>
+		            <th th:text="${usuario.direccion}"/>
+		            <th th:text="${usuario.estadoDelegate}"/>
+		        </tr>
+		 </th:block>
 		</table>
-		<th:block>
-		
-		</th:block>
 	</div>
 </div>
 </body>

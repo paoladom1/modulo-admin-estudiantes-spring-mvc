@@ -152,4 +152,11 @@ public class Usuario {
             return  edad;
         }
     }
+    public String getEstadoDelegate() {
+    	if(estado) {
+    		return "Activo";
+    	}else {
+    		return "Inactivo";
+    	}
+    }
 }
