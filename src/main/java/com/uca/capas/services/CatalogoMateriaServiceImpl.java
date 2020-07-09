@@ -20,4 +20,9 @@ public class CatalogoMateriaServiceImpl implements CatalogoMateriaService {
 	public void save(CatalogoMateria materia) throws DataAccessException {
 		catalogoMateriaRepo.save(materia);
 	}
+	@Override
+	public CatalogoMateria findOne(Integer code) throws DataAccessException {
+		CatalogoMateria materia = catalogoMateriaRepo.getOne(code);
+		return materia;
+	}
 }

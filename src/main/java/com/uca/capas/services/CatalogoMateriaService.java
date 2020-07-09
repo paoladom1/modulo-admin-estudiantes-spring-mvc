@@ -11,4 +11,6 @@ public interface CatalogoMateriaService {
     public List<CatalogoMateria> findAll() throws DataAccessException;
    // public  void save(CatalogoMateria am) throws DataAccessException;
     public void save(CatalogoMateria materia) throws DataAccessException;
+    
+    public CatalogoMateria findOne(Integer code) throws DataAccessException;
 }

@@ -447,4 +447,19 @@ public class MainController {
 
         return mav;
     }
+    
+    @RequestMapping("/editarCatMateria")
+    public ModelAndView editarCatMateria(@RequestParam(value="codigo") Integer codigo) {
+    	ModelAndView model = new ModelAndView();
+    	CatalogoMateria materia = null;
+    	try {
+    		materia = catMateriaService.findOne(codigo);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("materia",materia);
+    	model.setViewName("EditarCatMateria");
+    	return model;
+    }
+    
 }
