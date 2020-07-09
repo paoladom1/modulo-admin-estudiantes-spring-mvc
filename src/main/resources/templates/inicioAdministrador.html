@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-	<title>Catalogo Centros Escolares</title>
-	<title>Inicio de Sesi&oacute;n</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta charset="ISO-8859-1">
+    <title>Procesos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -43,31 +41,25 @@
 	</div>
 </nav>
 <div class="container">
-	<div class="table-responsive">
-		<table class="table table-striped table-bordered">
-			<thread class="thead-dark">
-				<th>Acci&oacute;n</th>
-				<th>Codigo</th>
-				<th>Nombre</th>
-				<th>Estado</th>
-			</thread>
-		<th:block th:each="materia, row: ${materias}">
-		        <tr>
-		            <th>
-		                <form th:action="@{/editarMateria}">
-		                	<div class="form-group">
-		                    <input type="hidden" name="codigo" th:value="${materia.codigoCatalogo}">
-		                    <input type="submit" value="Editar" class="btn btn-primary">
-		                    </div>
-		                </form>
-		            </th>
-		            <th th:text="${materia.codigoCatalogo}"/>
-		            <th th:text="${materia.nomMateria}"/>
-		            <th th:text="${materia.estadoDelegate}"/>
-		        </tr>
-		 </th:block>
-		</table>
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+		<form th:action="@{/catalogoCentrosE}">
+			<div class="form-group">
+		    <input type="submit" value="Ingresar a Catalogo de Centros Escolares" class="btn btn-primary">
+		    </div>
+		</form>
+		<form th:action="@{/catalogoMateria}">
+			<div class="form-group">
+		    <input type="submit" value="Ingresar a Catalogo de Materias" class="btn btn-primary">
+		    </div>
+		</form>
+		<form th:action="@{/catalogoUsuarios}">
+			<div class="form-group">
+		    <input type="submit" value="Ingresar a Catalogo de Usuarios" class="btn btn-primary">
+		    </div>
+		</form>
 	</div>
+	<div class="col-sm-2"></div>
 </div>
 </body>
 </html>

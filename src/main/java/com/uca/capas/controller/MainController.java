@@ -44,6 +44,9 @@ public class MainController {
 
     @Autowired
     private MateriaService materiaService;
+    
+    @Autowired
+    private CatalogoMateriaService catMateriaService;
 
     @RequestMapping("/login")
     public ModelAndView initMain(@ModelAttribute Usuario usuario) {
@@ -265,5 +268,32 @@ public class MainController {
         }
 
         return mav;
+    }
+    @RequestMapping("/catalogoCentrosE")
+    public ModelAndView catalogoCentrosE() {
+    	ModelAndView model = new ModelAndView();
+    	
+    	model.setViewName("CatalogoCentrosEscolares");
+    	return model;
+    }
+    @RequestMapping("/catalogoMateria")
+    public ModelAndView catalogoMateria() {
+    	ModelAndView model = new ModelAndView();
+    	List<CatalogoMateria> materias =null;
+    	try {
+    		materias = catMateriaService.findAll();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	model.addObject("materias",materias);
+    	model.setViewName("CatalogoMateria");
+    	return model;
+    }
+    @RequestMapping("/catalogoUsuarios")
+    public ModelAndView catalogoUsuarios() {
+    	ModelAndView model = new ModelAndView();
+    	
+    	model.setViewName("CatalogoUsuarios");
+    	return model;
     }
 }
