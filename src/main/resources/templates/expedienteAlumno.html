@@ -58,13 +58,14 @@
 		                <form th:action="@{/editarAlumno}">
 		                	<div class="form-group">
 		                    <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
-		                    <input type="submit" value="Editar" class="btn btn-primary">
+								<button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i>   Editar</button>
 		                    </div>
 		                </form>
 		                <form th:action="@{/cursadas}">
 		                	<div class="form-group">
 		                    <input type="hidden" name="codigo" th:value="${alumno.codigoEstudiante}">
-		                    <input type="submit" value="Materias" class="btn btn-primary">
+								<button class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+									Materias</button>
 		                    </div>
 		                </form>
 		            </th>

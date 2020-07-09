@@ -46,6 +46,7 @@
 	<div class="row" >
 		<div class="col-sm-2"></div>
 		<div class="col-sm-8">
+			<br>
 			<h1>Iniciar Sesi&oacute;n</h1>
 			<form th:action="@{/login}"  method="post">
 			    <div class="form-group">
@@ -73,9 +74,7 @@
 	        </div>
 	        
 			</form>
-			<form th:action="@{/registrarse}" method="post">
-				<input type="submit" value="Registrarse" class="btn btn-primary">
-			</form>
+			<a href="/registro"> Registro </a>
 		</div>
 		<div class="col-sm-2"></div>
 	</div>
