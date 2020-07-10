@@ -1,0 +1,637 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.3 (Debian 12.3-1.pgdg100+1)
+-- Dumped by pg_dump version 12.3 (Debian 12.3-1.pgdg100+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: alumno; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.alumno (
+    codigoestudiante integer NOT NULL,
+    nombreestudiante character varying NOT NULL,
+    apellidoestudiante character varying NOT NULL,
+    carnetminoridad character varying(9),
+    fechanacimiento date NOT NULL,
+    edad integer NOT NULL,
+    direccion character varying NOT NULL,
+    telefonofijo character varying(9),
+    telefonocelular character varying(9),
+    nombrepadre character varying,
+    nombremadre character varying,
+    idcentroescolar integer NOT NULL
+);
+
+
+ALTER TABLE public.alumno OWNER TO postgres;
+
+--
+-- Name: alumno_codigoestudiante_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.alumno_codigoestudiante_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.alumno_codigoestudiante_seq OWNER TO postgres;
+
+--
+-- Name: alumno_codigoestudiante_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.alumno_codigoestudiante_seq OWNED BY public.alumno.codigoestudiante;
+
+
+--
+-- Name: authorities; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.authorities (
+    authority_id integer NOT NULL,
+    username character varying NOT NULL,
+    authority character varying NOT NULL
+);
+
+
+ALTER TABLE public.authorities OWNER TO postgres;
+
+--
+-- Name: authorities_authority_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.authorities_authority_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.authorities_authority_id_seq OWNER TO postgres;
+
+--
+-- Name: authorities_authority_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.authorities_authority_id_seq OWNED BY public.authorities.authority_id;
+
+
+--
+-- Name: catalogomaterias; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.catalogomaterias (
+    codigomateria integer NOT NULL,
+    nombre character varying NOT NULL,
+    estado boolean NOT NULL
+);
+
+
+ALTER TABLE public.catalogomaterias OWNER TO postgres;
+
+--
+-- Name: catalogomaterias_codigomateria_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.catalogomaterias_codigomateria_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.catalogomaterias_codigomateria_seq OWNER TO postgres;
+
+--
+-- Name: catalogomaterias_codigomateria_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.catalogomaterias_codigomateria_seq OWNED BY public.catalogomaterias.codigomateria;
+
+
+--
+-- Name: centroescolar; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.centroescolar (
+    idcentroescolar integer NOT NULL,
+    nombrecentroescolar character varying NOT NULL,
+    descripcion character varying NOT NULL,
+    direccion character varying NOT NULL,
+    estado boolean NOT NULL,
+    idmunicipio integer NOT NULL,
+    iddepartamento integer NOT NULL
+);
+
+
+ALTER TABLE public.centroescolar OWNER TO postgres;
+
+--
+-- Name: centroescolar_idcentroescolar_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.centroescolar_idcentroescolar_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.centroescolar_idcentroescolar_seq OWNER TO postgres;
+
+--
+-- Name: centroescolar_idcentroescolar_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.centroescolar_idcentroescolar_seq OWNED BY public.centroescolar.idcentroescolar;
+
+
+--
+-- Name: departamento; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.departamento (
+    iddepartamento integer NOT NULL,
+    nombredepartamento character varying NOT NULL
+);
+
+
+ALTER TABLE public.departamento OWNER TO postgres;
+
+--
+-- Name: materia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.materia (
+    idmateria integer NOT NULL,
+    anio integer NOT NULL,
+    ciclo integer NOT NULL,
+    nota double precision NOT NULL,
+    resultado character varying NOT NULL,
+    idcatalogo integer NOT NULL,
+    idalumno integer NOT NULL
+);
+
+
+ALTER TABLE public.materia OWNER TO postgres;
+
+--
+-- Name: materia_idmateria_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.materia_idmateria_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.materia_idmateria_seq OWNER TO postgres;
+
+--
+-- Name: materia_idmateria_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.materia_idmateria_seq OWNED BY public.materia.idmateria;
+
+
+--
+-- Name: municipio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.municipio (
+    idmunicipio integer NOT NULL,
+    nombremunicipio character varying NOT NULL
+);
+
+
+ALTER TABLE public.municipio OWNER TO postgres;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    username character varying NOT NULL,
+    password character varying NOT NULL,
+    enabled boolean NOT NULL,
+    nombre character varying NOT NULL,
+    apellido character varying NOT NULL,
+    fechadenacimiento date NOT NULL,
+    edad integer NOT NULL,
+    iddepartamento integer NOT NULL,
+    idmunicipio integer NOT NULL,
+    direccion character varying
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: alumno codigoestudiante; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.alumno ALTER COLUMN codigoestudiante SET DEFAULT nextval('public.alumno_codigoestudiante_seq'::regclass);
+
+
+--
+-- Name: authorities authority_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authorities ALTER COLUMN authority_id SET DEFAULT nextval('public.authorities_authority_id_seq'::regclass);
+
+
+--
+-- Name: catalogomaterias codigomateria; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.catalogomaterias ALTER COLUMN codigomateria SET DEFAULT nextval('public.catalogomaterias_codigomateria_seq'::regclass);
+
+
+--
+-- Name: centroescolar idcentroescolar; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.centroescolar ALTER COLUMN idcentroescolar SET DEFAULT nextval('public.centroescolar_idcentroescolar_seq'::regclass);
+
+
+--
+-- Name: materia idmateria; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.materia ALTER COLUMN idmateria SET DEFAULT nextval('public.materia_idmateria_seq'::regclass);
+
+
+--
+-- Data for Name: alumno; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.alumno (codigoestudiante, nombreestudiante, apellidoestudiante, carnetminoridad, fechanacimiento, edad, direccion, telefonofijo, telefonocelular, nombrepadre, nombremadre, idcentroescolar) FROM stdin;
+2	Dalton	Randall	1609031-7	1996-06-10	27	Ap #230-9457 Risus Rd.	21455701	76141160	Carson Blackburn	Adria Whitehead	12
+3	Xander	Woodard	1685043-3	2002-09-18	23	2420 Diam Road	27812702	73018959	Armando Jordan	Althea Cole	15
+4	Cole	Solis	1635382-1	1991-07-19	19	995 Tempus St.	29005613	71533314	Evan Holloway	Cassidy Cameron	15
+5	Jasmine	Castro	1644090-7	1997-10-13	16	Ap #923-6777 Nullam Rd.	20219396	71012637	Abel Salazar	Colleen Rowe	6
+6	Nita	Palmer	1671102-2	1998-12-18	21	1359 Parturient St.	24563662	74373336	Ryder Richmond	Karly Sherman	11
+7	Keegan	Thornton	1690018-7	1991-05-16	24	5334 Odio. Ave	26984912	77539934	Edan Valentine	Leandra Reid	5
+8	Holly	Briggs	1635021-6	1996-06-23	15	Ap #661-3341 At Av.	23842678	70377282	Malachi Macias	Madeson Sears	20
+9	Denton	Reid	1688011-9	1996-11-11	19	429-4744 Aliquet Rd.	27954010	77209759	Ivan Roth	Daphne Flynn	5
+10	Tate	Estrada	1644072-9	1993-02-14	20	P.O. Box 266, 8200 Integer St.	27715526	76952464	Lane Holman	Zorita Spears	6
+11	Colorado	Rich	1641082-9	2000-10-03	24	P.O. Box 344, 2197 Semper Road	27894086	70181905	Oren Gregory	Venus Hutchinson	13
+12	Amelia	Mcclure	1661061-6	1992-05-07	16	369 In Road	23478802	77023411	Randall Gilliam	Simone Vazquez	6
+13	Nissim	Lopez	1692033-3	1997-04-02	28	P.O. Box 412, 7798 Iaculis, Rd.	24057225	79204708	Ahmed Ortiz	Mechelle Farmer	14
+14	Herman	Kirby	1695052-0	1995-06-01	19	1045 Eget Ave	22072718	74091710	Logan Mitchell	Velma Washington	13
+15	Hope	Porter	1636042-7	2004-12-05	27	Ap #816-9822 Hendrerit Road	28062314	77533377	Nigel Albert	Kay Sellers	6
+16	Rae	Sweeney	1687012-7	2004-05-08	28	894 Purus St.	22457672	72612621	Octavius Mcintyre	Irene Contreras	11
+17	Graiden	Johnston	1692080-6	1995-01-28	16	4968 Sagittis Street	28661769	77464115	Clinton Heath	Kylee Bishop	18
+18	Andrew	Rosales	1612011-9	1998-09-07	25	3739 Blandit Avenue	25332176	79141358	Preston Johns	Destiny Melton	11
+19	Jameson	Mccormick	1689022-9	1995-08-31	23	P.O. Box 251, 5110 Vitae St.	27586001	79249208	Gareth Ortega	Deborah Castaneda	9
+20	Curran	Cooke	1677042-2	2000-05-01	18	P.O. Box 149, 4372 Ligula. Av.	22345835	78504681	Clayton Fuentes	Eliana Mcgee	5
+1	Benjamin	Webster	1663062-5	2000-09-19	19	2152 Ut, Road	22378300	70756751	Hayden Gibson	Kameko Madden	10
+21	Paola	Dominguez	1234567-8	1996-07-15	23	Alpes Suizos 1, Senda Kiev	77410134	77410134	Alirio Dominguez	Mirna Diaz	1
+22	Paola	Dominguez	1234567-8	1996-07-15	23	Alpes Suizos 1, Senda Kiev	77410134	77410134	Alirio Dominguez	Mirna Diaz	1
+\.
+
+
+--
+-- Data for Name: authorities; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.authorities (authority_id, username, authority) FROM stdin;
+1	admin	ADMIN
+2	coordinador	COORD
+3	paoladom	ADMIN
+4	avelasco1	ADMIN
+5	paoladom1	ADMIN
+\.
+
+
+--
+-- Data for Name: catalogomaterias; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.catalogomaterias (codigomateria, nombre, estado) FROM stdin;
+1	Calculo 1	t
+2	Calculo 2	f
+3	Programacion n Capas	f
+4	Fisica 1	t
+5	Programacion Web	f
+6	Fisica 2	t
+7	Precalculo	f
+8	CDM	t
+9	EMA	f
+10	Analisis de Sistemas	f
+11	Analisis Numerico	t
+12	Artefactos	f
+13	Algebra	t
+14	Elementos	f
+15	PED1	f
+\.
+
+
+--
+-- Data for Name: centroescolar; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.centroescolar (idcentroescolar, nombrecentroescolar, descripcion, direccion, estado, idmunicipio, iddepartamento) FROM stdin;
+1	Cherokee	Antofagasta	5271 Non Rd.	t	1	3
+2	Uta	Sciacca	P.O. Box 696, 849 Ipsum St.	f	3	2
+3	Michael	Laramie	Ap #752-2027 Elit, St.	t	5	2
+4	Maggie	Juan Fernández	343-443 Lacus. Street	f	1	5
+5	Desirae	Chambord	9201 Mi St.	f	2	2
+6	Finn	Scarborough	P.O. Box 521, 1769 Et, Road	f	6	2
+7	Camille	Villafalletto	3671 Auctor. Street	f	6	1
+8	Brett	Ehein	P.O. Box 754, 2242 Rutrum, Avenue	t	2	1
+9	Ahmed	Blackwood	9298 Phasellus Av.	f	3	1
+10	Craig	Stupino	P.O. Box 313, 1102 Consectetuer Road	f	3	4
+11	Aristotle	Mespelare	983-7133 Fermentum St.	t	4	2
+12	Susan	Minitonas	Ap #945-4266 Leo. Street	t	1	5
+13	Melvin	Malegaon	9648 Neque St.	t	2	2
+14	Maya	Burhaniye	733-4595 Euismod Road	t	4	4
+15	Ryder	Muradiye	P.O. Box 439, 9346 Ut, Rd.	f	5	2
+16	Arden	Macclesfield	P.O. Box 129, 8583 Cursus Ave	t	5	4
+17	Clare	Lowell	Ap #362-3710 Convallis Rd.	f	2	2
+18	Josephine	Llanelli	P.O. Box 784, 789 Libero. Road	f	4	5
+19	Dacey	Opole	P.O. Box 924, 4111 Phasellus Av.	t	3	2
+20	Veronica	Randazzo	P.O. Box 656, 199 Iaculis, Rd.	t	3	2
+\.
+
+
+--
+-- Data for Name: departamento; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.departamento (iddepartamento, nombredepartamento) FROM stdin;
+1	San Salvador
+2	La Libertad
+3	Chalatenango
+4	San Miguel
+5	Santa Ana
+\.
+
+
+--
+-- Data for Name: materia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.materia (idmateria, anio, ciclo, nota, resultado, idcatalogo, idalumno) FROM stdin;
+1	2018	2	9	APROBADO	1	1
+2	2019	1	4	REPROBADO	4	1
+3	2018	2	7	APROBADO	9	2
+4	2017	2	6	REPROBADO	5	2
+5	2017	1	7	APROBADO	14	3
+6	2018	3	9	APROBADO	13	3
+7	2018	2	7	APROBADO	1	4
+8	2010	2	8	APROBADO	2	4
+9	2012	1	5.5	REPROBADO	7	5
+10	2015	2	6.7	APROBADO	5	5
+11	2018	2	3.6	REPROBADO	4	6
+12	2019	1	6.6	APROBADO	7	6
+13	2018	2	5	REPROBADO	6	7
+14	2008	2	4	REPROBADO	3	1
+\.
+
+
+--
+-- Data for Name: municipio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.municipio (idmunicipio, nombremunicipio) FROM stdin;
+1	San Salvador
+2	Santa Tecla
+3	La Libertad
+4	San Ignacio
+5	San Miguel
+6	Santa Ana
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (username, password, enabled, nombre, apellido, fechadenacimiento, edad, iddepartamento, idmunicipio, direccion) FROM stdin;
+admin	$2a$06$Ilr3Oq7m0Nuh.paB5kcRse0EIQIb2RbcsaUZjap08np1sjcHpnEMG	t	admin	admin	1990-01-01	30	1	1	Santa Tecla
+coordinador	$2a$06$ZLW1R/aeboZtw0xv0rWUwOzhe4vDdv2wtPO026QflIfmdxKqO3oIS	t	coord	coord	1990-01-01	30	1	1	San Salvador
+paoladom	$2a$10$mq/FEB3bmpCbdC1LBfJR4O2QrYrmNseL9Y6QRcOXqHiGyuJ8KIgGO	t	Paola	Dominguez	2014-11-22	5	1	1	Alpes Suizos 1, Senda Kiev
+avelasco1	$2a$10$CjHdxferv67mqazl9IvMiOYqMJvmOP0n20/z5Kwk38Owpu.k6s0ZG	t	Paola	Dominguez	1997-03-07	23	1	1	Alpes Suizos 1, Senda Kiev
+paoladom1	$2a$10$IXVPjITLIk.zSo6w/nfr3OdqWzyGzxtdKXXrILI9IzO.OQO87E0GW	t	Paola	Dominguez	1997-03-07	23	1	1	Alpes Suizos 1, Senda Kiev
+\.
+
+
+--
+-- Name: alumno_codigoestudiante_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.alumno_codigoestudiante_seq', 22, true);
+
+
+--
+-- Name: authorities_authority_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.authorities_authority_id_seq', 5, true);
+
+
+--
+-- Name: catalogomaterias_codigomateria_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.catalogomaterias_codigomateria_seq', 15, true);
+
+
+--
+-- Name: centroescolar_idcentroescolar_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.centroescolar_idcentroescolar_seq', 20, true);
+
+
+--
+-- Name: materia_idmateria_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.materia_idmateria_seq', 14, true);
+
+
+--
+-- Name: alumno alumno_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.alumno
+    ADD CONSTRAINT alumno_pkey PRIMARY KEY (codigoestudiante);
+
+
+--
+-- Name: authorities authorities_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authorities
+    ADD CONSTRAINT authorities_pkey PRIMARY KEY (authority_id);
+
+
+--
+-- Name: catalogomaterias catalogomaterias_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.catalogomaterias
+    ADD CONSTRAINT catalogomaterias_pkey PRIMARY KEY (codigomateria);
+
+
+--
+-- Name: centroescolar centroescolar_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.centroescolar
+    ADD CONSTRAINT centroescolar_pkey PRIMARY KEY (idcentroescolar);
+
+
+--
+-- Name: departamento departamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departamento
+    ADD CONSTRAINT departamento_pkey PRIMARY KEY (iddepartamento);
+
+
+--
+-- Name: materia materia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.materia
+    ADD CONSTRAINT materia_pkey PRIMARY KEY (idmateria);
+
+
+--
+-- Name: municipio municipio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.municipio
+    ADD CONSTRAINT municipio_pkey PRIMARY KEY (idmunicipio);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (username);
+
+
+--
+-- Name: ix_auth_username; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX ix_auth_username ON public.authorities USING btree (username, authority);
+
+
+--
+-- Name: alumno alumno_idcentroescolar_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.alumno
+    ADD CONSTRAINT alumno_idcentroescolar_fkey FOREIGN KEY (idcentroescolar) REFERENCES public.centroescolar(idcentroescolar);
+
+
+--
+-- Name: authorities authorities_username_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authorities
+    ADD CONSTRAINT authorities_username_fkey FOREIGN KEY (username) REFERENCES public.users(username) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: centroescolar centroescolar_iddepartamento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.centroescolar
+    ADD CONSTRAINT centroescolar_iddepartamento_fkey FOREIGN KEY (iddepartamento) REFERENCES public.departamento(iddepartamento);
+
+
+--
+-- Name: centroescolar centroescolar_idmunicipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.centroescolar
+    ADD CONSTRAINT centroescolar_idmunicipio_fkey FOREIGN KEY (idmunicipio) REFERENCES public.municipio(idmunicipio);
+
+
+--
+-- Name: materia materia_idalumno_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.materia
+    ADD CONSTRAINT materia_idalumno_fkey FOREIGN KEY (idalumno) REFERENCES public.alumno(codigoestudiante);
+
+
+--
+-- Name: materia materia_idcatalogo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.materia
+    ADD CONSTRAINT materia_idcatalogo_fkey FOREIGN KEY (idcatalogo) REFERENCES public.catalogomaterias(codigomateria);
+
+
+--
+-- Name: users users_iddepartamento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_iddepartamento_fkey FOREIGN KEY (iddepartamento) REFERENCES public.departamento(iddepartamento);
+
+
+--
+-- Name: users users_idmunicipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_idmunicipio_fkey FOREIGN KEY (idmunicipio) REFERENCES public.municipio(idmunicipio);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
