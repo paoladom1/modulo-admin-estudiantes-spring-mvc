@@ -84,13 +84,8 @@ public class Usuario {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimientoS) {
-    	System.out.println(fechaNacimientoS);
-        try {
-			this.fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimientoS);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Integer getEdad() {
