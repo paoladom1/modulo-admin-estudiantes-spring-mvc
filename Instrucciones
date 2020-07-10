@@ -2,6 +2,7 @@ Instrucciones:
 
 Puerto de PostgreSQL: 5432
 Nombre de bdd: finalncapas
+Ruta de inicio: http://localhost:8080/login
 Usuarios: 
 
 	1. Nombre de usuario: admin
