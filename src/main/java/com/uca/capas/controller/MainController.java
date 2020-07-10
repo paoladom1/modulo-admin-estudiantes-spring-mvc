@@ -66,9 +66,9 @@ public class MainController {
         String admin = "ADMIN";
 
         if(myRole.equals(coord)) {
-            mav.setViewName("inicioCoordinador");
-        } else if(myRole.equals(admin)) {
             mav.setViewName("busquedaAlumno");
+        } else if(myRole.equals(admin)) {
+            mav.setViewName("inicioAdmin");
         }
 
         return mav;
