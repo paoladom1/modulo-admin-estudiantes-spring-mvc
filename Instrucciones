@@ -1,0 +1,13 @@
+Instrucciones:
+
+Puerto de PostgreSQL: 5432
+Nombre de bdd: finalncapas
+Usuarios: 
+
+	1. Nombre de usuario: admin
+	   Contraseña: administrador
+	
+	2. Nombre de usuario: coordinador
+	   Contraseña: coordinador
+
+
