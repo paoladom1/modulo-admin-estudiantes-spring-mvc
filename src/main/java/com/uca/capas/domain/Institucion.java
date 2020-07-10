@@ -1,6 +1,8 @@
 package com.uca.capas.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(schema = "public", name = "centroEscolar")
@@ -10,15 +12,21 @@ public class Institucion {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idInstitucion;
 
+    @Size(max = 30, message = "No debe exceder los 30 caracteres")
+    @NotEmpty(message = "El campo no puede estar vacio")
     @Column(name = "nombreCentroEscolar")
     private String nombreInstitucion;
 
+    @Size(max = 70, message = "No debe exceder los 70 caracteres")
+    @NotEmpty(message = "El campo no puede estar vacio")
     @Column(name = "descripcion")
     private String descripcion;
 
     @Column(name = "estado")
     private Boolean estado;
 
+    @Size(max = 100, message = "No debe exceder los 100 caracteres")
+    @NotEmpty(message = "El campo no puede estar vacio")
     @Column(name = "direccion")
     private String direccion;
 
