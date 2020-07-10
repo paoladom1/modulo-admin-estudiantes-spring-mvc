@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Institucion {
     @Id
     @Column(name = "idCentroEscolar")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idInstitucion;
 
     @Column(name = "nombreCentroEscolar")
@@ -84,5 +85,12 @@ public class Institucion {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
+    }
+    public String getEstadoDelegate() {
+    	if(estado) {
+    		return "Activo";
+    	}else {
+    		return "Inactivo";
+    	}
     }
 }

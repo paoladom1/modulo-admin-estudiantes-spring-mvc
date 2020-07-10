@@ -16,9 +16,13 @@ public class CatalogoMateriaServiceImpl implements CatalogoMateriaService {
     public List<CatalogoMateria> findAll() throws DataAccessException {
         return catalogoMateriaRepo.findAll();
     }
-
-    //@Override
-    //public void save(CatalogoMateria am) throws DataAccessException {
-      //  return catalogoMateriaRepo.save(am);
-   // }
+	@Override
+	public void save(CatalogoMateria materia) throws DataAccessException {
+		catalogoMateriaRepo.save(materia);
+	}
+	@Override
+	public CatalogoMateria findOne(Integer code) throws DataAccessException {
+		CatalogoMateria materia = catalogoMateriaRepo.getOne(code);
+		return materia;
+	}
 }

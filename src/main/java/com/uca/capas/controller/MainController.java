@@ -45,6 +45,9 @@ public class MainController {
 
     @Autowired
     private MateriaService materiaService;
+    
+    @Autowired
+    private CatalogoMateriaService catMateriaService;
 
     @RequestMapping("/login")
     public ModelAndView initMain(@ModelAttribute Usuario usuario) {
@@ -296,5 +299,274 @@ public class MainController {
         }
 
         return mav;
+    }
+    @RequestMapping("/catalogoCentrosE")
+    public ModelAndView catalogoCentrosE() {
+    	ModelAndView model = new ModelAndView();
+    	List<Institucion> centros = null;
+    	try {
+    		centros= institucionService.findAll();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	model.addObject("centros",centros);
+    	model.setViewName("CatalogoCentrosEscolares");
+    	return model;
+    }
+    @RequestMapping("/catalogoMateria")
+    public ModelAndView catalogoMateria() {
+    	ModelAndView model = new ModelAndView();
+    	List<CatalogoMateria> materias =null;
+    	try {
+    		materias = catMateriaService.findAll();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	model.addObject("materias",materias);
+    	model.setViewName("CatalogoMateria");
+    	return model;
+    }
+    @RequestMapping("/catalogoUsuarios")
+    public ModelAndView catalogoUsuarios() {
+    	ModelAndView model = new ModelAndView();
+    	List<Usuario> usuarios = null;
+    	try {
+    		usuarios = usuarioService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("usuarios",usuarios);
+    	model.setViewName("CatalogoUsuarios");
+    	return model;
+    }
+    @RequestMapping("/menuAdministrador")
+    public ModelAndView menuAdmin() {
+    	ModelAndView model = new ModelAndView();
+    	model.setViewName("inicioAdministrador");
+    	return model;
+    }
+    
+    @RequestMapping("/agregarCatMateria")
+    public ModelAndView agregarCatMateria() {
+    	ModelAndView model = new ModelAndView();
+    	model.addObject("materia",new CatalogoMateria());
+    	model.setViewName("NuevoCatMateria");
+    	return model;
+    }
+    @RequestMapping("/agregarCatUsuario")
+    public ModelAndView agregarCatUsuario() {
+    	ModelAndView model = new ModelAndView();
+    	List<Departamento> departamentos=null;
+    	List<Municipio> municipios = null;
+    	String authority = "COORD";
+    	
+    	try {
+    		departamentos= departamentoService.findAll();
+    		municipios=municipioService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("duplicate", false);
+        model.addObject("authority", authority);
+    	model.addObject("usuario",new Usuario());
+    	model.addObject("municipios", municipios);
+    	model.addObject("departamentos", departamentos);
+    	model.setViewName("NuevoCatUsuario");
+    	return model;
+    }
+    @RequestMapping("/agregarCatCentro")
+    public ModelAndView agregarCatCentro() {
+    	ModelAndView model = new ModelAndView();
+    	List<Departamento> departamentos=null;
+    	List<Municipio> municipios = null;
+    	
+    	try {
+    		departamentos= departamentoService.findAll();
+    		municipios=municipioService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("departamentos",departamentos);
+    	model.addObject("municipios", municipios);
+    	model.addObject("centro",new Institucion());
+    	model.setViewName("NuevoCatCentro");
+    	return model;
+    }
+    
+    @RequestMapping("/saveCatMateria")
+    public ModelAndView saveCatMateria(@ModelAttribute CatalogoMateria materia ) {
+    	ModelAndView model = new ModelAndView();
+    	List<CatalogoMateria> materias =null;
+    	
+    	try {
+    		catMateriaService.save(materia);
+    		materias = catMateriaService.findAll();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	model.addObject("materias",materias);    	
+    	model.setViewName("CatalogoMateria");
+    	return model;
+    }
+    @RequestMapping("/saveCatCentro")
+    public ModelAndView saveCatCentro(@ModelAttribute Institucion insti ) {
+    	ModelAndView model = new ModelAndView();
+    	List<Institucion> centros = null;
+    	
+    	try {
+    		institucionService.save(insti);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	try {
+    		centros=institucionService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("centros",centros);
+    	model.setViewName("CatalogoCentrosEscolares");
+    	return model;
+    }
+   
+    @RequestMapping("/saveCatUsuario")
+    public ModelAndView guardarCatUsuario(@RequestParam(value = "authority") String authority, @Valid @ModelAttribute Usuario usuario, BindingResult br) throws ParseException {
+        List<Departamento> departamentos = null;
+        List<Municipio> municipios = null;
+        ModelAndView mav = new ModelAndView();
+        List<Usuario> usuarios = null;
+        if (br.hasErrors()) {
+            try {
+                departamentos = departamentoService.findAll();
+                municipios = municipioService.findAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            mav.addObject("departamentos", departamentos);
+            mav.addObject("municipios", municipios);
+            mav.setViewName("NuevoCatUsuario");
+        } else {
+            Authorities role = new Authorities(usuario.getNombreUsuario(), authority);
+
+            usuario.setEdad(usuario.getEdadDelegate());
+            if (usuarioService.findByNombreUsuario(usuario.getNombreUsuario()) != null) {
+                mav.addObject("duplicate", true);
+                try {
+                    departamentos = departamentoService.findAll();
+                    municipios = municipioService.findAll();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                mav.addObject("departamentos", departamentos);
+                mav.addObject("municipios", municipios);
+                mav.setViewName("NuevoCatUsuario");
+                return mav;
+            }
+            
+            System.out.println("guardar");
+            usuarioService.save(usuario);
+            tipoService.save(role);
+            try {
+            	usuarios=usuarioService.findAll();
+            }catch(Exception e) {
+            	e.printStackTrace();
+            }
+            mav.addObject("usuarios",usuarios);
+            mav.setViewName("CatalogoUsuarios");
+        }
+
+        return mav;
+    }
+    
+    @RequestMapping("/editarCatMateria")
+    public ModelAndView editarCatMateria(@RequestParam(value="codigo") Integer codigo) {
+    	ModelAndView model = new ModelAndView();
+    	CatalogoMateria materia = null;
+    	try {
+    		materia = catMateriaService.findOne(codigo);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("materia",materia);
+    	model.setViewName("EditarCatMateria");
+    	return model;
+    }
+    
+    @RequestMapping("/editarCatalogoInstitucion")
+    public ModelAndView editarCatInst(@RequestParam(value="codigo") Integer codigo) {
+    	ModelAndView model = new ModelAndView();
+    	Institucion ins=null;
+    	List<Municipio> municipios=null;
+    	List<Departamento> departamentos=null;
+    	try {
+    		ins=institucionService.findOne(codigo);
+    		municipios= municipioService.findAll();
+    		departamentos=departamentoService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("departamentos",departamentos);
+    	model.addObject("municipios",municipios);
+    	model.addObject("centro",ins);
+    	model.setViewName("EditarCatCentroEs");
+    	return model;
+    }
+    @RequestMapping("/editarCatUsuario")
+    public ModelAndView editarCatUsuario(@RequestParam(value="codigo") String nombre) {
+    	ModelAndView model=new ModelAndView();
+    	Usuario usr=null;
+    	List<Municipio> municipios=null;
+    	List<Departamento> departamentos=null;
+    	try {
+    		usr=usuarioService.findByNombreUsuario(nombre);
+    		municipios= municipioService.findAll();
+    		departamentos=departamentoService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("departamentos",departamentos);
+    	model.addObject("municipios",municipios);
+    	model.addObject("usuario",usr);
+    	model.setViewName("EditarCatUsuario");
+    	return model;
+    }
+    @RequestMapping("/saveEUsuario")
+    public ModelAndView saveEUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult br) {
+    	ModelAndView model=new ModelAndView();
+    	List<Municipio> municipios=null;
+    	List<Departamento> departamentos=null;
+    	List<Usuario> users=null;
+    	if(br.hasErrors()) {
+    		try {
+                departamentos = departamentoService.findAll();
+                municipios = municipioService.findAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            model.addObject("departamentos", departamentos);
+            model.addObject("municipios", municipios);
+            model.setViewName("EditarCatUsuario");
+    	}else {
+    		try {
+    			departamentos = departamentoService.findAll();
+                municipios = municipioService.findAll();
+                usuario.setEdad(usuario.getEdadDelegate());
+                usuarioService.save(usuario);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+    		try {
+    			users=usuarioService.findAll();
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    		model.addObject("departamentos", departamentos);
+            model.addObject("municipios", municipios);
+            model.addObject("usuarios",users);
+            model.setViewName("CatalogoUsuarios");
+    	}
+    	return model;
     }
 }

@@ -6,6 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -81,8 +84,13 @@ public class Usuario {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFechaNacimiento(String fechaNacimientoS) {
+    	System.out.println(fechaNacimientoS);
+        try {
+			this.fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimientoS);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
     }
 
     public Integer getEdad() {
@@ -151,5 +159,23 @@ public class Usuario {
 
             return  edad;
         }
+    }
+    public String getEstadoDelegate() {
+    	if(estado) {
+    		return "Activo";
+    	}else {
+    		return "Inactivo";
+    	}
+    }
+    public String getFechaNacimiento2() {
+    	return fechaNacimiento.toString();
+    }
+    public void setFechaNacimiento2(String fechaNacimientoS) {
+    	System.out.println(fechaNacimientoS);
+        try {
+			this.fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimientoS);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
     }
 }

@@ -55,4 +55,12 @@ public class CatalogoMateria {
     public void setEstadoMateria(Boolean estadoMateria) {
         this.estadoMateria = estadoMateria;
     }
+    
+    public String getEstadoDelegate() {
+    	if(estadoMateria) {
+    		return "Activa";
+    	}else {
+    		return "Inactiva";
+    	}
+    }
 }
