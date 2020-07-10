@@ -167,4 +167,15 @@ public class Usuario {
     		return "Inactivo";
     	}
     }
+    public String getFechaNacimiento2() {
+    	return fechaNacimiento.toString();
+    }
+    public void setFechaNacimiento2(String fechaNacimientoS) {
+    	System.out.println(fechaNacimientoS);
+        try {
+			this.fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimientoS);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    }
 }

@@ -64,7 +64,7 @@
 			<th:block th:each="usuario, row: ${usuarios}">
 		        <tr>
 		            <th>
-		                <form th:action="@{/editarUsuario}">
+		                <form th:action="@{/editarCatUsuario}">
 		                	<div class="form-group">
 		                    <input type="hidden" name="codigo" th:value="${usuario.nombreUsuario}">
 		                    <input type="submit" value="Editar" class="btn btn-primary">

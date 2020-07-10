@@ -481,5 +481,61 @@ public class MainController {
     	model.setViewName("EditarCatCentroEs");
     	return model;
     }
-    
+    @RequestMapping("/editarCatUsuario")
+    public ModelAndView editarCatUsuario(@RequestParam(value="codigo") String nombre) {
+    	ModelAndView model=new ModelAndView();
+    	Usuario usr=null;
+    	List<Municipio> municipios=null;
+    	List<Departamento> departamentos=null;
+    	try {
+    		usr=usuarioService.findByNombreUsuario(nombre);
+    		municipios= municipioService.findAll();
+    		departamentos=departamentoService.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	model.addObject("departamentos",departamentos);
+    	model.addObject("municipios",municipios);
+    	model.addObject("usuario",usr);
+    	model.setViewName("EditarCatUsuario");
+    	return model;
+    }
+    @RequestMapping("/saveEUsuario")
+    public ModelAndView saveEUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult br) {
+    	ModelAndView model=new ModelAndView();
+    	List<Municipio> municipios=null;
+    	List<Departamento> departamentos=null;
+    	List<Usuario> users=null;
+    	if(br.hasErrors()) {
+    		try {
+                departamentos = departamentoService.findAll();
+                municipios = municipioService.findAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            model.addObject("departamentos", departamentos);
+            model.addObject("municipios", municipios);
+            model.setViewName("EditarCatUsuario");
+    	}else {
+    		try {
+    			departamentos = departamentoService.findAll();
+                municipios = municipioService.findAll();
+                usuario.setEdad(usuario.getEdadDelegate());
+                usuarioService.save(usuario);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+    		try {
+    			users=usuarioService.findAll();
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    		model.addObject("departamentos", departamentos);
+            model.addObject("municipios", municipios);
+            model.addObject("usuarios",users);
+            model.setViewName("CatalogoUsuarios");
+    	}
+    	return model;
+    }
 }
